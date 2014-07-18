@@ -1,5 +1,7 @@
 // vacalourabot.ino
 
+#include <EEPROM.h>
+
 // configuracion dos pins do driver dos motores
 #define PIN_MOTOR_E_A 10
 #define PIN_MOTOR_E_B 11
@@ -123,24 +125,66 @@ void xirar(int graos)
    desactivarMotor(MOTOR_D);      
 }
 
-void ir()
+void eepromGravar()
 {
+  // gardamos na EEPROM cando haxa movementos
+  if (memoria_punteiro > 0)
+  {
+    // o primeiro dato é o número de movementos
+    EEPROM.write(0, memoria_punteiro);
+
+    // e de seguido os movementos almacenados
+    for (int m = 0; m < memoria_punteiro; m++)
+    {
+      EEPROM.write(m + 1, memoria_movementos[m]);
+    }
+  }
+}
+
+void eepromCargar()
+{
+  // o primeiro dato é o número de movementos
+  memoria_punteiro = EEPROM.read(0);
+
+  if (memoria_punteiro > MOVEMENTOS_LIMITE)
+  {
+    return;
+  }
+
+  // e de seguido os movementos
   for (int m = 0; m < memoria_punteiro; m++)
   {
-    switch (memoria_movementos[m])
+    memoria_movementos[m] = EEPROM.read(m + 1);
+  }
+}
+
+void ir()
+{
+  // só imos se hai movementos programados
+  if (memoria_punteiro > 0)
+  {
+    // gardamos o programa de movementos na EEPROM
+    eepromGravar();
+
+    // por cada un dos movementos
+    for (int m = 0; m < memoria_punteiro; m++)
     {
-      case MOVEMENTO_DEREITA:
-        xirar(XIRO_DEREITA);
-        break;
-      case MOVEMENTO_ESQUERDA:
-        xirar(XIRO_ESQUERDA);
-        break;
-      case MOVEMENTO_ADIANTE:
-        avanzar(PASO_MS, DIRECCION_ADIANTE);
-        break;
-      case MOVEMENTO_ATRAS:
-        avanzar(PASO_MS, DIRECCION_ATRAS);
-        break;
+      // evalúa o tipo e procede
+      switch (memoria_movementos[m])
+      {
+        case MOVEMENTO_DEREITA:
+          xirar(XIRO_DEREITA);
+          break;
+        case MOVEMENTO_ESQUERDA:
+          xirar(XIRO_ESQUERDA);
+          break;
+        case MOVEMENTO_ADIANTE:
+          avanzar(1, DIRECCION_ADIANTE);
+          break;
+        case MOVEMENTO_ATRAS:
+          avanzar(1, DIRECCION_ATRAS);
+          break;
+      }    
     }
   }
 }
@@ -188,7 +232,11 @@ void setup()
     estado_boton_ir = LOW;
     estado_boton_borrar = LOW;
     
+    // inicializar memoria
     memoria_borrar();
+
+    // carga os movementos logo dun apagado
+    eepromCargar();
 }
 
 
