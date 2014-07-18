@@ -2,13 +2,13 @@
 
 #include <EEPROM.h>
 
-// configuracion dos pins do driver dos motores
-#define PIN_MOTOR_E_A 10
-#define PIN_MOTOR_E_B 11
-#define PIN_MOTOR_D_A 12
-#define PIN_MOTOR_D_B 13
+// configuración dos pins do driver dos motores
+#define PIN_MOTOR_ESQUERDA_A 10
+#define PIN_MOTOR_ESQUERDA_B 11
+#define PIN_MOTOR_DEREITA_A 12
+#define PIN_MOTOR_DEREITA_B 13
 
-// configuracin dos pins dos botons
+// configuración dos pins dos botóns
 #define PIN_BOTON_ESQUERDA 3
 #define PIN_BOTON_DEREITA 5
 #define PIN_BOTON_ADIANTE 6
@@ -16,26 +16,26 @@
 #define PIN_BOTON_IR 8
 #define PIN_BOTON_BORRAR 9
 
-// milisegundos que dura o paso 
-#define PASO_MS 1000
+// milisegundos que dura o paso
+#define PASO_MILLISEGUNDOS 1000
 
-// cada un dous motores (D = dereita, E = esquerad)
-#define MOTOR_D 0
-#define MOTOR_E 1
+// cada un dous motores
+#define MOTOR_DEREITA 0
+#define MOTOR_ESQUERDA 1
 
 // grado de xiro (calibrar o tempo que tarda en milisegundos segundo o tipo de motores)
-#define ANGULO_90 500 // milisengundos para 90 graos
+#define ANGULO_90 500 // milisegundos para 90 graos
 
-// capacidad da memoria en movementos (Arduino 1 ten 2 Kb de memoria SRAM total)
+// capacidade da memoria en movementos (Arduino 1 ten 2 Kb de memoria SRAM total!)
 #define MOVEMENTOS_LIMITE 100
 
-// de aqui en diante xa non deberia cambiarse nada ;)
+// de aquí en diante xa non debería cambiarse nada ;)
 
 // macros para os xiros a esquerda e dereita
 #define XIRO_ESQUERDA (-ANGULO_90)
 #define XIRO_DEREITA (ANGULO_90)
 
-// macros para a direccion de avance
+// macros para a dirección de avance
 #define DIRECCION_ATRAS 0
 #define DIRECCION_ADIANTE 1
 
@@ -52,7 +52,7 @@ MOVEMENTO memoria_movementos[MOVEMENTOS_LIMITE];
 // punteiro para ir acumulando movementos na memoria
 int memoria_punteiro;
 
-// memoria para os estados dos botons
+// memoria para os estados dos botóns
 byte estado_boton_esquerda;
 byte estado_boton_dereita;
 byte estado_boton_adiante;
@@ -62,72 +62,73 @@ byte estado_boton_borrar;
 
 void activarMotor(int motor, int direccion)
 {
-  if (motor == MOTOR_D)
+  if (motor == MOTOR_DEREITA)
   {
       // motor dereita
-      digitalWrite(PIN_MOTOR_D_A, direccion ? HIGH : LOW);
-      digitalWrite(PIN_MOTOR_D_B, direccion ? LOW : HIGH);
+      digitalWrite(PIN_MOTOR_DEREITA_A, direccion ? HIGH : LOW);
+      digitalWrite(PIN_MOTOR_DEREITA_B, direccion ? LOW : HIGH);
   }
   else
   {
       // motor esquerda
-      digitalWrite(PIN_MOTOR_E_A, direccion ? HIGH : LOW);
-      digitalWrite(PIN_MOTOR_E_B, direccion ? LOW : HIGH);
+      digitalWrite(PIN_MOTOR_ESQUERDA_A, direccion ? HIGH : LOW);
+      digitalWrite(PIN_MOTOR_ESQUERDA_B, direccion ? LOW : HIGH);
   }
 }
 
 void desactivarMotor(int motor)
 {
-  if (motor == MOTOR_D)
+  if (motor == MOTOR_DEREITA)
   {
       // motor dereita
-      digitalWrite(PIN_MOTOR_D_A, LOW);
-      digitalWrite(PIN_MOTOR_D_B, LOW);
+      digitalWrite(PIN_MOTOR_DEREITA_A, LOW);
+      digitalWrite(PIN_MOTOR_DEREITA_B, LOW);
   }
   else
   {
       // motor esquerda
-      digitalWrite(PIN_MOTOR_E_A, LOW);
-      digitalWrite(PIN_MOTOR_E_B, LOW);
+      digitalWrite(PIN_MOTOR_ESQUERDA_A, LOW);
+      digitalWrite(PIN_MOTOR_ESQUERDA_B, LOW);
   }
 }
 
 void avanzar(int unidades, int direccion)
 {
     // activamos os dous motores
-    activarMotor(MOTOR_D, direccion);
-    activarMotor(MOTOR_E, direccion);
-    
-    delay(unidades * PASO_MS);
-    
+    activarMotor(MOTOR_DEREITA, direccion);
+    activarMotor(MOTOR_ESQUERDA, direccion);
+
+    delay(unidades * PASO_MILLISEGUNDOS);
+
     // desactivamos os dous motores
-    desactivarMotor(MOTOR_D);
-    desactivarMotor(MOTOR_E);    
+    desactivarMotor(MOTOR_DEREITA);
+    desactivarMotor(MOTOR_ESQUERDA);
 }
 
 void xirar(int graos)
 {
    if (graos > 0)
    {
-      // xiro sentido reloxo
-      activarMotor(MOTOR_E, DIRECCION_ADIANTE);            
-      activarMotor(MOTOR_D, DIRECCION_ATRAS);            
+      // xiro en sentido reloxo
+      activarMotor(MOTOR_ESQUERDA, DIRECCION_ADIANTE);
+      activarMotor(MOTOR_DEREITA, DIRECCION_ATRAS);
    }
    else
    {
-     // xiro sentido anti-reloxo
-      activarMotor(MOTOR_D, DIRECCION_ADIANTE);            
-      activarMotor(MOTOR_E, DIRECCION_ATRAS);            
+     // xiro en sentido anti-reloxo
+      activarMotor(MOTOR_DEREITA, DIRECCION_ADIANTE);
+      activarMotor(MOTOR_ESQUERDA, DIRECCION_ATRAS);
    }
 
    delay(ANGULO_90);
-   desactivarMotor(MOTOR_E);      
-   desactivarMotor(MOTOR_D);      
+
+   desactivarMotor(MOTOR_ESQUERDA);
+   desactivarMotor(MOTOR_DEREITA);
 }
 
 void eepromGravar()
 {
-  // gardamos na EEPROM cando haxa movementos
+  // gardamos na EEPROM cando haxa movementos que gardar
   if (memoria_punteiro > 0)
   {
     // o primeiro dato é o número de movementos
@@ -148,6 +149,8 @@ void eepromCargar()
 
   if (memoria_punteiro > MOVEMENTOS_LIMITE)
   {
+    // a memoria EEPROM está corrupta
+    memoria_punteiro = 0;
     return;
   }
 
@@ -184,7 +187,7 @@ void ir()
         case MOVEMENTO_ATRAS:
           avanzar(1, DIRECCION_ATRAS);
           break;
-      }    
+      }
     }
   }
 }
@@ -204,38 +207,38 @@ void memorizar(int movemento)
   }
   else
   {
-    ir();  
+    ir();
   }
 }
 
 void setup()
 {
     // configurar motores
-    pinMode(PIN_MOTOR_E_A, OUTPUT);
-    pinMode(PIN_MOTOR_E_B, OUTPUT);
-    pinMode(PIN_MOTOR_D_A, OUTPUT);
-    pinMode(PIN_MOTOR_D_B, OUTPUT);
-    
-    // configurar botons
+    pinMode(PIN_MOTOR_ESQUERDA_A, OUTPUT);
+    pinMode(PIN_MOTOR_ESQUERDA_B, OUTPUT);
+    pinMode(PIN_MOTOR_DEREITA_A, OUTPUT);
+    pinMode(PIN_MOTOR_DEREITA_B, OUTPUT);
+
+    // configurar botóns
     pinMode(PIN_BOTON_ESQUERDA, INPUT);
     pinMode(PIN_BOTON_DEREITA, INPUT);
     pinMode(PIN_BOTON_ADIANTE, INPUT);
     pinMode(PIN_BOTON_ATRAS, INPUT);
     pinMode(PIN_BOTON_IR, INPUT);
     pinMode(PIN_BOTON_BORRAR, INPUT);
-    
-    // inicializar os estados dos botons
+
+    // inicializar os estados dos botóns
     estado_boton_esquerda = LOW;
     estado_boton_dereita = LOW;
     estado_boton_adiante = LOW;
     estado_boton_atras = LOW;
     estado_boton_ir = LOW;
     estado_boton_borrar = LOW;
-    
+
     // inicializar memoria
     memoria_borrar();
 
-    // carga os movementos logo dun apagado
+    // cargar os movementos logo dun apagado
     eepromCargar();
 }
 
@@ -243,7 +246,7 @@ void setup()
 
 void loop(){
 
-  // leer os botons  
+  // leer os botóns
   if (digitalRead(PIN_BOTON_ESQUERDA) ^ estado_boton_esquerda)
   {
     estado_boton_esquerda = !estado_boton_esquerda;
@@ -285,7 +288,7 @@ void loop(){
     estado_boton_borrar = !estado_boton_borrar;
     if (estado_boton_borrar == HIGH)
     {
-      memoria_borrar();      
+      memoria_borrar();
     }
   }
 
@@ -294,10 +297,11 @@ void loop(){
     estado_boton_ir = !estado_boton_ir;
     if (estado_boton_ir == HIGH)
     {
-      // espera antes de comezar a que solten o botón
+      // tempiño para que solten o botón antes de arrancar
       delay(500);
-      
-      ir();      
+
+      // executa os movementos
+      ir();
     }
   }
 
