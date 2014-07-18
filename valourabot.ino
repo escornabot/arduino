@@ -246,6 +246,9 @@ void loop(){
     estado_boton_ir = !estado_boton_ir;
     if (estado_boton_ir == HIGH)
     {
+      // espera antes de comezar a que solten o botón
+      delay(500);
+      
       ir();      
     }
   }
