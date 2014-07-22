@@ -9,8 +9,9 @@ As ordes son programadas con catro teclas-botón representando os movementos, ou
 
 ## O proxecto
 
-* [Documentación](wiki)
-* [Caderno de bitácora](wiki/bitacora)
+* [Documentación](https://github.com/brico-labs/vacalourabot/wiki)
+* [Melloras e fallos](https://github.com/brico-labs/vacalourabot/issues)
+* [Caderno de bitácora](https://github.com/brico-labs/vacalourabot/wiki/bitacora)
 
 ## Que é unha vacaloura
 
