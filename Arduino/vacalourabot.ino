@@ -31,7 +31,7 @@ typedef byte MOVEMENTO;
 // variables globais
 
 // punto de vista coa configuración inicial
-static PDV pdv_actual = PDV_VACALOURA;
+static PDV pdv_actual = PDV_INICIAL;
 
 // memoria para os movementos
 static MOVEMENTO memoria_movementos[MOVEMENTOS_LIMITE];
@@ -85,7 +85,7 @@ void avanzar(byte unidades, SENTIDO direccion)
     activarMotor(MOTOR_DEREITA, direccion);
     activarMotor(MOTOR_ESQUERDA, direccion);
 
-    delay(unidades * PASO_MILLISEGUNDOS);
+    delay(unidades * PASO_MILISEGUNDOS);
 
     // desactivamos os dous motores
     desactivarMotor(MOTOR_DEREITA);
@@ -137,7 +137,7 @@ void xirar90(int veces)
     // executar os xiros
     while (cantidade-- > 0)
     {
-      xirar(xiro, ANGULO_90);
+      xirar(xiro, ANGULO_90_MILISEGUNDOS);
     }
   }
 }

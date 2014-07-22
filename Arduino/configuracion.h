@@ -15,14 +15,17 @@
 #define PIN_BOTON_BORRAR 9
 
 // milisegundos que dura o paso
-#define PASO_MILLISEGUNDOS 1000
+#define PASO_MILISEGUNDOS 1000
 
 // cada un dous motores
 #define MOTOR_DEREITA 0
 #define MOTOR_ESQUERDA 1
 
 // grado de xiro (calibrar o tempo que tarda en milisegundos segundo o tipo de motores)
-#define ANGULO_90 500 // milisegundos para 90 graos
+#define ANGULO_90_MILISEGUNDOS 500 // milisegundos para 90 graos
 
 // capacidade da memoria en movementos (máximo 255, Arduino 1 ten 2 Kb de memoria SRAM total!)
 #define MOVEMENTOS_LIMITE 100
+
+// punto de vista fixado cando se inicia a vacalourabot
+#define PDV_INICIAL	PDV_VACALOURA
