@@ -26,40 +26,43 @@
 // grado de xiro (calibrar o tempo que tarda en milisegundos segundo o tipo de motores)
 #define ANGULO_90 500 // milisegundos para 90 graos
 
-// capacidade da memoria en movementos (Arduino 1 ten 2 Kb de memoria SRAM total!)
+// capacidade da memoria en movementos (máximo 255, Arduino 1 ten 2 Kb de memoria SRAM total!)
 #define MOVEMENTOS_LIMITE 100
 
 // de aquí en diante xa non debería cambiarse nada ;)
 
 // punto de vista para executar os movementos
+typedef byte PDV;
 #define PDV_VACALOURA 0
 #define PDV_NENO      1
 
-// punto de vista coa configuración inicial
-static byte pov_movementos = PDV_VACALOURA;
-
-// macros para os xiros a esquerda e dereita
-#define XIRO byte
+// tipo e valores para os xiros a esquerda e dereita
+typedef byte XIRO;
 #define XIRO_ESQUERDA 1
 #define XIRO_DEREITA  2
 
-// macros para a dirección de avance
-#define DIRECCION byte
-#define DIRECCION_ATRAS   1
-#define DIRECCION_ADIANTE 2
+// tipo e valores para a dirección de sentido dos motores
+typedef byte SENTIDO;
+#define SENTIDO_ATRAS   1
+#define SENTIDO_ADIANTE 2
 
-// tipo de variable e valores que toman os movementos na memoria
-#define MOVEMENTO byte
+// tipo e valores que toman os movementos na memoria
+typedef byte MOVEMENTO;
 #define MOVEMENTO_ADIANTE   1
 #define MOVEMENTO_DEREITA   2
 #define MOVEMENTO_ATRAS     3
 #define MOVEMENTO_ESQUERDA  4
 
+// variables globais
+
+// punto de vista coa configuración inicial
+static PDV pdv_actual = PDV_VACALOURA;
+
 // memoria para os movementos
-MOVEMENTO memoria_movementos[MOVEMENTOS_LIMITE];
+static MOVEMENTO memoria_movementos[MOVEMENTOS_LIMITE];
 
 // punteiro para ir acumulando movementos na memoria
-int memoria_punteiro;
+static byte memoria_punteiro;
 
 // memoria para os estados dos botóns
 byte estado_boton_esquerda;
@@ -69,7 +72,7 @@ byte estado_boton_atras;
 byte estado_boton_ir;
 byte estado_boton_borrar;
 
-void activarMotor(int motor, DIRECCION direccion)
+void activarMotor(int motor, SENTIDO direccion)
 {
   if (motor == MOTOR_DEREITA)
   {
@@ -101,7 +104,7 @@ void desactivarMotor(int motor)
   }
 }
 
-void avanzar(int unidades, DIRECCION direccion)
+void avanzar(byte unidades, SENTIDO direccion)
 {
     // activamos os dous motores
     activarMotor(MOTOR_DEREITA, direccion);
@@ -119,14 +122,14 @@ void xirar(XIRO xiro, int milisegundos)
    if (xiro == XIRO_DEREITA)
    {
       // xiro en sentido reloxo
-      activarMotor(MOTOR_ESQUERDA, DIRECCION_ADIANTE);
-      activarMotor(MOTOR_DEREITA, DIRECCION_ATRAS);
+      activarMotor(MOTOR_ESQUERDA, SENTIDO_ADIANTE);
+      activarMotor(MOTOR_DEREITA, SENTIDO_ATRAS);
    }
    else
    {
      // xiro en sentido anti-reloxo
-      activarMotor(MOTOR_DEREITA, DIRECCION_ADIANTE);
-      activarMotor(MOTOR_ESQUERDA, DIRECCION_ATRAS);
+      activarMotor(MOTOR_DEREITA, SENTIDO_ADIANTE);
+      activarMotor(MOTOR_ESQUERDA, SENTIDO_ATRAS);
    }
 
    delay(milisegundos);
@@ -173,7 +176,7 @@ void eepromGravar()
     EEPROM.write(0, memoria_punteiro);
 
     // e de seguido os movementos almacenados
-    for (int m = 0; m < memoria_punteiro; m++)
+    for (byte m = 0; m < memoria_punteiro; m++)
     {
       EEPROM.write(m + 1, memoria_movementos[m]);
     }
@@ -193,7 +196,7 @@ void eepromCargar()
   }
 
   // e de seguido os movementos
-  for (int m = 0; m < memoria_punteiro; m++)
+  for (byte m = 0; m < memoria_punteiro; m++)
   {
     memoria_movementos[m] = EEPROM.read(m + 1);
   }
@@ -202,13 +205,13 @@ void eepromCargar()
 void irPdvNeno()
 {
   // supoñer que se está detrás da vacalourabot
-  byte direccion_actual = DIRECCION_ADIANTE;
+  byte direccion_anterior = MOVEMENTO_ADIANTE;
 
   // por cada un dos movementos
-  for (int m = 0; m < memoria_punteiro; m++)
+  for (byte m = 0; m < memoria_punteiro; m++)
   {
     // calcular o xiro dende o punto de vista actual
-    int xiro = memoria_movementos[m] - direccion_actual;
+    int xiro = memoria_movementos[m] - direccion_anterior;
 
     // axustar xiro para o lado máis curto
     if (abs(xiro) == 3) xiro /= -xiro;
@@ -216,18 +219,18 @@ void irPdvNeno()
     // executar o xiro
     xirar90(xiro);
 
-    // avanzar un paso cara diante
-    avanzar(1, DIRECCION_ADIANTE);
+    // avanzar un paso cara adiante
+    avanzar(1, SENTIDO_ADIANTE);
 
     // actualizar dirección actual
-    direccion_actual = memoria_movementos[m];
+    direccion_anterior = memoria_movementos[m];
   }
 }
 
 void irPdvVacaloura()
 {
   // por cada un dos movementos
-  for (int m = 0; m < memoria_punteiro; m++)
+  for (byte m = 0; m < memoria_punteiro; m++)
   {
     // evalúa o tipo e procede
     switch (memoria_movementos[m])
@@ -239,10 +242,10 @@ void irPdvVacaloura()
         xirar90(-1);
         break;
       case MOVEMENTO_ADIANTE:
-        avanzar(1, DIRECCION_ADIANTE);
+        avanzar(1, SENTIDO_ADIANTE);
         break;
       case MOVEMENTO_ATRAS:
-        avanzar(1, DIRECCION_ATRAS);
+        avanzar(1, SENTIDO_ATRAS);
         break;
     }
   }
@@ -260,7 +263,7 @@ void ir()
     delay(1000);
 
     // evaluar o punto de vista para execución de movementos
-    if (pov_movementos == PDV_VACALOURA)
+    if (pdv_actual == PDV_VACALOURA)
     {
       // punto de vista da vacaloura
       irPdvVacaloura();
