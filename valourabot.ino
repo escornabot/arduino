@@ -31,20 +31,29 @@
 
 // de aquí en diante xa non debería cambiarse nada ;)
 
+// punto de vista para executar os movementos
+#define PDV_VACALOURA 0
+#define PDV_NENO      1
+
+// punto de vista coa configuración inicial
+static byte pov_movementos = PDV_VACALOURA;
+
 // macros para os xiros a esquerda e dereita
-#define XIRO_ESQUERDA (-ANGULO_90)
-#define XIRO_DEREITA (ANGULO_90)
+#define XIRO byte
+#define XIRO_ESQUERDA 1
+#define XIRO_DEREITA  2
 
 // macros para a dirección de avance
-#define DIRECCION_ATRAS 0
-#define DIRECCION_ADIANTE 1
+#define DIRECCION byte
+#define DIRECCION_ATRAS   1
+#define DIRECCION_ADIANTE 2
 
 // tipo de variable e valores que toman os movementos na memoria
 #define MOVEMENTO byte
-#define MOVEMENTO_DEREITA 1
-#define MOVEMENTO_ESQUERDA 2
-#define MOVEMENTO_ADIANTE 3
-#define MOVEMENTO_ATRAS 4
+#define MOVEMENTO_ADIANTE   1
+#define MOVEMENTO_DEREITA   2
+#define MOVEMENTO_ATRAS     3
+#define MOVEMENTO_ESQUERDA  4
 
 // memoria para os movementos
 MOVEMENTO memoria_movementos[MOVEMENTOS_LIMITE];
@@ -60,7 +69,7 @@ byte estado_boton_atras;
 byte estado_boton_ir;
 byte estado_boton_borrar;
 
-void activarMotor(int motor, int direccion)
+void activarMotor(int motor, DIRECCION direccion)
 {
   if (motor == MOTOR_DEREITA)
   {
@@ -92,7 +101,7 @@ void desactivarMotor(int motor)
   }
 }
 
-void avanzar(int unidades, int direccion)
+void avanzar(int unidades, DIRECCION direccion)
 {
     // activamos os dous motores
     activarMotor(MOTOR_DEREITA, direccion);
@@ -105,9 +114,9 @@ void avanzar(int unidades, int direccion)
     desactivarMotor(MOTOR_ESQUERDA);
 }
 
-void xirar(int graos)
+void xirar(XIRO xiro, int milisegundos)
 {
-   if (graos > 0)
+   if (xiro == XIRO_DEREITA)
    {
       // xiro en sentido reloxo
       activarMotor(MOTOR_ESQUERDA, DIRECCION_ADIANTE);
@@ -120,10 +129,39 @@ void xirar(int graos)
       activarMotor(MOTOR_ESQUERDA, DIRECCION_ATRAS);
    }
 
-   delay(ANGULO_90);
+   delay(milisegundos);
 
    desactivarMotor(MOTOR_ESQUERDA);
    desactivarMotor(MOTOR_DEREITA);
+}
+
+void xirar90(int veces)
+{
+  // non facer nada cando veces sexa 0
+  if (veces != 0)
+  {
+    // cálculo do xiro e cantidade
+    XIRO xiro;
+    int cantidade;
+
+    // tipo de xiro e cantidade en positivo
+    if (veces > 0)
+    {
+      xiro = XIRO_DEREITA;
+      cantidade = veces;
+    }
+    else
+    {
+      xiro = XIRO_ESQUERDA;
+      cantidade = -veces;
+    }
+
+    // executar os xiros
+    while (cantidade-- > 0)
+    {
+      xirar(xiro, ANGULO_90);
+    }
+  }
 }
 
 void eepromGravar()
@@ -161,6 +199,55 @@ void eepromCargar()
   }
 }
 
+void irPdvNeno()
+{
+  // supoñer que se está detrás da vacalourabot
+  byte direccion_actual = DIRECCION_ADIANTE;
+
+  // por cada un dos movementos
+  for (int m = 0; m < memoria_punteiro; m++)
+  {
+    // calcular o xiro dende o punto de vista actual
+    int xiro = memoria_movementos[m] - direccion_actual;
+
+    // axustar xiro para o lado máis curto
+    if (abs(xiro) == 3) xiro /= -xiro;
+
+    // executar o xiro
+    xirar90(xiro);
+
+    // avanzar un paso cara diante
+    avanzar(1, DIRECCION_ADIANTE);
+
+    // actualizar dirección actual
+    direccion_actual = memoria_movementos[m];
+  }
+}
+
+void irPdvVacaloura()
+{
+  // por cada un dos movementos
+  for (int m = 0; m < memoria_punteiro; m++)
+  {
+    // evalúa o tipo e procede
+    switch (memoria_movementos[m])
+    {
+      case MOVEMENTO_DEREITA:
+        xirar90(1);
+        break;
+      case MOVEMENTO_ESQUERDA:
+        xirar90(-1);
+        break;
+      case MOVEMENTO_ADIANTE:
+        avanzar(1, DIRECCION_ADIANTE);
+        break;
+      case MOVEMENTO_ATRAS:
+        avanzar(1, DIRECCION_ATRAS);
+        break;
+    }
+  }
+}
+
 void ir()
 {
   // só imos se hai movementos programados
@@ -169,25 +256,19 @@ void ir()
     // gardamos o programa de movementos na EEPROM
     eepromGravar();
 
-    // por cada un dos movementos
-    for (int m = 0; m < memoria_punteiro; m++)
+    // pequena pausa para dar tempo a soltar o botón
+    delay(1000);
+
+    // evaluar o punto de vista para execución de movementos
+    if (pov_movementos == PDV_VACALOURA)
     {
-      // evalúa o tipo e procede
-      switch (memoria_movementos[m])
-      {
-        case MOVEMENTO_DEREITA:
-          xirar(XIRO_DEREITA);
-          break;
-        case MOVEMENTO_ESQUERDA:
-          xirar(XIRO_ESQUERDA);
-          break;
-        case MOVEMENTO_ADIANTE:
-          avanzar(1, DIRECCION_ADIANTE);
-          break;
-        case MOVEMENTO_ATRAS:
-          avanzar(1, DIRECCION_ATRAS);
-          break;
-      }
+      // punto de vista da vacaloura
+      irPdvVacaloura();
+    }
+    else
+    {
+      // punto de vista do neno
+      irPdvNeno();
     }
   }
 }
