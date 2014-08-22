@@ -33,5 +33,36 @@
 // punto de vista fixado cando se inicia a vacalourabot
 #define PDV_INICIAL	PDV_VACALOURA
 
+///// tipos enumerados
+
+// punto de vista para executar os movementos
+#define PDV byte
+#define PDV_VACALOURA 0
+#define PDV_NENO      1
+
+// tipo e valores para os xiros a esquerda e dereita
+#define XIRO byte
+#define XIRO_ESQUERDA 1
+#define XIRO_DEREITA  2
+
+// tipo e valores para a dirección de sentido dos motores
+#define SENTIDO byte
+#define SENTIDO_ATRAS   1
+#define SENTIDO_ADIANTE 2
+
+// tipo e valores que toman os movementos na memoria
+#define MOVEMENTO byte
+#define MOVEMENTO_ADIANTE   1
+#define MOVEMENTO_DEREITA   2
+#define MOVEMENTO_ATRAS     3
+#define MOVEMENTO_ESQUERDA  4
+
+///// estruturas
+
+typedef struct {
+	uint8_t movementos_cantidade;
+	MOVEMENTO movementos_lista[MOVEMENTOS_LIMITE];
+} Programa;
+
 
 #endif // _CONFIGURACION_H

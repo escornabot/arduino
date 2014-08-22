@@ -1,30 +1,8 @@
 // vacalourabot.ino
 
-#include "configuracion.h"
+#include "Vacalourabot.h"
 
 #include <EEPROM.h>
-
-// punto de vista para executar os movementos
-#define PDV byte
-#define PDV_VACALOURA 0
-#define PDV_NENO      1
-
-// tipo e valores para os xiros a esquerda e dereita
-#define XIRO byte
-#define XIRO_ESQUERDA 1
-#define XIRO_DEREITA  2
-
-// tipo e valores para a dirección de sentido dos motores
-#define SENTIDO byte
-#define SENTIDO_ATRAS   1
-#define SENTIDO_ADIANTE 2
-
-// tipo e valores que toman os movementos na memoria
-#define MOVEMENTO byte
-#define MOVEMENTO_ADIANTE   1
-#define MOVEMENTO_DEREITA   2
-#define MOVEMENTO_ATRAS     3
-#define MOVEMENTO_ESQUERDA  4
 
 // variables globais
 
@@ -32,10 +10,7 @@
 static PDV pdv_actual = PDV_INICIAL;
 
 // memoria para os movementos
-static MOVEMENTO memoria_movementos[MOVEMENTOS_LIMITE];
-
-// punteiro para ir acumulando movementos na memoria
-static byte memoria_punteiro;
+static Programa PROGRAMA = { movementos_cantidade: 0 };
 
 // memoria para os estados dos botóns
 byte estado_boton_esquerda;
@@ -143,15 +118,15 @@ void xirar90(int veces)
 void eepromGravar()
 {
   // gardamos na EEPROM cando haxa movementos que gardar
-  if (memoria_punteiro > 0)
+  if (PROGRAMA.movementos_cantidade > 0)
   {
     // o primeiro dato é o número de movementos
-    EEPROM.write(0, memoria_punteiro);
+    EEPROM.write(0, PROGRAMA.movementos_cantidade);
 
     // e de seguido os movementos almacenados
-    for (byte m = 0; m < memoria_punteiro; m++)
+    for (byte m = 0; m < PROGRAMA.movementos_cantidade; m++)
     {
-      EEPROM.write(m + 1, memoria_movementos[m]);
+      EEPROM.write(m + 1, PROGRAMA.movementos_lista[m]);
     }
   }
 }
@@ -159,19 +134,19 @@ void eepromGravar()
 void eepromCargar()
 {
   // o primeiro dato é o número de movementos
-  memoria_punteiro = EEPROM.read(0);
+  PROGRAMA.movementos_cantidade = EEPROM.read(0);
 
-  if (memoria_punteiro > MOVEMENTOS_LIMITE)
+  if (PROGRAMA.movementos_cantidade > MOVEMENTOS_LIMITE)
   {
     // a memoria EEPROM está corrupta
-    memoria_punteiro = 0;
+    PROGRAMA.movementos_cantidade = 0;
     return;
   }
 
   // e de seguido os movementos
-  for (byte m = 0; m < memoria_punteiro; m++)
+  for (byte m = 0; m < PROGRAMA.movementos_cantidade; m++)
   {
-    memoria_movementos[m] = EEPROM.read(m + 1);
+    PROGRAMA.movementos_lista[m] = EEPROM.read(m + 1);
   }
 }
 
@@ -181,10 +156,10 @@ void irPdvNeno()
   byte direccion_anterior = MOVEMENTO_ADIANTE;
 
   // por cada un dos movementos
-  for (byte m = 0; m < memoria_punteiro; m++)
+  for (byte m = 0; m < PROGRAMA.movementos_cantidade; m++)
   {
     // calcular o xiro dende o punto de vista actual
-    int xiro = memoria_movementos[m] - direccion_anterior;
+    int xiro = PROGRAMA.movementos_lista[m] - direccion_anterior;
 
     // axustar xiro para o lado máis curto
     if (abs(xiro) == 3) xiro /= -xiro;
@@ -196,17 +171,17 @@ void irPdvNeno()
     avanzar(1, SENTIDO_ADIANTE);
 
     // actualizar dirección actual
-    direccion_anterior = memoria_movementos[m];
+    direccion_anterior = PROGRAMA.movementos_lista[m];
   }
 }
 
 void irPdvVacaloura()
 {
   // por cada un dos movementos
-  for (byte m = 0; m < memoria_punteiro; m++)
+  for (byte m = 0; m < PROGRAMA.movementos_cantidade; m++)
   {
     // evalúa o tipo e procede
-    switch (memoria_movementos[m])
+    switch (PROGRAMA.movementos_lista[m])
     {
       case MOVEMENTO_DEREITA:
         xirar90(1);
@@ -227,7 +202,7 @@ void irPdvVacaloura()
 void ir()
 {
   // só imos se hai movementos programados
-  if (memoria_punteiro > 0)
+  if (PROGRAMA.movementos_cantidade > 0)
   {
     // gardamos o programa de movementos na EEPROM
     eepromGravar();
@@ -251,16 +226,16 @@ void ir()
 
 void memoria_borrar()
 {
-  memoria_punteiro = 0;
+  PROGRAMA.movementos_cantidade = 0;
 }
 
 
 void memorizar(int movemento)
 {
-  if (memoria_punteiro < MOVEMENTOS_LIMITE)
+  if (PROGRAMA.movementos_cantidade < MOVEMENTOS_LIMITE)
   {
-    memoria_movementos[memoria_punteiro] = movemento;
-    memoria_punteiro++;
+    PROGRAMA.movementos_lista[PROGRAMA.movementos_cantidade] = movemento;
+    PROGRAMA.movementos_cantidade++;
   }
   else
   {
