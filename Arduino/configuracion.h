@@ -1,5 +1,8 @@
 // configuracion.h
 
+#ifndef _CONFIGURACION_H
+#define _CONFIGURACION_H
+
 // configuración dos pins do driver dos motores
 #define PIN_MOTOR_ESQUERDA_A 10
 #define PIN_MOTOR_ESQUERDA_B 11
@@ -29,3 +32,6 @@
 
 // punto de vista fixado cando se inicia a vacalourabot
 #define PDV_INICIAL	PDV_VACALOURA
+
+
+#endif // _CONFIGURACION_H
