@@ -2,15 +2,10 @@
 
 #include "Vacalourabot.h"
 
-#include <EEPROM.h>
-
 // variables globais
 
 // memoria para os movementos
-static MoveProgram PROGRAMA = {
-  point_of_view: POV_INICIAL,
-  move_count: 0,
-};
+static MoveProgram PROGRAM;
 
 // memoria para os estados dos botóns
 byte estado_boton_esquerda;
@@ -115,51 +110,17 @@ void xirar90(int veces)
   }
 }
 
-void eepromGravar()
-{
-  // gardamos na EEPROM cando haxa movementos que gardar
-  if (PROGRAMA.move_count > 0)
-  {
-    // o primeiro dato é o número de movementos
-    EEPROM.write(0, PROGRAMA.move_count);
-
-    // e de seguido os movementos almacenados
-    for (byte m = 0; m < PROGRAMA.move_count; m++)
-    {
-      EEPROM.write(m + 1, PROGRAMA.move_list[m]);
-    }
-  }
-}
-
-void eepromCargar()
-{
-  // o primeiro dato é o número de movementos
-  PROGRAMA.move_count = EEPROM.read(0);
-
-  if (PROGRAMA.move_count > MOVE_LIMIT)
-  {
-    // a memoria EEPROM está corrupta
-    PROGRAMA.move_count = 0;
-    return;
-  }
-
-  // e de seguido os movementos
-  for (byte m = 0; m < PROGRAMA.move_count; m++)
-  {
-    PROGRAMA.move_list[m] = (MOVE)EEPROM.read(m + 1);
-  }
-}
-
+/*
 void irPdvNeno()
 {
   // supoñer que se está detrás da vacalourabot
   byte direccion_anterior = MOVE_FORWARD;
 
   // por cada un dos movementos
-  for (byte m = 0; m < PROGRAMA.move_count; m++)
+  for (byte m = 0; m < PROGRAM.move_count; m++)
   {
     // calcular o xiro dende o punto de vista actual
-    int xiro = PROGRAMA.move_list[m] - direccion_anterior;
+    int xiro = PROGRAM.move_list[m] - direccion_anterior;
 
     // axustar xiro para o lado máis curto
     if (abs(xiro) == 3) xiro /= -xiro;
@@ -171,17 +132,18 @@ void irPdvNeno()
     avanzar(1, SENTIDO_ADIANTE);
 
     // actualizar dirección actual
-    direccion_anterior = PROGRAMA.move_list[m];
+    direccion_anterior = PROGRAM.move_list[m];
   }
 }
+*/
 
 void irPdvVacaloura()
 {
   // por cada un dos movementos
-  for (byte m = 0; m < PROGRAMA.move_count; m++)
+  for (byte m = 0; m < PROGRAM.getMoveCount(); m++)
   {
     // evalúa o tipo e procede
-    switch (PROGRAMA.move_list[m])
+    switch (PROGRAM.getMove(m))
     {
       case MOVE_RIGHT:
         xirar90(1);
@@ -202,16 +164,16 @@ void irPdvVacaloura()
 void ir()
 {
   // só imos se hai movementos programados
-  if (PROGRAMA.move_count > 0)
+  if (PROGRAM.getMoveCount() > 0)
   {
     // gardamos o programa de movementos na EEPROM
-    eepromGravar();
+    PROGRAM.save();
 
     // pequena pausa para dar tempo a soltar o botón
     delay(1000);
 
     // evaluar o punto de vista para execución de movementos
-    if (PROGRAMA.point_of_view == POV_VACALOURA)
+    if (PROGRAM.getPointOfView() == POV_VACALOURA)
     {
       // punto de vista da vacaloura
       irPdvVacaloura();
@@ -219,23 +181,17 @@ void ir()
     else
     {
       // punto de vista do neno
-      irPdvNeno();
+//      irPdvNeno();
     }
   }
-}
-
-void memoria_borrar()
-{
-  PROGRAMA.move_count = 0;
 }
 
 
 void memorizar(MOVE movemento)
 {
-  if (PROGRAMA.move_count < MOVE_LIMIT)
+  if (PROGRAM.getMoveCount() < MOVE_LIMIT)
   {
-    PROGRAMA.move_list[PROGRAMA.move_count] = movemento;
-    PROGRAMA.move_count++;
+    PROGRAM.addMove(movemento);
   }
   else
   {
@@ -267,11 +223,8 @@ void setup()
     estado_boton_ir = LOW;
     estado_boton_borrar = LOW;
 
-    // inicializar memoria
-    memoria_borrar();
-
     // cargar os movementos logo dun apagado
-    eepromCargar();
+    PROGRAM.load();
 }
 
 
@@ -320,7 +273,7 @@ void loop(){
     estado_boton_borrar = !estado_boton_borrar;
     if (estado_boton_borrar == HIGH)
     {
-      memoria_borrar();
+      PROGRAM.clear();
     }
   }
 
