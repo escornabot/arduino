@@ -1,7 +1,9 @@
-// configuracion.h
+// Vacalourabot.h
 
-#ifndef _CONFIGURACION_H
-#define _CONFIGURACION_H
+#ifndef _VACALOURABOT_H
+#define _VACALOURABOT_H
+
+#include <stdint.h>
 
 // configuración dos pins do driver dos motores
 #define PIN_MOTOR_ESQUERDA_A 10
@@ -28,41 +30,52 @@
 #define ANGULO_90_MILISEGUNDOS 500 // milisegundos para 90 graos
 
 // capacidade da memoria en movementos (máximo 255, Arduino 1 ten 2 Kb de memoria SRAM total!)
-#define MOVEMENTOS_LIMITE 100
+#define MOVE_LIMIT 100
 
 // punto de vista fixado cando se inicia a vacalourabot
-#define PDV_INICIAL	PDV_VACALOURA
+#define POV_INICIAL	POV_VACALOURA
 
 ///// tipos enumerados
 
 // punto de vista para executar os movementos
-#define PDV byte
-#define PDV_VACALOURA 0
-#define PDV_NENO      1
+enum POV : uint8_t
+{
+	POV_VACALOURA,
+	POV_NENO,
+};
 
 // tipo e valores para os xiros a esquerda e dereita
-#define XIRO byte
-#define XIRO_ESQUERDA 1
-#define XIRO_DEREITA  2
+enum XIRO : uint8_t
+{
+	XIRO_ESQUERDA,
+	XIRO_DEREITA,
+};
 
 // tipo e valores para a dirección de sentido dos motores
-#define SENTIDO byte
-#define SENTIDO_ATRAS   1
-#define SENTIDO_ADIANTE 2
+enum SENTIDO : uint8_t
+{
+	SENTIDO_ATRAS,
+	SENTIDO_ADIANTE,
+};
 
-// tipo e valores que toman os movementos na memoria
-#define MOVEMENTO byte
-#define MOVEMENTO_ADIANTE   1
-#define MOVEMENTO_DEREITA   2
-#define MOVEMENTO_ATRAS     3
-#define MOVEMENTO_ESQUERDA  4
+// movement commands
+enum MOVE : uint8_t
+{
+	MOVE_FORWARD,
+	MOVE_RIGHT,
+	MOVE_BACKWARD,
+	MOVE_LEFT,
+};
 
-///// estruturas
+///// structures
 
 typedef struct {
-	uint8_t movementos_cantidade;
-	MOVEMENTO movementos_lista[MOVEMENTOS_LIMITE];
-} Programa;
+	POV point_of_view;
+	uint8_t move_count;
+	MOVE move_list[MOVE_LIMIT];
+} MoveProgram;
+
+/////
 
 
-#endif // _CONFIGURACION_H
+#endif // _VACALOURABOT_H

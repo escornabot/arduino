@@ -1,4 +1,4 @@
-// vacalourabot.ino
+// Vacalourabot.ino
 
 #include "Vacalourabot.h"
 
@@ -6,11 +6,11 @@
 
 // variables globais
 
-// punto de vista coa configuración inicial
-static PDV pdv_actual = PDV_INICIAL;
-
 // memoria para os movementos
-static Programa PROGRAMA = { movementos_cantidade: 0 };
+static MoveProgram PROGRAMA = {
+  point_of_view: POV_INICIAL,
+  move_count: 0,
+};
 
 // memoria para os estados dos botóns
 byte estado_boton_esquerda;
@@ -118,15 +118,15 @@ void xirar90(int veces)
 void eepromGravar()
 {
   // gardamos na EEPROM cando haxa movementos que gardar
-  if (PROGRAMA.movementos_cantidade > 0)
+  if (PROGRAMA.move_count > 0)
   {
     // o primeiro dato é o número de movementos
-    EEPROM.write(0, PROGRAMA.movementos_cantidade);
+    EEPROM.write(0, PROGRAMA.move_count);
 
     // e de seguido os movementos almacenados
-    for (byte m = 0; m < PROGRAMA.movementos_cantidade; m++)
+    for (byte m = 0; m < PROGRAMA.move_count; m++)
     {
-      EEPROM.write(m + 1, PROGRAMA.movementos_lista[m]);
+      EEPROM.write(m + 1, PROGRAMA.move_list[m]);
     }
   }
 }
@@ -134,32 +134,32 @@ void eepromGravar()
 void eepromCargar()
 {
   // o primeiro dato é o número de movementos
-  PROGRAMA.movementos_cantidade = EEPROM.read(0);
+  PROGRAMA.move_count = EEPROM.read(0);
 
-  if (PROGRAMA.movementos_cantidade > MOVEMENTOS_LIMITE)
+  if (PROGRAMA.move_count > MOVE_LIMIT)
   {
     // a memoria EEPROM está corrupta
-    PROGRAMA.movementos_cantidade = 0;
+    PROGRAMA.move_count = 0;
     return;
   }
 
   // e de seguido os movementos
-  for (byte m = 0; m < PROGRAMA.movementos_cantidade; m++)
+  for (byte m = 0; m < PROGRAMA.move_count; m++)
   {
-    PROGRAMA.movementos_lista[m] = EEPROM.read(m + 1);
+    PROGRAMA.move_list[m] = (MOVE)EEPROM.read(m + 1);
   }
 }
 
 void irPdvNeno()
 {
   // supoñer que se está detrás da vacalourabot
-  byte direccion_anterior = MOVEMENTO_ADIANTE;
+  byte direccion_anterior = MOVE_FORWARD;
 
   // por cada un dos movementos
-  for (byte m = 0; m < PROGRAMA.movementos_cantidade; m++)
+  for (byte m = 0; m < PROGRAMA.move_count; m++)
   {
     // calcular o xiro dende o punto de vista actual
-    int xiro = PROGRAMA.movementos_lista[m] - direccion_anterior;
+    int xiro = PROGRAMA.move_list[m] - direccion_anterior;
 
     // axustar xiro para o lado máis curto
     if (abs(xiro) == 3) xiro /= -xiro;
@@ -171,28 +171,28 @@ void irPdvNeno()
     avanzar(1, SENTIDO_ADIANTE);
 
     // actualizar dirección actual
-    direccion_anterior = PROGRAMA.movementos_lista[m];
+    direccion_anterior = PROGRAMA.move_list[m];
   }
 }
 
 void irPdvVacaloura()
 {
   // por cada un dos movementos
-  for (byte m = 0; m < PROGRAMA.movementos_cantidade; m++)
+  for (byte m = 0; m < PROGRAMA.move_count; m++)
   {
     // evalúa o tipo e procede
-    switch (PROGRAMA.movementos_lista[m])
+    switch (PROGRAMA.move_list[m])
     {
-      case MOVEMENTO_DEREITA:
+      case MOVE_RIGHT:
         xirar90(1);
         break;
-      case MOVEMENTO_ESQUERDA:
+      case MOVE_LEFT:
         xirar90(-1);
         break;
-      case MOVEMENTO_ADIANTE:
+      case MOVE_FORWARD:
         avanzar(1, SENTIDO_ADIANTE);
         break;
-      case MOVEMENTO_ATRAS:
+      case MOVE_BACKWARD:
         avanzar(1, SENTIDO_ATRAS);
         break;
     }
@@ -202,7 +202,7 @@ void irPdvVacaloura()
 void ir()
 {
   // só imos se hai movementos programados
-  if (PROGRAMA.movementos_cantidade > 0)
+  if (PROGRAMA.move_count > 0)
   {
     // gardamos o programa de movementos na EEPROM
     eepromGravar();
@@ -211,7 +211,7 @@ void ir()
     delay(1000);
 
     // evaluar o punto de vista para execución de movementos
-    if (pdv_actual == PDV_VACALOURA)
+    if (PROGRAMA.point_of_view == POV_VACALOURA)
     {
       // punto de vista da vacaloura
       irPdvVacaloura();
@@ -226,16 +226,16 @@ void ir()
 
 void memoria_borrar()
 {
-  PROGRAMA.movementos_cantidade = 0;
+  PROGRAMA.move_count = 0;
 }
 
 
-void memorizar(int movemento)
+void memorizar(MOVE movemento)
 {
-  if (PROGRAMA.movementos_cantidade < MOVEMENTOS_LIMITE)
+  if (PROGRAMA.move_count < MOVE_LIMIT)
   {
-    PROGRAMA.movementos_lista[PROGRAMA.movementos_cantidade] = movemento;
-    PROGRAMA.movementos_cantidade++;
+    PROGRAMA.move_list[PROGRAMA.move_count] = movemento;
+    PROGRAMA.move_count++;
   }
   else
   {
@@ -284,7 +284,7 @@ void loop(){
     estado_boton_esquerda = !estado_boton_esquerda;
     if (estado_boton_esquerda == HIGH)
     {
-      memorizar(MOVEMENTO_ESQUERDA);
+      memorizar(MOVE_LEFT);
     }
   }
 
@@ -293,7 +293,7 @@ void loop(){
     estado_boton_dereita = !estado_boton_dereita;
     if (estado_boton_dereita == HIGH)
     {
-      memorizar(MOVEMENTO_DEREITA);
+      memorizar(MOVE_RIGHT);
     }
   }
 
@@ -302,7 +302,7 @@ void loop(){
     estado_boton_adiante = !estado_boton_adiante;
     if (estado_boton_adiante == HIGH)
     {
-      memorizar(MOVEMENTO_ADIANTE);
+      memorizar(MOVE_FORWARD);
     }
   }
 
@@ -311,7 +311,7 @@ void loop(){
     estado_boton_atras = !estado_boton_atras;
     if (estado_boton_atras == HIGH)
     {
-      memorizar(MOVEMENTO_ATRAS);
+      memorizar(MOVE_BACKWARD);
     }
   }
 
