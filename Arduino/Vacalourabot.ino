@@ -4,9 +4,6 @@
 
 // variables globais
 
-// memoria para os movementos
-static MoveProgram PROGRAM;
-
 // memoria para os estados dos botóns
 byte estado_boton_esquerda;
 byte estado_boton_dereita;
@@ -15,100 +12,6 @@ byte estado_boton_atras;
 byte estado_boton_ir;
 byte estado_boton_borrar;
 
-void activarMotor(int motor, SENTIDO direccion)
-{
-  if (motor == MOTOR_DEREITA)
-  {
-      // motor dereita
-      digitalWrite(PIN_MOTOR_DEREITA_A, direccion ? HIGH : LOW);
-      digitalWrite(PIN_MOTOR_DEREITA_B, direccion ? LOW : HIGH);
-  }
-  else
-  {
-      // motor esquerda
-      digitalWrite(PIN_MOTOR_ESQUERDA_A, direccion ? HIGH : LOW);
-      digitalWrite(PIN_MOTOR_ESQUERDA_B, direccion ? LOW : HIGH);
-  }
-}
-
-void desactivarMotor(int motor)
-{
-  if (motor == MOTOR_DEREITA)
-  {
-      // motor dereita
-      digitalWrite(PIN_MOTOR_DEREITA_A, LOW);
-      digitalWrite(PIN_MOTOR_DEREITA_B, LOW);
-  }
-  else
-  {
-      // motor esquerda
-      digitalWrite(PIN_MOTOR_ESQUERDA_A, LOW);
-      digitalWrite(PIN_MOTOR_ESQUERDA_B, LOW);
-  }
-}
-
-void avanzar(byte unidades, SENTIDO direccion)
-{
-    // activamos os dous motores
-    activarMotor(MOTOR_DEREITA, direccion);
-    activarMotor(MOTOR_ESQUERDA, direccion);
-
-    delay(unidades * PASO_MILISEGUNDOS);
-
-    // desactivamos os dous motores
-    desactivarMotor(MOTOR_DEREITA);
-    desactivarMotor(MOTOR_ESQUERDA);
-}
-
-void xirar(XIRO xiro, int milisegundos)
-{
-   if (xiro == XIRO_DEREITA)
-   {
-      // xiro en sentido reloxo
-      activarMotor(MOTOR_ESQUERDA, SENTIDO_ADIANTE);
-      activarMotor(MOTOR_DEREITA, SENTIDO_ATRAS);
-   }
-   else
-   {
-     // xiro en sentido anti-reloxo
-      activarMotor(MOTOR_DEREITA, SENTIDO_ADIANTE);
-      activarMotor(MOTOR_ESQUERDA, SENTIDO_ATRAS);
-   }
-
-   delay(milisegundos);
-
-   desactivarMotor(MOTOR_ESQUERDA);
-   desactivarMotor(MOTOR_DEREITA);
-}
-
-void xirar90(int veces)
-{
-  // non facer nada cando veces sexa 0
-  if (veces != 0)
-  {
-    // cálculo do xiro e cantidade
-    XIRO xiro;
-    int cantidade;
-
-    // tipo de xiro e cantidade en positivo
-    if (veces > 0)
-    {
-      xiro = XIRO_DEREITA;
-      cantidade = veces;
-    }
-    else
-    {
-      xiro = XIRO_ESQUERDA;
-      cantidade = -veces;
-    }
-
-    // executar os xiros
-    while (cantidade-- > 0)
-    {
-      xirar(xiro, ANGULO_90_MILISEGUNDOS);
-    }
-  }
-}
 
 /*
 void irPdvNeno()
@@ -117,10 +20,10 @@ void irPdvNeno()
   byte direccion_anterior = MOVE_FORWARD;
 
   // por cada un dos movementos
-  for (byte m = 0; m < PROGRAM.move_count; m++)
+  for (int m = 0; m < PROGRAM->move_count; m++)
   {
     // calcular o xiro dende o punto de vista actual
-    int xiro = PROGRAM.move_list[m] - direccion_anterior;
+    int xiro = PROGRAM->move_list[m] - direccion_anterior;
 
     // axustar xiro para o lado máis curto
     if (abs(xiro) == 3) xiro /= -xiro;
@@ -132,7 +35,7 @@ void irPdvNeno()
     avanzar(1, SENTIDO_ADIANTE);
 
     // actualizar dirección actual
-    direccion_anterior = PROGRAM.move_list[m];
+    direccion_anterior = PROGRAM->move_list[m];
   }
 }
 */
@@ -140,22 +43,22 @@ void irPdvNeno()
 void irPdvVacaloura()
 {
   // por cada un dos movementos
-  for (byte m = 0; m < PROGRAM.getMoveCount(); m++)
+  for (int m = 0; m < PROGRAM->getMoveCount(); m++)
   {
     // evalúa o tipo e procede
-    switch (PROGRAM.getMove(m))
+    switch (PROGRAM->getMove(m))
     {
       case MOVE_RIGHT:
-        xirar90(1);
+        ENGINE->turn90Degrees(1);
         break;
       case MOVE_LEFT:
-        xirar90(-1);
+        ENGINE->turn90Degrees(-1);
         break;
       case MOVE_FORWARD:
-        avanzar(1, SENTIDO_ADIANTE);
+        ENGINE->moveStraight(1);
         break;
       case MOVE_BACKWARD:
-        avanzar(1, SENTIDO_ATRAS);
+        ENGINE->moveStraight(-1);
         break;
     }
   }
@@ -164,16 +67,16 @@ void irPdvVacaloura()
 void ir()
 {
   // só imos se hai movementos programados
-  if (PROGRAM.getMoveCount() > 0)
+  if (PROGRAM->getMoveCount() > 0)
   {
     // gardamos o programa de movementos na EEPROM
-    PROGRAM.save();
+    PROGRAM->save();
 
     // pequena pausa para dar tempo a soltar o botón
     delay(1000);
 
     // evaluar o punto de vista para execución de movementos
-    if (PROGRAM.getPointOfView() == POV_VACALOURA)
+    if (PROGRAM->getPointOfView() == POV_VACALOURA)
     {
       // punto de vista da vacaloura
       irPdvVacaloura();
@@ -189,9 +92,9 @@ void ir()
 
 void memorizar(MOVE movemento)
 {
-  if (PROGRAM.getMoveCount() < MOVE_LIMIT)
+  if (PROGRAM->getMoveCount() < MOVE_LIMIT)
   {
-    PROGRAM.addMove(movemento);
+    PROGRAM->addMove(movemento);
   }
   else
   {
@@ -201,11 +104,8 @@ void memorizar(MOVE movemento)
 
 void setup()
 {
-    // configurar motores
-    pinMode(PIN_MOTOR_ESQUERDA_A, OUTPUT);
-    pinMode(PIN_MOTOR_ESQUERDA_B, OUTPUT);
-    pinMode(PIN_MOTOR_DEREITA_A, OUTPUT);
-    pinMode(PIN_MOTOR_DEREITA_B, OUTPUT);
+    // init hardware
+    ENGINE->init();
 
     // configurar botóns
     pinMode(PIN_BOTON_ESQUERDA, INPUT);
@@ -224,7 +124,7 @@ void setup()
     estado_boton_borrar = LOW;
 
     // cargar os movementos logo dun apagado
-    PROGRAM.load();
+    PROGRAM->load();
 }
 
 
@@ -273,7 +173,7 @@ void loop(){
     estado_boton_borrar = !estado_boton_borrar;
     if (estado_boton_borrar == HIGH)
     {
-      PROGRAM.clear();
+      PROGRAM->clear();
     }
   }
 
@@ -291,3 +191,5 @@ void loop(){
   }
 
 }
+
+// EOF

@@ -3,29 +3,31 @@
 #ifndef _VACALOURABOT_H
 #define _VACALOURABOT_H
 
-#include <stdint.h>
-
 #include "Configuration.h"
 #include "MoveProgram.h"
+#include "Engine.h"
 
 
-///// tipos enumerados
+// motor engine defined from configuration
+#if defined(ENGINE_TYPE_L9110)
+	#include "EngineL9110.h"
+	#define ENGINE_CLASS EngineL9110
+#else
+	// include new header file and define ENGINE_CLASS here...
+#endif
 
-// tipo e valores para os xiros a esquerda e dereita
-enum XIRO : uint8_t
-{
-	XIRO_ESQUERDA,
-	XIRO_DEREITA,
-};
 
-// tipo e valores para a dirección de sentido dos motores
-enum SENTIDO : uint8_t
-{
-	SENTIDO_ATRAS,
-	SENTIDO_ADIANTE,
-};
+///// global vars
 
-/////
+// engine
+static ENGINE_CLASS ENGINE_INSTANCE;
+static Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
+
+// program
+static MoveProgram PROGRAM_INSTANCE;
+static MoveProgram* PROGRAM = &PROGRAM_INSTANCE;
 
 
 #endif // _VACALOURABOT_H
+
+// EOF

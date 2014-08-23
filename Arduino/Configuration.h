@@ -3,6 +3,9 @@
 #ifndef _CONFIGURATION_H
 #define _CONFIGURATION_H
 
+// used engine
+#define ENGINE_TYPE_L9110
+
 // configuración dos pins do driver dos motores
 #define PIN_MOTOR_ESQUERDA_A 10
 #define PIN_MOTOR_ESQUERDA_B 11
@@ -37,4 +40,4 @@
 
 #endif // _CONFIGURATION_H
 
-// eof
+// EOF

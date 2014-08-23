@@ -23,7 +23,7 @@ enum MOVE : uint8_t
 enum POV : uint8_t
 {
 	POV_VACALOURA,
-	POV_NENO,
+	POV_CHILD,
 };
 
 
@@ -97,3 +97,5 @@ public:
 };
 
 #endif // _MOVE_PROGRAM_H
+
+// EOF
