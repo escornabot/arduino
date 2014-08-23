@@ -85,6 +85,8 @@ public:
 	 */
 	MOVE getMove(uint8_t index);
 
+	#if USE_PERSISTENT_MEMORY
+
 	/**
 	 * Saves the program in EEPROM.
 	 */
@@ -94,6 +96,8 @@ public:
 	 * Loads the program from EEPROM.
 	 */
 	void load();
+
+	#endif
 };
 
 #endif // _MOVE_PROGRAM_H

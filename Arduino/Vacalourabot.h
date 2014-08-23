@@ -17,6 +17,12 @@
 #endif
 
 
+// EEPROM as persistent memory
+#if USE_PERSISTENT_MEMORY
+	#include "PersistentMemory.h"
+#endif
+
+
 ///// global vars
 
 // engine

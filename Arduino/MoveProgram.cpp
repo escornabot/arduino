@@ -2,8 +2,6 @@
 
 #include "MoveProgram.h"
 
-#include <EEPROM.h>
-
 
 MoveProgram::MoveProgram()
 {
@@ -55,42 +53,34 @@ MOVE MoveProgram::getMove(uint8_t index)
 
 
 
+#if USE_PERSISTENT_MEMORY
+
+#include "PersistentMemory.h"
+
+extern PersistentMemory* PERSISTENT_MEMORY;
+
+
 void MoveProgram::save()
 {
-  // gardamos na EEPROM cando haxa movementos que gardar
-  if (_program_file.move_count > 0)
-  {
-    // o primeiro dato é o número de movementos
-    EEPROM.write(0, _program_file.move_count);
-
-    // e de seguido os movementos almacenados
-    for (int m = 0; m < _program_file.move_count; m++)
+    // save only when there are movements to save
+    if (_program_file.move_count > 0)
     {
-      EEPROM.write(m + 1, _program_file.move_list[m]);
+        PERSISTENT_MEMORY->saveProgram(&_program_file);
     }
-  }
 }
-
 
 
 void MoveProgram::load()
 {
-  // o primeiro dato é o número de movementos
-  _program_file.move_count = EEPROM.read(0);
-
-  if (_program_file.move_count > MOVE_LIMIT)
-  {
-    // a memoria EEPROM está corrupta
-    _program_file.move_count = 0;
-    return;
-  }
-
-  // e de seguido os movementos
-  for (int m = 0; m < _program_file.move_count; m++)
-  {
-    _program_file.move_list[m] = (MOVE)EEPROM.read(m + 1);
-  }
+    if (!PERSISTENT_MEMORY->loadProgram(&_program_file)
+        || _program_file.move_count > MOVE_LIMIT)
+    {
+      // invalidate the program (clear)
+      _program_file.move_count = 0;
+    }
 }
+
+#endif
 
 
 // EOF

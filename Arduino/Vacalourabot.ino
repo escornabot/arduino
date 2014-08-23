@@ -69,8 +69,12 @@ void ir()
   // só imos se hai movementos programados
   if (PROGRAM->getMoveCount() > 0)
   {
+    #if USE_PERSISTENT_MEMORY
+
     // gardamos o programa de movementos na EEPROM
     PROGRAM->save();
+
+    #endif
 
     // pequena pausa para dar tempo a soltar o botón
     delay(1000);
@@ -123,8 +127,12 @@ void setup()
     estado_boton_ir = LOW;
     estado_boton_borrar = LOW;
 
+    #if USE_PERSISTENT_MEMORY
+
     // cargar os movementos logo dun apagado
     PROGRAM->load();
+
+    #endif
 }
 
 
