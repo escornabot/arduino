@@ -3,14 +3,15 @@
 #ifndef _CONFIGURATION_H
 #define _CONFIGURATION_H
 
-
+//////////////////////////////////////////////////////////////////////
 ///// general configuration
+//////////////////////////////////////////////////////////////////////
 
-// capacidade da memoria en movementos (máximo 255, Arduino 1 ten 2 Kb de memoria SRAM total!)
+// memory capacity for program movements
 #define MOVE_LIMIT 100
 
-// punto de vista fixado cando se inicia a vacalourabot
-#define POV_INICIAL	POV_VACALOURA
+// point of view set when Vacalourabot is started
+#define POV_INITIAL	POV_VACALOURA
 
 // used engine
 #define ENGINE_TYPE_L9110
@@ -18,8 +19,11 @@
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
 
-
+//////////////////////////////////////////////////////////////////////
 ///// engine L9110 setup
+//////////////////////////////////////////////////////////////////////
+
+#ifdef ENGINE_TYPE_L9110
 
 // configuración dos pins do driver dos motores
 #define PIN_MOTOR_ESQUERDA_A 10
@@ -45,7 +49,11 @@
 // grado de xiro (calibrar o tempo que tarda en milisegundos segundo o tipo de motores)
 #define ANGULO_90_MILISEGUNDOS 500 // milisegundos para 90 graos
 
+#endif // ENGINE_TYPE_L9110
 
+//////////////////////////////////////////////////////////////////////
+/////
+//////////////////////////////////////////////////////////////////////
 
 #endif // _CONFIGURATION_H
 

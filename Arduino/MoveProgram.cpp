@@ -6,7 +6,7 @@
 MoveProgram::MoveProgram()
 {
 	_program_file.move_count = 0;
-	_point_of_view = POV_INICIAL;
+	_point_of_view = POV_INITIAL;
 }
 
 
