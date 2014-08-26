@@ -4,7 +4,6 @@
 #define _ENGINE_L9110_H
 
 #include "Engine.h"
-#include "Configuration.h"
 
 
 /**
@@ -14,9 +13,19 @@ class EngineL9110 : Engine
 {
 public:
 
-//	EngineL9110();
+	typedef struct {
+		uint8_t motor_left_a;
+		uint8_t motor_left_b;
+		uint8_t motor_right_a;
+		uint8_t motor_right_b;
+		int16_t step_millis;
+		int16_t turn_millis;
+	} Config;
 
-	// Engine interface
+	/**
+	 * Constructor.
+	 */
+    EngineL9110(const Config* config);
 
 	/**
 	 * Does the hardware initialization.
@@ -37,9 +46,26 @@ public:
 	 */
 	void moveStraight(int8_t units);
 
+private:
+
+	enum MOTOR : uint8_t
+	{
+		MOTOR_RIGHT,
+		MOTOR_LEFT,
+	};
+
+	const Config* _config;
+
+	void motorOn(MOTOR motor, bool reverse);
+
+	void motorOff(MOTOR motor);
+
+	void turn(int32_t millis);
+
 };
 
 
 #endif // _ENGINE_L9110_H
 
 // EOF
+
