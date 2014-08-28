@@ -25,17 +25,17 @@
 
 #ifdef ENGINE_TYPE_L9110
 
-// configuración dos pins do driver dos motores
-#define PIN_MOTOR_ESQUERDA_A 10
-#define PIN_MOTOR_ESQUERDA_B 11
-#define PIN_MOTOR_DEREITA_A 12
-#define PIN_MOTOR_DEREITA_B 13
+// L9110 pin setup (digital outputs)
+#define L9110_MOTOR_LEFT_A 10
+#define L9110_MOTOR_LEFT_B 11
+#define L9110_MOTOR_RIGHT_A 12
+#define L9110_MOTOR_RIGHT_B 13
 
-// milisegundos que dura o paso
-#define PASO_MILISEGUNDOS 1000
+// step unit long in milliseconds
+#define L9110_STEP_MILLIS 1000
 
-// grado de xiro (calibrar o tempo que tarda en milisegundos segundo o tipo de motores)
-#define ANGULO_90_MILISEGUNDOS 500 // milisegundos para 90 graos
+// 90 degrees turn long in milliseconds
+#define L9110_TURN_MILLIS 500
 
 #endif // ENGINE_TYPE_L9110
 
