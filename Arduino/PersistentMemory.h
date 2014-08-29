@@ -68,7 +68,6 @@ public:
 };
 
 
-
-#endif
+#endif // _PERSISTENT_MEMORY_H
 
 // EOF

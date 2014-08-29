@@ -16,6 +16,9 @@
 // used engine
 #define ENGINE_TYPE_L9110
 
+// used button set
+#define BUTTONS_DIGITAL
+
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
 
@@ -40,16 +43,23 @@
 #endif // ENGINE_TYPE_L9110
 
 //////////////////////////////////////////////////////////////////////
-/////
+///// Button set digital
 //////////////////////////////////////////////////////////////////////
 
-// configuración dos pins dos botóns
-#define PIN_BOTON_ESQUERDA 3
-#define PIN_BOTON_DEREITA 5
-#define PIN_BOTON_ADIANTE 6
-#define PIN_BOTON_ATRAS 7
-#define PIN_BOTON_IR 8
-#define PIN_BOTON_BORRAR 9
+#ifdef BUTTONS_DIGITAL
+
+// Button set pin setup (digital inputs)
+#define BS_DIGITAL_UP 6
+#define BS_DIGITAL_RIGHT 5
+#define BS_DIGITAL_DOWN 7
+#define BS_DIGITAL_LEFT 4
+#define BS_DIGITAL_GO 8
+#define BS_DIGITAL_RESET 9
+
+#endif // BUTTONS_DIGITAL
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 
 #endif // _CONFIGURATION_H
 

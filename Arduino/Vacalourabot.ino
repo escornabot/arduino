@@ -2,16 +2,6 @@
 
 #include "Vacalourabot.h"
 
-// variables globais
-
-// memoria para os estados dos botóns
-byte estado_boton_esquerda;
-byte estado_boton_dereita;
-byte estado_boton_adiante;
-byte estado_boton_atras;
-byte estado_boton_ir;
-byte estado_boton_borrar;
-
 
 /*
 void irPdvNeno()
@@ -111,21 +101,8 @@ void setup()
     // init hardware
     ENGINE->init();
 
-    // configurar botóns
-    pinMode(PIN_BOTON_ESQUERDA, INPUT);
-    pinMode(PIN_BOTON_DEREITA, INPUT);
-    pinMode(PIN_BOTON_ADIANTE, INPUT);
-    pinMode(PIN_BOTON_ATRAS, INPUT);
-    pinMode(PIN_BOTON_IR, INPUT);
-    pinMode(PIN_BOTON_BORRAR, INPUT);
-
-    // inicializar os estados dos botóns
-    estado_boton_esquerda = LOW;
-    estado_boton_dereita = LOW;
-    estado_boton_adiante = LOW;
-    estado_boton_atras = LOW;
-    estado_boton_ir = LOW;
-    estado_boton_borrar = LOW;
+    // init button set
+    BUTTONS->init();
 
     #if USE_PERSISTENT_MEMORY
 
@@ -139,63 +116,31 @@ void setup()
 
 void loop(){
 
-  // leer os botóns
-  if (digitalRead(PIN_BOTON_ESQUERDA) ^ estado_boton_esquerda)
-  {
-    estado_boton_esquerda = !estado_boton_esquerda;
-    if (estado_boton_esquerda == HIGH)
-    {
-      memorizar(MOVE_LEFT);
-    }
-  }
+  switch (BUTTONS->scanButtons()) {
 
-  if (digitalRead(PIN_BOTON_DEREITA) ^ estado_boton_dereita)
-  {
-    estado_boton_dereita = !estado_boton_dereita;
-    if (estado_boton_dereita == HIGH)
-    {
-      memorizar(MOVE_RIGHT);
-    }
-  }
-
-  if (digitalRead(PIN_BOTON_ADIANTE) ^ estado_boton_adiante)
-  {
-    estado_boton_adiante = !estado_boton_adiante;
-    if (estado_boton_adiante == HIGH)
-    {
+    case ButtonSet::BUTTON_UP:
       memorizar(MOVE_FORWARD);
-    }
-  }
+      break;
 
-  if (digitalRead(PIN_BOTON_ATRAS) ^ estado_boton_atras)
-  {
-    estado_boton_atras = !estado_boton_atras;
-    if (estado_boton_atras == HIGH)
-    {
+    case ButtonSet::BUTTON_RIGHT:
+      memorizar(MOVE_RIGHT);
+      break;
+
+    case ButtonSet::BUTTON_DOWN:
       memorizar(MOVE_BACKWARD);
-    }
-  }
+      break;
 
-  if (digitalRead(PIN_BOTON_BORRAR) ^ estado_boton_borrar)
-  {
-    estado_boton_borrar = !estado_boton_borrar;
-    if (estado_boton_borrar == HIGH)
-    {
-      PROGRAM->clear();
-    }
-  }
+    case ButtonSet::BUTTON_LEFT:
+      memorizar(MOVE_LEFT);
+      break;
 
-  if (digitalRead(PIN_BOTON_IR) ^ estado_boton_ir)
-  {
-    estado_boton_ir = !estado_boton_ir;
-    if (estado_boton_ir == HIGH)
-    {
-      // tempiño para que solten o botón antes de arrancar
-      delay(500);
-
-      // executa os movementos
+    case ButtonSet::BUTTON_GO:
       ir();
-    }
+      break;
+
+    case ButtonSet::BUTTON_RESET:
+      PROGRAM->clear();
+      break;
   }
 
 }
