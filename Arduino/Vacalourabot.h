@@ -34,7 +34,8 @@
 
 
 // Digital button set
-#ifdef BUTTONS_DIGITAL
+#if defined(BUTTONS_DIGITAL)
+
     #include "ButtonSetDigital.h"
     static const ButtonSetDigital::Config BS_CONFIG = {
         pin_button_up: BS_DIGITAL_UP,
@@ -45,10 +46,23 @@
         pin_button_reset: BS_DIGITAL_RESET,
     };
     static ButtonSetDigital BUTTONS_INSTANCE (&BS_CONFIG);
-#else
-    // include new header file
-    // declare BUTTONS_INSTANCE
+
+#elif defined(BUTTONS_ANALOG)
+
+    #include "ButtonSetAnalog.h"
+    static const ButtonSetAnalog::Config BS_CONFIG = {
+        pin_button_set: BS_ANALOG_PIN,
+        value_button_up: BS_ANALOG_VALUE_UP,
+        value_button_right: BS_ANALOG_VALUE_RIGHT,
+        value_button_down: BS_ANALOG_VALUE_DOWN,
+        value_button_left: BS_ANALOG_VALUE_LEFT,
+        value_button_go: BS_ANALOG_VALUE_GO,
+        value_button_reset: BS_ANALOG_VALUE_RESET,
+    };
+    static ButtonSetAnalog BUTTONS_INSTANCE (&BS_CONFIG);
+
 #endif
+
 
 ///// global vars
 

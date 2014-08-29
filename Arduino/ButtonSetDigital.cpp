@@ -61,6 +61,8 @@ ButtonSet::BUTTON ButtonSetDigital::scanButtons()
 		_btn_state[5] = !_btn_state[5];
 		if (_btn_state[5]) return BUTTON_RESET;
 	}
+
+	return BUTTON_NONE;
 }
 
 // EOF

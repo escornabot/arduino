@@ -17,7 +17,8 @@
 #define ENGINE_TYPE_L9110
 
 // used button set
-#define BUTTONS_DIGITAL
+//#define BUTTONS_DIGITAL
+#define BUTTONS_ANALOG
 
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
@@ -57,6 +58,22 @@
 #define BS_DIGITAL_RESET 9
 
 #endif // BUTTONS_DIGITAL
+
+//////////////////////////////////////////////////////////////////////
+///// Button set analog
+//////////////////////////////////////////////////////////////////////
+
+#ifdef BUTTONS_ANALOG
+
+#define BS_ANALOG_PIN A0
+#define BS_ANALOG_VALUE_UP 471
+#define BS_ANALOG_VALUE_RIGHT 299
+#define BS_ANALOG_VALUE_DOWN 211
+#define BS_ANALOG_VALUE_LEFT 118
+#define BS_ANALOG_VALUE_GO 158
+#define BS_ANALOG_VALUE_RESET 76
+
+#endif // BUTTONS_ANALOG
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
