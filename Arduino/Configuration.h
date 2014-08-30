@@ -17,8 +17,8 @@
 #define ENGINE_TYPE_L9110
 
 // used button set
-//#define BUTTONS_DIGITAL
-#define BUTTONS_ANALOG
+#define BUTTONS_DIGITAL
+// #define BUTTONS_ANALOG
 
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
@@ -36,10 +36,10 @@
 #define L9110_MOTOR_RIGHT_B 13
 
 // step unit long in milliseconds
-#define L9110_STEP_MILLIS 1000
+#define L9110_STEP_MILLIS 500
 
 // 90 degrees turn long in milliseconds
-#define L9110_TURN_MILLIS 500
+#define L9110_TURN_MILLIS 350
 
 #endif // ENGINE_TYPE_L9110
 

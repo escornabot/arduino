@@ -99,7 +99,7 @@ void EngineL9110::moveStraight(int8_t units)
         motorOn(MOTOR_RIGHT, reverse);
         motorOn(MOTOR_LEFT, reverse);
 
-        delay(units * _config->step_millis);
+        delay(abs(units) * _config->step_millis);
 
         // turn off both motors
         motorOff(MOTOR_RIGHT);
