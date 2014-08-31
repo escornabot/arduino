@@ -39,19 +39,21 @@ void EngineHBridge::motorOn(MOTOR motor, bool reverse)
 }
 
 
-void EngineHBridge::motorOff(MOTOR motor)
+void EngineHBridge::motorOff(MOTOR motor, bool brake)
 {
+    uint8_t value = (brake ? HIGH : LOW);
+
     if (motor == MOTOR_RIGHT)
     {
         // motor dereita
-        digitalWrite(_config->motor_right_a, LOW);
-        digitalWrite(_config->motor_right_b, LOW);
+        digitalWrite(_config->motor_right_a, value);
+        digitalWrite(_config->motor_right_b, value);
     }
     else
     {
         // motor esquerda
-        digitalWrite(_config->motor_left_a, LOW);
-        digitalWrite(_config->motor_left_b, LOW);
+        digitalWrite(_config->motor_left_a, value);
+        digitalWrite(_config->motor_left_b, value);
     }
 }
 
@@ -75,8 +77,8 @@ void EngineHBridge::turn(int32_t millis)
     delay(abs(millis));
 
     // motors off
-    motorOff(MOTOR_LEFT);
-    motorOff(MOTOR_RIGHT);
+    motorOff(MOTOR_LEFT, true);
+    motorOff(MOTOR_RIGHT, true);
 }
 
 
@@ -102,8 +104,8 @@ void EngineHBridge::moveStraight(int8_t units)
         delay(abs(units) * _config->step_millis);
 
         // turn off both motors
-        motorOff(MOTOR_RIGHT);
-        motorOff(MOTOR_LEFT);
+        motorOff(MOTOR_RIGHT, true);
+        motorOff(MOTOR_LEFT, true);
     }
 }
 

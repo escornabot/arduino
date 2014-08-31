@@ -58,7 +58,7 @@ private:
 
 	void motorOn(MOTOR motor, bool reverse);
 
-	void motorOff(MOTOR motor);
+	void motorOff(MOTOR motor, bool brake);
 
 	void turn(int32_t millis);
 
