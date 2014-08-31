@@ -10,17 +10,17 @@
 
 
 // motor engine defined from configuration
-#ifdef ENGINE_TYPE_L9110
-    #include "EngineL9110.h"
-    static const EngineL9110::Config ENGINE_CONFIG = {
-        motor_left_a: L9110_MOTOR_LEFT_A,
-        motor_left_b: L9110_MOTOR_LEFT_B,
-        motor_right_a: L9110_MOTOR_RIGHT_A,
-        motor_right_b: L9110_MOTOR_RIGHT_B,
-        step_millis: L9110_STEP_MILLIS,
-        turn_millis: L9110_TURN_MILLIS,
+#ifdef ENGINE_TYPE_HBRIDGE
+    #include "EngineHBridge.h"
+    static const EngineHBridge::Config ENGINE_CONFIG = {
+        motor_left_a: HBRIDGE_MOTOR_LEFT_A,
+        motor_left_b: HBRIDGE_MOTOR_LEFT_B,
+        motor_right_a: HBRIDGE_MOTOR_RIGHT_A,
+        motor_right_b: HBRIDGE_MOTOR_RIGHT_B,
+        step_millis: HBRIDGE_STEP_MILLIS,
+        turn_millis: HBRIDGE_TURN_MILLIS,
     };
-    static EngineL9110 ENGINE_INSTANCE (&ENGINE_CONFIG);
+    static EngineHBridge ENGINE_INSTANCE (&ENGINE_CONFIG);
 #else
     // include new header file
     // declare ENGINE_INSTANCE

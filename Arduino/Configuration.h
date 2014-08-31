@@ -14,7 +14,7 @@
 #define POV_INITIAL	POV_VACALOURA
 
 // used engine
-#define ENGINE_TYPE_L9110
+#define ENGINE_TYPE_HBRIDGE
 
 // used button set
 #define BUTTONS_DIGITAL
@@ -24,24 +24,24 @@
 #define USE_PERSISTENT_MEMORY true
 
 //////////////////////////////////////////////////////////////////////
-///// L9110 engine setup
+///// HBRIDGE engine setup
 //////////////////////////////////////////////////////////////////////
 
-#ifdef ENGINE_TYPE_L9110
+#ifdef ENGINE_TYPE_HBRIDGE
 
-// L9110 pin setup (digital outputs)
-#define L9110_MOTOR_LEFT_A 10
-#define L9110_MOTOR_LEFT_B 11
-#define L9110_MOTOR_RIGHT_A 12
-#define L9110_MOTOR_RIGHT_B 13
+// HBRIDGE pin setup (digital outputs)
+#define HBRIDGE_MOTOR_LEFT_A 10
+#define HBRIDGE_MOTOR_LEFT_B 11
+#define HBRIDGE_MOTOR_RIGHT_A 12
+#define HBRIDGE_MOTOR_RIGHT_B 13
 
 // step unit long in milliseconds
-#define L9110_STEP_MILLIS 500
+#define HBRIDGE_STEP_MILLIS 500
 
 // 90 degrees turn long in milliseconds
-#define L9110_TURN_MILLIS 350
+#define HBRIDGE_TURN_MILLIS 350
 
-#endif // ENGINE_TYPE_L9110
+#endif // ENGINE_TYPE_HBRIDGE
 
 //////////////////////////////////////////////////////////////////////
 ///// Button set digital

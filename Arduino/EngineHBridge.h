@@ -1,7 +1,7 @@
-// EngineL9110.h
+// EngineHBridge.h
 
-#ifndef _ENGINE_L9110_H
-#define _ENGINE_L9110_H
+#ifndef _ENGINE_HBRIDGE_H
+#define _ENGINE_HBRIDGE_H
 
 #include "Engine.h"
 
@@ -9,7 +9,7 @@
 /**
  * Engine using 2 motors controlled by an H-Bridge L9110 module.
  */
-class EngineL9110 : Engine
+class EngineHBridge : Engine
 {
 public:
 
@@ -25,7 +25,7 @@ public:
 	/**
 	 * Constructor.
 	 */
-    EngineL9110(const Config* config);
+    EngineHBridge(const Config* config);
 
 	/**
 	 * Does the hardware initialization.
@@ -65,7 +65,7 @@ private:
 };
 
 
-#endif // _ENGINE_L9110_H
+#endif // _ENGINE_HBRIDGE_H
 
 // EOF
 

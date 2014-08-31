@@ -1,16 +1,16 @@
-// EngineL9110.cpp
+// EngineHBridge.cpp
 
-#include "EngineL9110.h"
+#include "EngineHBridge.h"
 #include <Arduino.h>
 
 
-EngineL9110::EngineL9110(const Config* config)
+EngineHBridge::EngineHBridge(const Config* config)
 {
     this->_config = config;
 }
 
 
-void EngineL9110::init()
+void EngineHBridge::init()
 {
     pinMode(_config->motor_left_a, OUTPUT);
     pinMode(_config->motor_left_b, OUTPUT);
@@ -19,7 +19,7 @@ void EngineL9110::init()
 }
 
 
-void EngineL9110::motorOn(MOTOR motor, bool reverse)
+void EngineHBridge::motorOn(MOTOR motor, bool reverse)
 {
     uint8_t a_value = (reverse ? LOW : HIGH);
     uint8_t b_value = (reverse ? HIGH : LOW);
@@ -39,7 +39,7 @@ void EngineL9110::motorOn(MOTOR motor, bool reverse)
 }
 
 
-void EngineL9110::motorOff(MOTOR motor)
+void EngineHBridge::motorOff(MOTOR motor)
 {
     if (motor == MOTOR_RIGHT)
     {
@@ -56,7 +56,7 @@ void EngineL9110::motorOff(MOTOR motor)
 }
 
 
-void EngineL9110::turn(int32_t millis)
+void EngineHBridge::turn(int32_t millis)
 {
     // motors on
     if (millis > 0)
@@ -80,7 +80,7 @@ void EngineL9110::turn(int32_t millis)
 }
 
 
-void EngineL9110::turn90Degrees(int8_t times)
+void EngineHBridge::turn90Degrees(int8_t times)
 {
     if (times != 0)
     {
@@ -89,7 +89,7 @@ void EngineL9110::turn90Degrees(int8_t times)
 }
 
 
-void EngineL9110::moveStraight(int8_t units)
+void EngineHBridge::moveStraight(int8_t units)
 {
     if (units != 0)
     {
