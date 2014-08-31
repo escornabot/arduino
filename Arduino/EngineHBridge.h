@@ -16,11 +16,22 @@ public:
 	typedef struct {
 		uint8_t motor_left_a;
 		uint8_t motor_left_b;
+		uint8_t motor_left_en;
 		uint8_t motor_right_a;
 		uint8_t motor_right_b;
+		uint8_t motor_right_en;
 		int16_t step_millis;
 		int16_t turn_millis;
 	} Config;
+
+	/**
+	 * Each of the motors.
+	 */
+	enum MOTOR : uint8_t
+	{
+		MOTOR_RIGHT,
+		MOTOR_LEFT,
+	};
 
 	/**
 	 * Constructor.
@@ -46,13 +57,14 @@ public:
 	 */
 	void moveStraight(int8_t units);
 
-private:
+	/**
+	 * Sets the speed value of a motor.
+	 * @param motor The right or left motor.
+	 * @param speed The speed value from 0 to 255 (0%-100%).
+	 */
+	void setSpeed(MOTOR motor, uint8_t speed);
 
-	enum MOTOR : uint8_t
-	{
-		MOTOR_RIGHT,
-		MOTOR_LEFT,
-	};
+private:
 
 	const Config* _config;
 

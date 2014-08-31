@@ -30,10 +30,12 @@
 #ifdef ENGINE_TYPE_HBRIDGE
 
 // HBRIDGE pin setup (digital outputs)
-#define HBRIDGE_MOTOR_LEFT_A 10
-#define HBRIDGE_MOTOR_LEFT_B 11
-#define HBRIDGE_MOTOR_RIGHT_A 12
-#define HBRIDGE_MOTOR_RIGHT_B 13
+#define HBRIDGE_MOTOR_LEFT_A 7
+#define HBRIDGE_MOTOR_LEFT_B 8
+#define HBRIDGE_MOTOR_LEFT_EN 9
+#define HBRIDGE_MOTOR_RIGHT_A 10
+#define HBRIDGE_MOTOR_RIGHT_B 11
+#define HBRIDGE_MOTOR_RIGHT_EN 12
 
 // step unit long in milliseconds
 #define HBRIDGE_STEP_MILLIS 500

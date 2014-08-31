@@ -14,8 +14,14 @@ void EngineHBridge::init()
 {
     pinMode(_config->motor_left_a, OUTPUT);
     pinMode(_config->motor_left_b, OUTPUT);
+    pinMode(_config->motor_left_en, OUTPUT);
     pinMode(_config->motor_right_a, OUTPUT);
     pinMode(_config->motor_right_b, OUTPUT);
+    pinMode(_config->motor_right_en, OUTPUT);
+
+    // full speed
+    analogWrite(_config->motor_left_en, 255);
+    analogWrite(_config->motor_right_en, 255);
 }
 
 
@@ -45,13 +51,13 @@ void EngineHBridge::motorOff(MOTOR motor, bool brake)
 
     if (motor == MOTOR_RIGHT)
     {
-        // motor dereita
+        // right motor
         digitalWrite(_config->motor_right_a, value);
         digitalWrite(_config->motor_right_b, value);
     }
     else
     {
-        // motor esquerda
+        // left motor
         digitalWrite(_config->motor_left_a, value);
         digitalWrite(_config->motor_left_b, value);
     }
@@ -106,6 +112,21 @@ void EngineHBridge::moveStraight(int8_t units)
         // turn off both motors
         motorOff(MOTOR_RIGHT, true);
         motorOff(MOTOR_LEFT, true);
+    }
+}
+
+
+void EngineHBridge::setSpeed(MOTOR motor, uint8_t speed)
+{
+    if (motor == MOTOR_RIGHT)
+    {
+        // right motor
+        analogWrite(_config->motor_right_en, speed);
+    }
+    else
+    {
+        // left motor
+        analogWrite(_config->motor_left_en, speed);
     }
 }
 
