@@ -4,6 +4,7 @@
 #define _ENGINE_H
 
 #include <stdint.h>
+#include "MoveProgram.h"
 
 /**
  * Interface to different Vacaloura engines.
@@ -30,6 +31,12 @@ public:
 	 *     is backwards.
 	 */
 	virtual void moveStraight(int8_t units) = 0;
+
+	/**
+	 * Executes the movement program.
+	 * @param program The program with the movements.
+	 */
+	void executeProgram(MoveProgram* program);
 };
 
 

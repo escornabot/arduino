@@ -18,26 +18,7 @@ void go()
         // let user to release the 'go' button before the action
         delay(500);
 
-        // move by move
-        for (int m = 0; m < PROGRAM->getMoveCount(); m++)
-        {
-            // which move
-            switch (PROGRAM->getMove(m))
-            {
-                case MOVE_RIGHT:
-                    ENGINE->turn90Degrees(1);
-                    break;
-                case MOVE_LEFT:
-                    ENGINE->turn90Degrees(-1);
-                    break;
-                case MOVE_FORWARD:
-                    ENGINE->moveStraight(1);
-                    break;
-                case MOVE_BACKWARD:
-                    ENGINE->moveStraight(-1);
-                    break;
-            }
-        }
+        ENGINE->executeProgram(PROGRAM);
     }
 }
 
