@@ -17,66 +17,72 @@ ButtonSetAnalog::ButtonSetAnalog(const Config* config)
 void ButtonSetAnalog::init()
 {
     pinMode(_config->pin_button_set, INPUT);
-    _last_button = BUTTON_NONE;
+    _last_value = 0;
+}
+
+
+inline int16_t _abs(int16_t v)
+{
+    return (v < 0 ? -v : v);
 }
 
 
 ButtonSet::BUTTON ButtonSetAnalog::scanButtons()
 {
-    int value = analogRead(_config->pin_button_set);
-    int diff, minor_diff;
+    int16_t value = analogRead(_config->pin_button_set);
 
-    BUTTON button = BUTTON_NONE;
-    minor_diff = OPEN_VALUE - value;
-
-    diff = abs(value - _config->value_button_up);
-    if (diff < minor_diff)
+    if (value < 10 && _last_value > 0)
     {
-        minor_diff = diff;
-        button = BUTTON_UP;
-    }
+        // release
+        BUTTON button = BUTTON_UP;
+        int16_t minor_diff = _abs(_last_value - _config->value_button_up);
 
-    diff = abs(value - _config->value_button_right);
-    if (diff < minor_diff)
-    {
-        minor_diff = diff;
-        button = BUTTON_RIGHT;
-    }
+        int16_t diff = _abs(_last_value - _config->value_button_right);
+        Serial.print(diff); Serial.print(" ");
+        if (diff < minor_diff)
+        {
+            minor_diff = diff;
+            button = BUTTON_RIGHT;
+        }
 
-    diff = abs(value - _config->value_button_down);
-    if (diff < minor_diff)
-    {
-        minor_diff = diff;
-        button = BUTTON_DOWN;
-    }
+        diff = _abs(_last_value - _config->value_button_down);
+        Serial.print(diff); Serial.print(" ");
+        if (diff < minor_diff)
+        {
+            minor_diff = diff;
+            button = BUTTON_DOWN;
+        }
 
-    diff = abs(value - _config->value_button_left);
-    if (diff < minor_diff)
-    {
-        minor_diff = diff;
-        button = BUTTON_LEFT;
-    }
+        diff = _abs(_last_value - _config->value_button_left);
+        Serial.print(diff); Serial.print(" ");
+        if (diff < minor_diff)
+        {
+            minor_diff = diff;
+            button = BUTTON_LEFT;
+        }
 
-    diff = abs(value - _config->value_button_go);
-    if (diff < minor_diff)
-    {
-        minor_diff = diff;
-        button = BUTTON_GO;
-    }
+        diff = _abs(_last_value - _config->value_button_go);
+        Serial.print(diff); Serial.print(" ");
+        if (diff < minor_diff)
+        {
+            minor_diff = diff;
+            button = BUTTON_GO;
+        }
 
-    diff = abs(value - _config->value_button_reset);
-    if (diff < minor_diff)
-    {
-        minor_diff = diff;
-        button = BUTTON_RESET;
-    }
+        diff = _abs(_last_value - _config->value_button_reset);
+        Serial.print(diff); Serial.print(" ");
+        if (diff < minor_diff)
+        {
+            minor_diff = diff;
+            button = BUTTON_RESET;
+        }
 
-    // return button only when it changes
-    if (button != _last_button)
-    {
-        _last_button = button;
+        Serial.println(button);
+
+        _last_value = 0;
         return button;
     }
 
+    _last_value = value;
     return BUTTON_NONE;
 }

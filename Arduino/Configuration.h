@@ -17,8 +17,8 @@
 #define ENGINE_TYPE_HBRIDGE
 
 // used button set
-#define BUTTONS_DIGITAL
-// #define BUTTONS_ANALOG
+//#define BUTTONS_DIGITAL
+#define BUTTONS_ANALOG
 
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
@@ -67,13 +67,13 @@
 
 #ifdef BUTTONS_ANALOG
 
-#define BS_ANALOG_PIN A0
+#define BS_ANALOG_PIN A3
 #define BS_ANALOG_VALUE_UP 471
 #define BS_ANALOG_VALUE_RIGHT 299
 #define BS_ANALOG_VALUE_DOWN 211
 #define BS_ANALOG_VALUE_LEFT 118
 #define BS_ANALOG_VALUE_GO 158
-#define BS_ANALOG_VALUE_RESET 76
+#define BS_ANALOG_VALUE_RESET 77
 
 #endif // BUTTONS_ANALOG
 

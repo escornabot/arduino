@@ -39,7 +39,7 @@ private:
 
 	const Config* _config;
 
-	BUTTON _last_button;
+	int16_t _last_value;
 
 };
 

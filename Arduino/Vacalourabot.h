@@ -29,12 +29,6 @@
 #endif
 
 
-// EEPROM as persistent memory
-#if USE_PERSISTENT_MEMORY
-    #include "PersistentMemory.h"
-#endif
-
-
 // Digital button set
 #if defined(BUTTONS_DIGITAL)
 
@@ -63,6 +57,12 @@
     };
     static ButtonSetAnalog BUTTONS_INSTANCE (&BS_CONFIG);
 
+#endif // Button set
+
+
+// EEPROM as persistent memory
+#if USE_PERSISTENT_MEMORY
+    #include "PersistentMemory.h"
 #endif
 
 
