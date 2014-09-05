@@ -44,6 +44,11 @@ private:
      */
     bool load(size_t address, uint8_t* buffer, size_t length);
 
+    /**
+     * Fills the memory with zeroes.
+     */
+    void clear();
+
 public:
 
     /**

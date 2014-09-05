@@ -35,4 +35,13 @@ bool PersistentMemory::load(size_t address, uint8_t* buffer, size_t length)
 }
 
 
+void PersistentMemory::clear()
+{
+	for (int a = 0; a < E2END; a++)
+	{
+		eeprom_write_byte((uint8_t*)a, 0);
+	}
+}
+
+
 // EOF
