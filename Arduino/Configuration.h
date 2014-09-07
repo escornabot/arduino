@@ -29,13 +29,15 @@
 
 #ifdef ENGINE_TYPE_HBRIDGE
 
-// HBRIDGE pin setup (digital outputs)
-#define HBRIDGE_MOTOR_LEFT_A 7
-#define HBRIDGE_MOTOR_LEFT_B 8
-#define HBRIDGE_MOTOR_LEFT_EN 9
-#define HBRIDGE_MOTOR_RIGHT_A 10
-#define HBRIDGE_MOTOR_RIGHT_B 11
-#define HBRIDGE_MOTOR_RIGHT_EN 12
+// HBRIDGE pin setup (outputs)
+#define HBRIDGE_MOTOR_LEFT_A 6
+#define HBRIDGE_MOTOR_LEFT_B 7
+#define HBRIDGE_MOTOR_RIGHT_A 8
+#define HBRIDGE_MOTOR_RIGHT_B 9
+
+// HBRIDGE pin setup (outputs PWM, usually 3, 5, 6, 9, 10, and 11)
+#define HBRIDGE_MOTOR_LEFT_EN 10
+#define HBRIDGE_MOTOR_RIGHT_EN 11
 
 // step unit long in milliseconds
 #define HBRIDGE_STEP_MILLIS 500
@@ -52,12 +54,12 @@
 #ifdef BUTTONS_DIGITAL
 
 // Button set pin setup (digital inputs)
-#define BS_DIGITAL_UP 6
-#define BS_DIGITAL_RIGHT 5
-#define BS_DIGITAL_DOWN 7
-#define BS_DIGITAL_LEFT 4
-#define BS_DIGITAL_GO 8
-#define BS_DIGITAL_RESET 9
+#define BS_DIGITAL_UP 2
+#define BS_DIGITAL_RIGHT 3
+#define BS_DIGITAL_DOWN 4
+#define BS_DIGITAL_LEFT 5
+#define BS_DIGITAL_GO 12
+#define BS_DIGITAL_RESET 13
 
 #endif // BUTTONS_DIGITAL
 
