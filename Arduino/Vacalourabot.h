@@ -3,6 +3,7 @@
 #ifndef _VACALOURABOT_H
 #define _VACALOURABOT_H
 
+#include <Arduino.h>
 #include "Configuration.h"
 #include "MoveProgram.h"
 #include "Engine.h"

@@ -8,7 +8,7 @@
 #include "Configuration.h"
 
 // movement commands
-enum MOVE : uint8_t
+enum
 {
 	MOVE_NONE,
 	MOVE_FORWARD,
@@ -16,16 +16,17 @@ enum MOVE : uint8_t
 	MOVE_BACKWARD,
 	MOVE_LEFT,
 };
+typedef uint8_t MOVE;
 
 
 
 // point of view in order to execute the movements
-enum POV : uint8_t
+enum
 {
 	POV_VACALOURA,
 	POV_CHILD,
 };
-
+typedef uint8_t POV;
 
 
 typedef struct {

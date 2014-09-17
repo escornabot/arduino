@@ -27,11 +27,12 @@ public:
 	/**
 	 * Each of the motors.
 	 */
-	enum MOTOR : uint8_t
+	enum
 	{
 		MOTOR_RIGHT,
 		MOTOR_LEFT,
 	};
+        typedef uint8_t MOTOR;
 
 	/**
 	 * Constructor.

@@ -12,7 +12,7 @@ class ButtonSet
 {
 public:
 
-	enum BUTTON : uint8_t
+	enum
 	{
 		BUTTON_NONE,
 		BUTTON_UP,
@@ -22,6 +22,7 @@ public:
 		BUTTON_GO,
 		BUTTON_RESET,
 	};
+        typedef uint8_t BUTTON;
 
 	/**
 	 * Does the hardware initialization.
