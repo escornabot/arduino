@@ -14,12 +14,12 @@ public:
 
 	typedef struct {
 		uint8_t pin_button_set;
-		uint16_t value_button_up;
-		uint16_t value_button_right;
-		uint16_t value_button_down;
-		uint16_t value_button_left;
-		uint16_t value_button_go;
-		uint16_t value_button_reset;
+		int16_t value_button_up;
+		int16_t value_button_right;
+		int16_t value_button_down;
+		int16_t value_button_left;
+		int16_t value_button_go;
+		int16_t value_button_reset;
 	} Config;
 
 	ButtonSetAnalog(const Config* config);
@@ -39,7 +39,7 @@ private:
 
 	const Config* _config;
 
-	int16_t _last_value;
+	BUTTON _last_button;
 
 };
 

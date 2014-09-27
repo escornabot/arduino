@@ -14,7 +14,8 @@
 #define POV_INITIAL	POV_VACALOURA
 
 // used engine
-#define ENGINE_TYPE_HBRIDGE
+//#define ENGINE_TYPE_HBRIDGE
+#define ENGINE_TYPE_STEPPERS
 
 // used button set
 //#define BUTTONS_DIGITAL
@@ -48,6 +49,29 @@
 #endif // ENGINE_TYPE_HBRIDGE
 
 //////////////////////////////////////////////////////////////////////
+///// Steppers engine setup
+//////////////////////////////////////////////////////////////////////
+
+#ifdef ENGINE_TYPE_STEPPERS
+
+// stepper pin setup (digital outputs)
+#define STEPPERS_MOTOR_LEFT_IN1	2
+#define STEPPERS_MOTOR_LEFT_IN2	3
+#define STEPPERS_MOTOR_LEFT_IN3	4
+#define STEPPERS_MOTOR_LEFT_IN4	5
+#define STEPPERS_MOTOR_RIGHT_IN1 6
+#define STEPPERS_MOTOR_RIGHT_IN2 7
+#define STEPPERS_MOTOR_RIGHT_IN3 8
+#define STEPPERS_MOTOR_RIGHT_IN4 9
+
+// step calibration
+#define STEPPERS_STEPS_PER_SECOND 1000
+#define STEPPERS_LINE_STEPS 2000
+#define STEPPERS_TURN_STEPS 1344
+
+#endif
+
+//////////////////////////////////////////////////////////////////////
 ///// Button set digital
 //////////////////////////////////////////////////////////////////////
 
@@ -69,13 +93,13 @@
 
 #ifdef BUTTONS_ANALOG
 
-#define BS_ANALOG_PIN A3
+#define BS_ANALOG_PIN A0
 #define BS_ANALOG_VALUE_UP 471
 #define BS_ANALOG_VALUE_RIGHT 299
 #define BS_ANALOG_VALUE_DOWN 211
 #define BS_ANALOG_VALUE_LEFT 118
 #define BS_ANALOG_VALUE_GO 158
-#define BS_ANALOG_VALUE_RESET 77
+#define BS_ANALOG_VALUE_RESET 82
 
 #endif // BUTTONS_ANALOG
 

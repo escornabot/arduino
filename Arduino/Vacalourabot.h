@@ -12,6 +12,7 @@
 
 // motor engine defined from configuration
 #ifdef ENGINE_TYPE_HBRIDGE
+
     #include "EngineHBridge.h"
     static const EngineHBridge::Config ENGINE_CONFIG = {
         motor_left_a: HBRIDGE_MOTOR_LEFT_A,
@@ -24,9 +25,25 @@
         turn_millis: HBRIDGE_TURN_MILLIS,
     };
     static EngineHBridge ENGINE_INSTANCE (&ENGINE_CONFIG);
-#else
-    // include new header file
-    // declare ENGINE_INSTANCE
+
+#else ifdef ENGINE_TYPE_STEPPERS
+
+    #include "EngineSteppers.h"
+    static const EngineSteppers::Config ENGINE_CONFIG = {
+        motor_left_in1: STEPPERS_MOTOR_LEFT_IN1,
+        motor_left_in2: STEPPERS_MOTOR_LEFT_IN2,
+        motor_left_in3: STEPPERS_MOTOR_LEFT_IN3,
+        motor_left_in4: STEPPERS_MOTOR_LEFT_IN4,
+        motor_right_in1: STEPPERS_MOTOR_RIGHT_IN1,
+        motor_right_in2: STEPPERS_MOTOR_RIGHT_IN2,
+        motor_right_in3: STEPPERS_MOTOR_RIGHT_IN3,
+        motor_right_in4: STEPPERS_MOTOR_RIGHT_IN4,
+        steps_per_second: STEPPERS_STEPS_PER_SECOND,
+        line_steps: STEPPERS_LINE_STEPS,
+        turn_steps: STEPPERS_TURN_STEPS,
+    };
+    static EngineSteppers ENGINE_INSTANCE (&ENGINE_CONFIG);
+
 #endif
 
 
