@@ -7,22 +7,22 @@
 ///// general configuration
 //////////////////////////////////////////////////////////////////////
 
-// memory capacity for program movements
-#define MOVE_LIMIT 100
-
-// point of view set when Vacalourabot is started
-#define POV_INITIAL	POV_VACALOURA
-
-// used engine
-//#define ENGINE_TYPE_HBRIDGE
+// engine to use
 #define ENGINE_TYPE_STEPPERS
+//#define ENGINE_TYPE_HBRIDGE
 
-// used button set
+// button set to use
 //#define BUTTONS_DIGITAL
 #define BUTTONS_ANALOG
 
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
+
+// memory capacity for program movements
+#define MOVE_LIMIT 100
+
+// point of view set when Vacalourabot is started
+#define POV_INITIAL	POV_VACALOURA
 
 //////////////////////////////////////////////////////////////////////
 ///// HBRIDGE engine setup
