@@ -4,7 +4,6 @@
 #define _ENGINE_STEPPERS_H
 
 #include "Engine.h"
-#include "AccelStepper.h"
 
 class EngineSteppers : Engine
 {
@@ -37,13 +36,10 @@ private:
 
 	const Config* _config;
 
-	AccelStepper _motor_left;
-	AccelStepper _motor_right;
-
-//	void _move(int16_t steps);
-//	void _turn(int16_t steps);
 	void _motorsOn(int16_t steps_left, int16_t steps_right);
 
+	int8_t _pattern_index_left;
+	int8_t _pattern_index_right;
 };
 
 

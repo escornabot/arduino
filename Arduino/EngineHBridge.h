@@ -32,7 +32,7 @@ public:
 		MOTOR_RIGHT,
 		MOTOR_LEFT,
 	};
-        typedef uint8_t MOTOR;
+    typedef uint8_t MOTOR;
 
 	/**
 	 * Constructor.
