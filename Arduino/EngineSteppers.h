@@ -37,6 +37,8 @@ private:
 	const Config* _config;
 
 	void _motorsOn(int16_t steps_left, int16_t steps_right);
+    void _motorStepRight(uint8_t pattern);
+    void _motorStepLeft(uint8_t pattern);
 
 	int8_t _pattern_index_left;
 	int8_t _pattern_index_right;

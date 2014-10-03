@@ -14,6 +14,8 @@ void flash_led(uint16_t millis)
 
 void go()
 {
+    flash_led(FLASH_LED_MILLIS);
+
     // only with movements
     if (PROGRAM->getMoveCount() > 0)
     {
@@ -26,7 +28,6 @@ void go()
 
         // let user to release the 'go' button before the action
         delay(1000);
-        flash_led(FLASH_LED_MILLIS);
 
         ENGINE->executeProgram(PROGRAM);
     }
