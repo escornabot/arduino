@@ -1,4 +1,4 @@
-// Vacalourabot.h
+// Escornabot.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,8 +22,8 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _VACALOURABOT_H
-#define _VACALOURABOT_H
+#ifndef _ESCORNABOT_H
+#define _ESCORNABOT_H
 
 #include <Arduino.h>
 #include "Configuration.h"
@@ -119,6 +119,6 @@ static MoveProgram PROGRAM_INSTANCE;
 static MoveProgram* PROGRAM = &PROGRAM_INSTANCE;
 
 
-#endif // _VACALOURABOT_H
+#endif // _ESCORNABOT_H
 
 // EOF

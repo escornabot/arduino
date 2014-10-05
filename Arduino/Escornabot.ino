@@ -1,4 +1,4 @@
-// Vacalourabot.ino
+// Escornabot.ino
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,7 +22,7 @@ See LICENSE.txt for details
 
 */
 
-#include "Vacalourabot.h"
+#include "Escornabot.h"
 
 #define PIN_LED 13
 #define FLASH_LED_MILLIS 500
