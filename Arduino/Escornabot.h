@@ -114,7 +114,6 @@ See LICENSE.txt for details
     Buzzer BUZZER = Buzzer(BUZZER_PIN);
 #endif
 
-
 ///// global vars
 
 // status indicators
