@@ -97,13 +97,16 @@ See LICENSE.txt for details
     };
     static ButtonSetAnalog BUTTONS_INSTANCE (&BS_CONFIG);
 
+#elif defined(BUTTONS_BLUETOOTH)
+
+    #include "BluetoothInterface.h"
+    static const BluetoothInterface::Config BS_CONFIG = {
+        serial: &(BS_BLUETOOTH_SERIAL),
+        bauds: BS_BLUETOOTH_BAUDS,
+    };
+    static BluetoothInterface BUTTONS_INSTANCE (&BS_CONFIG);
+
 #endif // Button set
-
-
-// EEPROM as persistent memory
-#if USE_PERSISTENT_MEMORY
-    #include "PersistentMemory.h"
-#endif
 
 
 ///// global vars

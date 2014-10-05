@@ -35,7 +35,8 @@ See LICENSE.txt for details
 
 // button set to use
 //#define BUTTONS_DIGITAL
-#define BUTTONS_ANALOG
+//#define BUTTONS_ANALOG
+#define BUTTONS_BLUETOOTH
 
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
@@ -138,6 +139,8 @@ See LICENSE.txt for details
 //#define BS_BLUETOOTH_SERIAL	Serial1
 //#define BS_BLUETOOTH_SERIAL	Serial2
 //#define BS_BLUETOOTH_SERIAL	Serial3
+
+#define BS_BLUETOOTH_BAUDS 9600
 
 #endif // BUTTONS_BLUETOOTH
 
