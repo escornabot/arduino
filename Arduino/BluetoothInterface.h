@@ -26,6 +26,7 @@ See LICENSE.txt for details
 #define _BLUETOOTH_INTERFACE_H
 
 #include "ButtonSet.h"
+#include "StatusIndicator.h"
 #include <Arduino.h>
 
 // one-key comands: one character by line
@@ -34,7 +35,7 @@ const static char* BUTTONS_RELEASED = "neswgr";
 
 #define COMMAND_MAX_LENGTH 10
 
-class BluetoothInterface : ButtonSet
+class BluetoothInterface : ButtonSet, StatusIndicator
 {
 public:
 
@@ -63,14 +64,53 @@ public:
      */
     virtual BUTTON scanButtons();
 
+    ////////////////////////////////////////////////////////////
+    // StatusIndicator interface
+    ////////////////////////////////////////////////////////////
+
+    /**
+     * Handles when a movement from the program was executed.
+     */
+    virtual void SiMoveExecuting(MOVE move);
+
+    /**
+     * Handles when a movement from the program was executed.
+     */
+    virtual void SiMoveExecuted(MOVE move);
+
+    /**
+     * Handles when a new movement was added to the program.
+     */
+    virtual void SiMoveAdded(MOVE move);
+
+    /**
+     * Handles when the program has stated.
+     */
+    virtual void SiProgramStarted(uint8_t total_moves);
+
+    /**
+     * Handles when the program has finished.
+     */
+    virtual void SiProgramFinished();
+
+    /**
+     * Handles when the program has reset.
+     */
+    virtual void SiProgramReset();
+
+    /**
+     * Handles when the program was aborted.
+     */
+    virtual void SiProgramAborted(uint8_t executed, uint8_t total);
+
 private:
 
     const Config* _config;
 
-    char command[COMMAND_MAX_LENGTH + 1];
-    uint8_t command_idx = 0;
+    char _command[COMMAND_MAX_LENGTH + 1];
+    uint8_t _command_idx;
 
-    bool readLine();
+    bool _readLine();
 
 };
 
