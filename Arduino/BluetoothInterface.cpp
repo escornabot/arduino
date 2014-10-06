@@ -78,7 +78,10 @@ bool BluetoothInterface::readLine()
 			return true;
 		}
 
-		command[command_idx++] = key;
+		if (command_idx < COMMAND_MAX_LENGTH)
+		{
+			command[command_idx++] = key;
+		}
 	}
 	return false;
 }
