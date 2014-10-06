@@ -25,6 +25,7 @@ See LICENSE.txt for details
 #ifndef _STATUS_INDICATOR_H
 #define _STATUS_INDICATOR_H
 
+<<<<<<< HEAD
 #include "Move.h"
 #include <stddef.h>
 
@@ -52,50 +53,86 @@ public:
     // public interface
     //////////////////////////////////////////////////////////////////////
 
+=======
+#include "MoveProgram.h"
+
+class StatusIndicator
+{
+public:
+
+>>>>>>> f6e182e... Indicador de estado por Bluetooth.
     /**
      * Handles when a movement from the program was executed.
      * @param move The movement.
      */
+<<<<<<< HEAD
     virtual void moveExecuting(MOVE move) = 0;
+=======
+    virtual void SiMoveExecuting(MOVE move) = 0;
+>>>>>>> f6e182e... Indicador de estado por Bluetooth.
 
     /**
      * Handles when a movement from the program was executed.
      * @param move The movement.
      */
+<<<<<<< HEAD
     virtual void moveExecuted(MOVE move) = 0;
+=======
+    virtual void SiMoveExecuted(MOVE move) = 0;
+>>>>>>> f6e182e... Indicador de estado por Bluetooth.
 
     /**
      * Handles when a new movement was added to the program.
      * @param move The movement.
      */
+<<<<<<< HEAD
     virtual void moveAdded(MOVE move) = 0;
+=======
+    virtual void SiMoveAdded(MOVE move) = 0;
+>>>>>>> f6e182e... Indicador de estado por Bluetooth.
 
     /**
      * Handles when the program has stated.
      * @param total_moves Total moves in the program.
      */
+<<<<<<< HEAD
     virtual void programStarted(uint8_t total_moves) = 0;
+=======
+    virtual void SiProgramStarted(uint8_t total_moves) = 0;
+>>>>>>> f6e182e... Indicador de estado por Bluetooth.
 
     /**
      * Handles when the program has finished.
      */
+<<<<<<< HEAD
     virtual void programFinished() = 0;
+=======
+    virtual void SiProgramFinished() = 0;
+>>>>>>> f6e182e... Indicador de estado por Bluetooth.
 
     /**
      * Handles when the program has reset.
      */
+<<<<<<< HEAD
     virtual void programReset() = 0;
+=======
+    virtual void SiProgramReset() = 0;
+>>>>>>> f6e182e... Indicador de estado por Bluetooth.
 
     /**
      * Handles when the program was aborted.
      * @param executed Number of executed moves after aborted.
      * @param total Total moves in the program.
      */
+<<<<<<< HEAD
     virtual void programAborted(uint8_t executed, uint8_t total) = 0;
 
 private:
 
     StatusIndicator* _next;
+=======
+    virtual void SiProgramAborted(uint8_t executed, uint8_t total) = 0;
+>>>>>>> f6e182e... Indicador de estado por Bluetooth.
 };
 
 #endif //  _STATUS_INDICATOR_H
