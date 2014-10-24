@@ -94,7 +94,7 @@ bool BluetoothInterface::_readLine()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::SiMoveExecuting(MOVE move)
+void BluetoothInterface::MoveExecuting(MOVE move)
 {
     _config->serial->print(BUTTONS_PRESSED[move - 1]);
     _config->serial->print(NL);
@@ -103,7 +103,7 @@ void BluetoothInterface::SiMoveExecuting(MOVE move)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::SiMoveExecuted(MOVE move)
+void BluetoothInterface::MoveExecuted(MOVE move)
 {
     _config->serial->print(BUTTONS_RELEASED[move - 1]);
     _config->serial->print(NL);
@@ -113,7 +113,7 @@ void BluetoothInterface::SiMoveExecuted(MOVE move)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::SiMoveAdded(MOVE move)
+void BluetoothInterface::MoveAdded(MOVE move)
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print(move);
@@ -125,7 +125,7 @@ void BluetoothInterface::SiMoveAdded(MOVE move)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::SiProgramStarted(uint8_t total_moves)
+void BluetoothInterface::ProgramStarted(uint8_t total_moves)
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("GO ");
@@ -136,7 +136,7 @@ void BluetoothInterface::SiProgramStarted(uint8_t total_moves)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::SiProgramFinished()
+void BluetoothInterface::ProgramFinished()
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("END");
@@ -146,7 +146,7 @@ void BluetoothInterface::SiProgramFinished()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::SiProgramReset()
+void BluetoothInterface::ProgramReset()
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("RESET");
@@ -156,7 +156,7 @@ void BluetoothInterface::SiProgramReset()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::SiProgramAborted(uint8_t executed, uint8_t total)
+void BluetoothInterface::ProgramAborted(uint8_t executed, uint8_t total)
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("ABORTED ");

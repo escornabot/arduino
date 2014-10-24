@@ -28,34 +28,7 @@ See LICENSE.txt for details
 #include <stdint.h>
 
 #include "Configuration.h"
-
-// movement commands
-enum
-{
-	MOVE_NONE,
-	MOVE_FORWARD,
-	MOVE_RIGHT,
-	MOVE_BACKWARD,
-	MOVE_LEFT,
-};
-typedef uint8_t MOVE;
-
-
-
-// point of view in order to execute the movements
-enum
-{
-	POV_VACALOURA,
-	POV_CHILD,
-};
-typedef uint8_t POV;
-
-
-typedef struct {
-	uint8_t move_count;
-	MOVE move_list[MOVE_LIMIT];
-} ProgramFile;
-
+#include "Move.h"
 
 
 class MoveProgram

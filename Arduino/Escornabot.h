@@ -30,7 +30,7 @@ See LICENSE.txt for details
 #include "MoveProgram.h"
 #include "Engine.h"
 #include "ButtonSet.h"
-
+#include "StatusIndicator.h"
 
 // motor engine defined from configuration
 #ifdef ENGINE_TYPE_HBRIDGE
@@ -67,7 +67,6 @@ See LICENSE.txt for details
     static EngineSteppers ENGINE_INSTANCE (&ENGINE_CONFIG);
 
 #endif
-
 
 // Digital button set
 #if defined(BUTTONS_DIGITAL)
@@ -106,10 +105,18 @@ See LICENSE.txt for details
     };
     static BluetoothInterface BUTTONS_INSTANCE (&BS_CONFIG);
 
+    #define INDICATOR_INSTANCE BUTTONS_INSTANCE
+
 #endif // Button set
 
 
 ///// global vars
+
+#ifdef INDICATOR_INSTANCE
+    static StatusIndicator* INDICATOR = &INDICATOR_INSTANCE;
+#else
+    static StatusIndicator* INDICATOR = NULL;
+#endif
 
 // engine
 static Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;

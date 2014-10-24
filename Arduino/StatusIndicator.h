@@ -25,7 +25,7 @@ See LICENSE.txt for details
 #ifndef _STATUS_INDICATOR_H
 #define _STATUS_INDICATOR_H
 
-#include "MoveProgram.h"
+#include "Move.h"
 
 class StatusIndicator
 {
@@ -35,42 +35,42 @@ public:
      * Handles when a movement from the program was executed.
      * @param move The movement.
      */
-    virtual void SiMoveExecuting(MOVE move) = 0;
+    virtual void MoveExecuting(MOVE move) = 0;
 
     /**
      * Handles when a movement from the program was executed.
      * @param move The movement.
      */
-    virtual void SiMoveExecuted(MOVE move) = 0;
+    virtual void MoveExecuted(MOVE move) = 0;
 
     /**
      * Handles when a new movement was added to the program.
      * @param move The movement.
      */
-    virtual void SiMoveAdded(MOVE move) = 0;
+    virtual void MoveAdded(MOVE move) = 0;
 
     /**
      * Handles when the program has stated.
      * @param total_moves Total moves in the program.
      */
-    virtual void SiProgramStarted(uint8_t total_moves) = 0;
+    virtual void ProgramStarted(uint8_t total_moves) = 0;
 
     /**
      * Handles when the program has finished.
      */
-    virtual void SiProgramFinished() = 0;
+    virtual void ProgramFinished() = 0;
 
     /**
      * Handles when the program has reset.
      */
-    virtual void SiProgramReset() = 0;
+    virtual void ProgramReset() = 0;
 
     /**
      * Handles when the program was aborted.
      * @param executed Number of executed moves after aborted.
      * @param total Total moves in the program.
      */
-    virtual void SiProgramAborted(uint8_t executed, uint8_t total) = 0;
+    virtual void ProgramAborted(uint8_t executed, uint8_t total) = 0;
 };
 
 #endif //  _STATUS_INDICATOR_H

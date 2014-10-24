@@ -35,7 +35,7 @@ const static char* BUTTONS_RELEASED = "neswgr";
 
 #define COMMAND_MAX_LENGTH 10
 
-class BluetoothInterface : ButtonSet, StatusIndicator
+class BluetoothInterface : public ButtonSet, public StatusIndicator
 {
 public:
 
@@ -71,37 +71,37 @@ public:
     /**
      * Handles when a movement from the program was executed.
      */
-    virtual void SiMoveExecuting(MOVE move);
+    virtual void MoveExecuting(MOVE move);
 
     /**
      * Handles when a movement from the program was executed.
      */
-    virtual void SiMoveExecuted(MOVE move);
+    virtual void MoveExecuted(MOVE move);
 
     /**
      * Handles when a new movement was added to the program.
      */
-    virtual void SiMoveAdded(MOVE move);
+    virtual void MoveAdded(MOVE move);
 
     /**
      * Handles when the program has stated.
      */
-    virtual void SiProgramStarted(uint8_t total_moves);
+    virtual void ProgramStarted(uint8_t total_moves);
 
     /**
      * Handles when the program has finished.
      */
-    virtual void SiProgramFinished();
+    virtual void ProgramFinished();
 
     /**
      * Handles when the program has reset.
      */
-    virtual void SiProgramReset();
+    virtual void ProgramReset();
 
     /**
      * Handles when the program was aborted.
      */
-    virtual void SiProgramAborted(uint8_t executed, uint8_t total);
+    virtual void ProgramAborted(uint8_t executed, uint8_t total);
 
 private:
 
