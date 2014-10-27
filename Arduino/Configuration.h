@@ -35,8 +35,8 @@ See LICENSE.txt for details
 
 // button set to use
 //#define BUTTONS_DIGITAL
-//#define BUTTONS_ANALOG
-#define BUTTONS_BLUETOOTH
+#define BUTTONS_ANALOG
+//#define BUTTONS_BLUETOOTH
 
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
@@ -46,6 +46,10 @@ See LICENSE.txt for details
 
 // point of view set when Vacalourabot is started
 #define POV_INITIAL	POV_VACALOURA
+
+// buzzer
+#define USE_BUZZER true
+#define BUZZER_PIN 10
 
 //////////////////////////////////////////////////////////////////////
 ///// HBRIDGE engine setup
@@ -120,12 +124,12 @@ See LICENSE.txt for details
 #define BS_ANALOG_PIN A0
 
 // input values for each key pressed
-#define BS_ANALOG_VALUE_UP 471
-#define BS_ANALOG_VALUE_RIGHT 299
-#define BS_ANALOG_VALUE_DOWN 211
-#define BS_ANALOG_VALUE_LEFT 118
-#define BS_ANALOG_VALUE_GO 158
-#define BS_ANALOG_VALUE_RESET 82
+#define BS_ANALOG_VALUE_UP 574
+#define BS_ANALOG_VALUE_RIGHT 721
+#define BS_ANALOG_VALUE_DOWN 287
+#define BS_ANALOG_VALUE_LEFT 430
+#define BS_ANALOG_VALUE_GO 143
+#define BS_ANALOG_VALUE_RESET 870
 
 #endif // BUTTONS_ANALOG
 

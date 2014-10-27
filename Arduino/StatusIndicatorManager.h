@@ -1,4 +1,4 @@
-// Move.h
+// StatusIndicatorManager.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,41 +22,42 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _MOVE_H
-#define _MOVE_H
+#ifndef _STATUS_INDICATOR_MANAGER_H
+#define _STATUS_INDICATOR_MANAGER_H
 
-#include "Configuration.h"
-#include <stdint.h>
+#include "StatusIndicator.h"
 
-// movement commands
-enum
+class StatusIndicatorManager
 {
-	MOVE_NONE,
-	MOVE_FORWARD,
-	MOVE_RIGHT,
-	MOVE_BACKWARD,
-	MOVE_LEFT,
+public:
+
+	StatusIndicatorManager()
+	{
+		_first = NULL;
+	}
+
+	void add(StatusIndicator* indicator);
+
+    void indicateMoveExecuting(MOVE move);
+
+    void indicateMoveExecuted(MOVE move);
+
+    void indicateMoveAdded(MOVE move);
+
+    void indicateProgramStarted(uint8_t total_moves);
+
+    void indicateProgramFinished();
+
+    void indicateProgramReset();
+
+    void indicateProgramAborted(uint8_t executed, uint8_t total);
+
+private:
+
+	StatusIndicator* _first;
+
 };
-typedef uint8_t MOVE;
 
-
-// point of view in order to execute the movements
-enum
-{
-	POV_VACALOURA,
-	POV_CHILD,
-};
-typedef uint8_t POV;
-
-
-// program file
-typedef struct {
-	uint8_t move_count;
-	MOVE move_list[MOVE_LIMIT];
-} ProgramFile;
-
-
-#endif // _MOVE_H
+#endif // _STATUS_INDICATOR_MANAGER_H
 
 // EOF
-

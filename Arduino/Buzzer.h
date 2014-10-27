@@ -1,4 +1,4 @@
-// StatusIndicator.h
+// Buzzer.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,82 +22,86 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _STATUS_INDICATOR_H
-#define _STATUS_INDICATOR_H
+#ifndef _BUZZER_H
+#define _BUZZER_H
 
-#include "Move.h"
-#include <stddef.h>
+#include <stdint.h>
+#include "StatusIndicator.h"
 
-class StatusIndicator
+class Buzzer : public StatusIndicator
 {
-
 public:
 
-    StatusIndicator()
-    {
-        this->_next = NULL;
-    }
+	/**
+	 * Constructor.
+	 * @param pin Pin where the buzzer is connected (PWM output)
+	 */
+	Buzzer(uint8_t pin);
 
-    StatusIndicator* getNext()
-    {
-        return this->_next;
-    }
+	/**
+	 * Does the hardware initialization.
+	 */
+	void init();
 
-    void setNext(StatusIndicator* value)
-    {
-        this->_next = value;
-    }
+    /**
+     * Simple beep generator.
+     */
+	void beep();
 
-    //////////////////////////////////////////////////////////////////////
-    // public interface
-    //////////////////////////////////////////////////////////////////////
+protected:
+
+	//////////////////////////////////////////////////////////////////////
+	// StatusIndicator implementation
+	//////////////////////////////////////////////////////////////////////
 
     /**
      * Handles when a movement from the program was executed.
      * @param move The movement.
      */
-    virtual void moveExecuting(MOVE move) = 0;
+    virtual void moveExecuting(MOVE move);
 
     /**
      * Handles when a movement from the program was executed.
      * @param move The movement.
      */
-    virtual void moveExecuted(MOVE move) = 0;
+    virtual void moveExecuted(MOVE move);
 
     /**
      * Handles when a new movement was added to the program.
      * @param move The movement.
      */
-    virtual void moveAdded(MOVE move) = 0;
+    virtual void moveAdded(MOVE move);
 
     /**
      * Handles when the program has stated.
      * @param total_moves Total moves in the program.
      */
-    virtual void programStarted(uint8_t total_moves) = 0;
+    virtual void programStarted(uint8_t total_moves);
 
     /**
      * Handles when the program has finished.
      */
-    virtual void programFinished() = 0;
+    virtual void programFinished();
 
     /**
      * Handles when the program has reset.
      */
-    virtual void programReset() = 0;
+    virtual void programReset();
 
     /**
      * Handles when the program was aborted.
      * @param executed Number of executed moves after aborted.
      * @param total Total moves in the program.
      */
-    virtual void programAborted(uint8_t executed, uint8_t total) = 0;
+    virtual void programAborted(uint8_t executed, uint8_t total);
+
+	//////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////
 
 private:
 
-    StatusIndicator* _next;
+	uint8_t _pin;
+
 };
 
-#endif //  _STATUS_INDICATOR_H
-
-// EOF
+#endif // _BUZZER_H

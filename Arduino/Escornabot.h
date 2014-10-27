@@ -30,7 +30,7 @@ See LICENSE.txt for details
 #include "MoveProgram.h"
 #include "Engine.h"
 #include "ButtonSet.h"
-#include "StatusIndicator.h"
+#include "StatusIndicatorManager.h"
 
 // motor engine defined from configuration
 #ifdef ENGINE_TYPE_HBRIDGE
@@ -109,14 +109,17 @@ See LICENSE.txt for details
 
 #endif // Button set
 
+#ifdef USE_BUZZER
+    #include "Buzzer.h"
+    Buzzer BUZZER = Buzzer(BUZZER_PIN);
+#endif
+
 
 ///// global vars
 
-#ifdef INDICATOR_INSTANCE
-    static StatusIndicator* INDICATOR = &INDICATOR_INSTANCE;
-#else
-    static StatusIndicator* INDICATOR = NULL;
-#endif
+// status indicators
+static StatusIndicatorManager INDICATORS_INSTANCE;
+static StatusIndicatorManager* INDICATORS = &INDICATORS_INSTANCE;
 
 // engine
 static Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
@@ -127,6 +130,7 @@ static ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
 // program
 static MoveProgram PROGRAM_INSTANCE;
 static MoveProgram* PROGRAM = &PROGRAM_INSTANCE;
+
 
 
 #endif // _ESCORNABOT_H

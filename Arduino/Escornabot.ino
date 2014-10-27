@@ -25,7 +25,8 @@ See LICENSE.txt for details
 #include "Escornabot.h"
 
 #define PIN_LED 13
-#define FLASH_LED_MILLIS 500
+
+#define FLASH_LED_MILLIS 300
 
 void flash_led(uint16_t millis)
 {
@@ -79,11 +80,14 @@ void setup()
     // init button set
     BUTTONS->init();
 
-    #if USE_PERSISTENT_MEMORY
+    // status indicators
+    #if USE_BUZZER
+    INDICATORS->add(&BUZZER);
+    #endif
 
     // restore last program
+    #if USE_PERSISTENT_MEMORY
     PROGRAM->load();
-
     #endif
 }
 
