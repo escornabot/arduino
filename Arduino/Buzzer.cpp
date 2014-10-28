@@ -25,6 +25,8 @@ See LICENSE.txt for details
 #include "Buzzer.h"
 #include <Arduino.h>
 
+#define BUZZER_BEEP_MILLIS 100
+
 // note frequencies
 #define BUZZER_B2     123
 #define BUZZER_C3     131
@@ -99,7 +101,7 @@ Buzzer::Buzzer(uint8_t pin)
 
 void Buzzer::beep()
 {
-    tone(_pin, BUZZER_D7, 500);
+    tone(_pin, BUZZER_D8, BUZZER_BEEP_MILLIS);
 }
 
 void Buzzer::init()

@@ -45,7 +45,11 @@ void StatusIndicatorManager::add(StatusIndicator* indicator)
 void StatusIndicatorManager::indicateMoveExecuting(MOVE move)
 {
     StatusIndicator* i = _first;
-    while (i != NULL) i->moveExecuting(move);
+    while (i != NULL)
+    {
+        i->moveExecuting(move);
+        i = i->getNext();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -53,7 +57,11 @@ void StatusIndicatorManager::indicateMoveExecuting(MOVE move)
 void StatusIndicatorManager::indicateMoveExecuted(MOVE move)
 {
     StatusIndicator* i = _first;
-    while (i != NULL) i->moveExecuted(move);
+    while (i != NULL)
+    {
+        i->moveExecuted(move);
+        i = i->getNext();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -61,7 +69,11 @@ void StatusIndicatorManager::indicateMoveExecuted(MOVE move)
 void StatusIndicatorManager::indicateMoveAdded(MOVE move)
 {
     StatusIndicator* i = _first;
-    while (i != NULL) i->moveAdded(move);
+    while (i != NULL)
+    {
+        i->moveAdded(move);
+        i = i->getNext();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -69,7 +81,11 @@ void StatusIndicatorManager::indicateMoveAdded(MOVE move)
 void StatusIndicatorManager::indicateProgramStarted(uint8_t total_moves)
 {
     StatusIndicator* i = _first;
-    while (i != NULL) i->programStarted(total_moves);
+    while (i != NULL)
+    {
+        i->programStarted(total_moves);
+        i = i->getNext();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -77,7 +93,11 @@ void StatusIndicatorManager::indicateProgramStarted(uint8_t total_moves)
 void StatusIndicatorManager::indicateProgramFinished()
 {
     StatusIndicator* i = _first;
-    while (i != NULL) i->programFinished();
+    while (i != NULL)
+    {
+        i->programFinished();
+        i = i->getNext();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -85,7 +105,11 @@ void StatusIndicatorManager::indicateProgramFinished()
 void StatusIndicatorManager::indicateProgramReset()
 {
     StatusIndicator* i = _first;
-    while (i != NULL) i->programReset();
+    while (i != NULL)
+    {
+        i->programReset();
+        i = i->getNext();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -93,7 +117,11 @@ void StatusIndicatorManager::indicateProgramReset()
 void StatusIndicatorManager::indicateProgramAborted(uint8_t executed, uint8_t total)
 {
     StatusIndicator* i = _first;
-    while (i != NULL) i->programAborted(executed, total);
+    while (i != NULL)
+    {
+        i->programAborted(executed, total);
+        i = i->getNext();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
