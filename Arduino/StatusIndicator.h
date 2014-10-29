@@ -53,13 +53,13 @@ public:
     //////////////////////////////////////////////////////////////////////
 
     /**
-     * Handles when a movement from the program was executed.
+     * Handles when a movement from the program has started its execution.
      * @param move The movement.
      */
     virtual void moveExecuting(MOVE move) = 0;
 
     /**
-     * Handles when a movement from the program was executed.
+     * Handles when a movement from the program has finished its execution.
      * @param move The movement.
      */
     virtual void moveExecuted(MOVE move) = 0;
@@ -71,7 +71,7 @@ public:
     virtual void moveAdded(MOVE move) = 0;
 
     /**
-     * Handles when the program has stated.
+     * Handles when the program has started.
      * @param total_moves Total moves in the program.
      */
     virtual void programStarted(uint8_t total_moves) = 0;

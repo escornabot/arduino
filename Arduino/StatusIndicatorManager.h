@@ -31,12 +31,12 @@ class StatusIndicatorManager
 {
 public:
 
-	StatusIndicatorManager()
-	{
-		_first = NULL;
-	}
+    StatusIndicatorManager()
+    {
+        _first = NULL;
+    }
 
-	void add(StatusIndicator* indicator);
+    void add(StatusIndicator* indicator);
 
     void indicateMoveExecuting(MOVE move);
 
@@ -54,7 +54,7 @@ public:
 
 private:
 
-	StatusIndicator* _first;
+    StatusIndicator* _first;
 
 };
 
