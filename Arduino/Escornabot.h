@@ -36,7 +36,7 @@ See LICENSE.txt for details
 #ifdef ENGINE_TYPE_HBRIDGE
 
     #include "EngineHBridge.h"
-    static const EngineHBridge::Config ENGINE_CONFIG = {
+    const EngineHBridge::Config ENGINE_CONFIG = {
         motor_left_a: HBRIDGE_MOTOR_LEFT_A,
         motor_left_b: HBRIDGE_MOTOR_LEFT_B,
         motor_left_en: HBRIDGE_MOTOR_LEFT_EN,
@@ -46,12 +46,12 @@ See LICENSE.txt for details
         step_millis: HBRIDGE_STEP_MILLIS,
         turn_millis: HBRIDGE_TURN_MILLIS,
     };
-    static EngineHBridge ENGINE_INSTANCE (&ENGINE_CONFIG);
+    EngineHBridge ENGINE_INSTANCE (&ENGINE_CONFIG);
 
 #else ifdef ENGINE_TYPE_STEPPERS
 
     #include "EngineSteppers.h"
-    static const EngineSteppers::Config ENGINE_CONFIG = {
+    const EngineSteppers::Config ENGINE_CONFIG = {
         motor_left_in1: STEPPERS_MOTOR_LEFT_IN1,
         motor_left_in2: STEPPERS_MOTOR_LEFT_IN2,
         motor_left_in3: STEPPERS_MOTOR_LEFT_IN3,
@@ -64,7 +64,7 @@ See LICENSE.txt for details
         line_steps: STEPPERS_LINE_STEPS,
         turn_steps: STEPPERS_TURN_STEPS,
     };
-    static EngineSteppers ENGINE_INSTANCE (&ENGINE_CONFIG);
+    EngineSteppers ENGINE_INSTANCE (&ENGINE_CONFIG);
 
 #endif
 
@@ -72,7 +72,7 @@ See LICENSE.txt for details
 #if defined(BUTTONS_DIGITAL)
 
     #include "ButtonSetDigital.h"
-    static const ButtonSetDigital::Config BS_CONFIG = {
+    const ButtonSetDigital::Config BS_CONFIG = {
         pin_button_up: BS_DIGITAL_UP,
         pin_button_right: BS_DIGITAL_RIGHT,
         pin_button_down: BS_DIGITAL_DOWN,
@@ -80,12 +80,12 @@ See LICENSE.txt for details
         pin_button_go: BS_DIGITAL_GO,
         pin_button_reset: BS_DIGITAL_RESET,
     };
-    static ButtonSetDigital BUTTONS_INSTANCE (&BS_CONFIG);
+    ButtonSetDigital BUTTONS_INSTANCE (&BS_CONFIG);
 
 #elif defined(BUTTONS_ANALOG)
 
     #include "ButtonSetAnalog.h"
-    static const ButtonSetAnalog::Config BS_CONFIG = {
+    const ButtonSetAnalog::Config BS_CONFIG = {
         pin_button_set: BS_ANALOG_PIN,
         value_button_up: BS_ANALOG_VALUE_UP,
         value_button_right: BS_ANALOG_VALUE_RIGHT,
@@ -94,16 +94,16 @@ See LICENSE.txt for details
         value_button_go: BS_ANALOG_VALUE_GO,
         value_button_reset: BS_ANALOG_VALUE_RESET,
     };
-    static ButtonSetAnalog BUTTONS_INSTANCE (&BS_CONFIG);
+    ButtonSetAnalog BUTTONS_INSTANCE (&BS_CONFIG);
 
 #elif defined(BUTTONS_BLUETOOTH)
 
     #include "BluetoothInterface.h"
-    static const BluetoothInterface::Config BS_CONFIG = {
+    const BluetoothInterface::Config BS_CONFIG = {
         serial: &(BS_BLUETOOTH_SERIAL),
         bauds: BS_BLUETOOTH_BAUDS,
     };
-    static BluetoothInterface BUTTONS_INSTANCE (&BS_CONFIG);
+    BluetoothInterface BUTTONS_INSTANCE (&BS_CONFIG);
 
     #define INDICATOR_INSTANCE BUTTONS_INSTANCE
 
@@ -117,19 +117,18 @@ See LICENSE.txt for details
 ///// global vars
 
 // status indicators
-static StatusIndicatorManager INDICATORS_INSTANCE;
-static StatusIndicatorManager* INDICATORS = &INDICATORS_INSTANCE;
+StatusIndicatorManager INDICATORS_INSTANCE;
+StatusIndicatorManager* INDICATORS = &INDICATORS_INSTANCE;
 
 // engine
-static Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
+Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
 
 // button set
-static ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
+ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
 
 // program
-static MoveProgram PROGRAM_INSTANCE;
-static MoveProgram* PROGRAM = &PROGRAM_INSTANCE;
-
+MoveProgram PROGRAM_INSTANCE;
+MoveProgram* PROGRAM = &PROGRAM_INSTANCE;
 
 
 #endif // _ESCORNABOT_H

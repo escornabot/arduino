@@ -23,6 +23,9 @@ See LICENSE.txt for details
 */
 
 #include "MoveProgram.h"
+#include "StatusIndicatorManager.h"
+
+extern StatusIndicatorManager* INDICATORS;
 
 
 MoveProgram::MoveProgram()
@@ -36,6 +39,7 @@ MoveProgram::MoveProgram()
 void MoveProgram::clear()
 {
 	_program_file.move_count = 0;
+    INDICATORS->indicateProgramReset();
 }
 
 
