@@ -127,7 +127,7 @@ Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
 ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
 
 // program
-MoveProgram PROGRAM_INSTANCE;
+MoveProgram PROGRAM_INSTANCE(AFTER_MOVEMENT_PAUSE);
 MoveProgram* PROGRAM = &PROGRAM_INSTANCE;
 
 

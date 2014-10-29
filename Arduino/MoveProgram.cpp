@@ -28,8 +28,9 @@ See LICENSE.txt for details
 extern StatusIndicatorManager* INDICATORS;
 
 
-MoveProgram::MoveProgram()
+MoveProgram::MoveProgram(uint16_t pause_after_movement)
 {
+    _pause_after_movement = pause_after_movement;
 	_program_file.move_count = 0;
 	_point_of_view = POV_INITIAL;
 }

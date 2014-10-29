@@ -39,12 +39,14 @@ private:
 
 	POV _point_of_view;
 
+	uint16_t _pause_after_movement;
+
 public:
 
 	/**
 	 * Constructor.
 	 */
-	MoveProgram();
+	MoveProgram(uint16_t pause_after_movement);
 
 	/**
 	 * Removes all movements from program.
@@ -68,6 +70,8 @@ public:
 	 * @param point_of_view The point of view.
 	 */
 	void setPointOfView(POV point_of_view);
+
+	uint16_t getPauseAfterMovement() { return _pause_after_movement; }
 
 	/**
 	 * Adds a new movement at the end of the program.

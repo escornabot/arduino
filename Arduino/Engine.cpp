@@ -24,6 +24,7 @@ See LICENSE.txt for details
 
 #include "Engine.h"
 #include "StatusIndicatorManager.h"
+#include <Arduino.h>
 
 extern StatusIndicatorManager* INDICATORS;
 
@@ -39,7 +40,7 @@ void Engine::executeProgram(MoveProgram* program)
     {
         MOVE move = program->getMove(m);
 
-        // pre move
+        // pre move indication
         INDICATORS->indicateMoveExecuting(move);
 
         // which move
@@ -59,8 +60,11 @@ void Engine::executeProgram(MoveProgram* program)
                 break;
         }
 
-        // post move
+        // post move indication
         INDICATORS->indicateMoveExecuted(move);
+
+        // post move pause
+        delay(program->getPauseAfterMovement());
     }
 
     // program is finished

@@ -44,6 +44,9 @@ See LICENSE.txt for details
 // memory capacity for program movements
 #define MOVE_LIMIT 100
 
+// milliseconds to pause after every movement
+#define AFTER_MOVEMENT_PAUSE 300
+
 // point of view set when Vacalourabot is started
 #define POV_INITIAL	POV_VACALOURA
 
@@ -124,12 +127,12 @@ See LICENSE.txt for details
 #define BS_ANALOG_PIN A0
 
 // input values for each key pressed
-#define BS_ANALOG_VALUE_UP 574
-#define BS_ANALOG_VALUE_RIGHT 721
-#define BS_ANALOG_VALUE_DOWN 287
-#define BS_ANALOG_VALUE_LEFT 430
-#define BS_ANALOG_VALUE_GO 143
-#define BS_ANALOG_VALUE_RESET 870
+#define BS_ANALOG_VALUE_UP 471
+#define BS_ANALOG_VALUE_RIGHT 299
+#define BS_ANALOG_VALUE_DOWN 211
+#define BS_ANALOG_VALUE_LEFT 118
+#define BS_ANALOG_VALUE_GO 158
+#define BS_ANALOG_VALUE_RESET 82
 
 #endif // BUTTONS_ANALOG
 
