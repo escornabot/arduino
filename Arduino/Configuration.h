@@ -38,6 +38,9 @@ See LICENSE.txt for details
 #define BUTTONS_ANALOG
 //#define BUTTONS_BLUETOOTH
 
+// milliseconds after a button is considered as pressed
+#define BUTTON_MIN_PRESSED 30
+
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
 

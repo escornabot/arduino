@@ -23,7 +23,7 @@ See LICENSE.txt for details
 */
 
 #include "ButtonSetAnalog.h"
-
+#include "Configuration.h"
 #include <Arduino.h>
 
 // arduino value when analog input is open
@@ -44,7 +44,8 @@ void ButtonSetAnalog::init()
 
 ButtonSet::BUTTON ButtonSetAnalog::scanButtons()
 {
-    delay(200);
+    delay(BUTTON_MIN_PRESSED);
+
     int16_t value = analogRead(_config->pin_button_set);
     int16_t diff, minor_diff;
 

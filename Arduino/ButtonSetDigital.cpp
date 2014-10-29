@@ -23,7 +23,7 @@ See LICENSE.txt for details
 */
 
 #include "ButtonSetDigital.h"
-
+#include "Configuration.h"
 #include <Arduino.h>
 
 ButtonSetDigital::ButtonSetDigital(const Config* config)
@@ -48,6 +48,8 @@ void ButtonSetDigital::init()
 
 ButtonSet::BUTTON ButtonSetDigital::scanButtons()
 {
+	delay(BUTTON_MIN_PRESSED);
+
 	if (digitalRead(_config->pin_button_up) ^ _btn_state[0])
 	{
 		_btn_state[0] = !_btn_state[0];
