@@ -24,15 +24,13 @@ See LICENSE.txt for details
 
 #include "Escornabot.h"
 
-#define PIN_LED 13
-
 #define FLASH_LED_MILLIS 300
 
 void flash_led(uint16_t millis)
 {
-    digitalWrite(PIN_LED, HIGH);
+    SIMPLE_LED.setStatus(true);
     delay(millis);
-    digitalWrite(PIN_LED, LOW);
+    SIMPLE_LED.setStatus(false);
 }
 
 void go()
@@ -72,17 +70,19 @@ void storeMove(MOVE move)
 
 void setup()
 {
-    pinMode(PIN_LED, OUTPUT);
-
     // init engine
     ENGINE->init();
 
     // init button set
     BUTTONS->init();
 
-    // status indicators
+    // init buzzer
     #if USE_BUZZER
     INDICATORS->add(&BUZZER);
+    #endif
+
+    #if USE_SIMPLE_LED
+    SIMPLE_LED.init();
     #endif
 
     // restore last program

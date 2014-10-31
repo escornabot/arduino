@@ -114,6 +114,11 @@ See LICENSE.txt for details
     Buzzer BUZZER = Buzzer(BUZZER_PIN);
 #endif
 
+#ifdef USE_SIMPLE_LED
+    #include "SimpleLed.h"
+    SimpleLed SIMPLE_LED = SimpleLed(SIMPLE_LED_PIN);
+#endif
+
 ///// global vars
 
 // status indicators
