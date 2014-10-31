@@ -69,6 +69,7 @@ void MoveProgram::setPointOfView(POV point_of_view)
 void MoveProgram::addMove(MOVE move)
 {
 	_program_file.move_list[_program_file.move_count++] = move;
+    INDICATORS->indicateMoveAdded(move);
 }
 
 

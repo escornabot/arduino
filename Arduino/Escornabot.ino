@@ -62,7 +62,6 @@ void storeMove(MOVE move)
     if (PROGRAM->getMoveCount() < MOVE_LIMIT)
     {
         PROGRAM->addMove(move);
-        INDICATORS->indicateMoveAdded(move);
     }
     else
     {
