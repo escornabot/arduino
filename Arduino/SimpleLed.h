@@ -4,8 +4,9 @@
 #define _SIMPLE_LED_H
 
 #include <stdint.h>
+#include "StatusIndicator.h"
 
-class SimpleLed
+class SimpleLed : public StatusIndicator
 {
 public:
 
@@ -18,6 +19,26 @@ public:
 	void setStatus(bool value);
 
 	void toggle();
+
+	void flashOne(uint16_t millis);
+
+
+	//////////////////////////////////////////////////////////////////////
+	// StatusIndicator interface
+	//////////////////////////////////////////////////////////////////////
+
+	// turn on between movement pauses
+    virtual void moveExecuted(MOVE move) { setStatus(true); }
+	virtual void moveExecuting(MOVE move) { setStatus(false); }
+    virtual void programFinished() { setStatus(false); }
+
+	// turn on when button is pressed (200 milliseconds)
+    virtual void moveAdded(MOVE move) { flashOne(200); }
+    virtual void programReset() { flashOne(200); }
+    virtual void programStarted(uint8_t total_moves) { flashOne(200); }
+
+
+
 
 private:
 

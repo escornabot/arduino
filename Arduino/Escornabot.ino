@@ -24,19 +24,8 @@ See LICENSE.txt for details
 
 #include "Escornabot.h"
 
-#define FLASH_LED_MILLIS 300
-
-void flash_led(uint16_t millis)
-{
-    SIMPLE_LED.setStatus(true);
-    delay(millis);
-    SIMPLE_LED.setStatus(false);
-}
-
 void go()
 {
-    flash_led(FLASH_LED_MILLIS);
-
     // only with movements
     if (PROGRAM->getMoveCount() > 0)
     {
@@ -78,11 +67,13 @@ void setup()
 
     // init buzzer
     #if USE_BUZZER
+    BUZZER.init();
     INDICATORS->add(&BUZZER);
     #endif
 
     #if USE_SIMPLE_LED
     SIMPLE_LED.init();
+    INDICATORS->add(&SIMPLE_LED);
     #endif
 
     // restore last program
@@ -99,36 +90,30 @@ void loop(){
 
         case ButtonSet::BUTTON_UP:
             storeMove(MOVE_FORWARD);
-            flash_led(FLASH_LED_MILLIS);
             break;
 
         case ButtonSet::BUTTON_RIGHT:
             storeMove(MOVE_RIGHT);
-            flash_led(FLASH_LED_MILLIS);
             break;
 
         case ButtonSet::BUTTON_DOWN:
             storeMove(MOVE_BACKWARD);
-            flash_led(FLASH_LED_MILLIS);
             break;
 
         case ButtonSet::BUTTON_LEFT:
             storeMove(MOVE_LEFT);
-            flash_led(FLASH_LED_MILLIS);
             break;
 
         case ButtonSet::BUTTON_GO:
             go();
-            flash_led(FLASH_LED_MILLIS);
             break;
 
         case ButtonSet::BUTTON_RESET:
             PROGRAM->clear();
-            flash_led(FLASH_LED_MILLIS);
             break;
     }
 
-    delay(100);
+    delay(50);
 }
 
 // EOF

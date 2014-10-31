@@ -28,4 +28,12 @@ void SimpleLed::toggle()
 }
 
 
+void SimpleLed::flashOne(uint16_t millis)
+{
+	setStatus(true);
+	delay(millis);
+	setStatus(false);
+}
+
+
 // EOF

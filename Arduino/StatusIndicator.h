@@ -56,42 +56,42 @@ public:
      * Handles when a movement from the program has started its execution.
      * @param move The movement.
      */
-    virtual void moveExecuting(MOVE move) = 0;
+    virtual void moveExecuting(MOVE move) {}
 
     /**
      * Handles when a movement from the program has finished its execution.
      * @param move The movement.
      */
-    virtual void moveExecuted(MOVE move) = 0;
+    virtual void moveExecuted(MOVE move) {}
 
     /**
      * Handles when a new movement was added to the program.
      * @param move The movement.
      */
-    virtual void moveAdded(MOVE move) = 0;
+    virtual void moveAdded(MOVE move) {}
 
     /**
      * Handles when the program has started.
      * @param total_moves Total moves in the program.
      */
-    virtual void programStarted(uint8_t total_moves) = 0;
+    virtual void programStarted(uint8_t total_moves) {}
 
     /**
      * Handles when the program has finished.
      */
-    virtual void programFinished() = 0;
+    virtual void programFinished() {}
 
     /**
      * Handles when the program has reset.
      */
-    virtual void programReset() = 0;
+    virtual void programReset() {}
 
     /**
      * Handles when the program was aborted.
      * @param executed Number of executed moves after aborted.
      * @param total Total moves in the program.
      */
-    virtual void programAborted(uint8_t executed, uint8_t total) = 0;
+    virtual void programAborted(uint8_t executed, uint8_t total) {}
 
 private:
 
