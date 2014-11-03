@@ -25,89 +25,31 @@ See LICENSE.txt for details
 #include "Buzzer.h"
 #include <Arduino.h>
 
+#define BUZZER_BEEP_FREQUENCY 4699
 #define BUZZER_BEEP_MILLIS 100
 
-// note frequencies
-#define BUZZER_B2     123
-#define BUZZER_C3     131
-#define BUZZER_CS3    139
-#define BUZZER_D3     147
-#define BUZZER_DS3    156
-#define BUZZER_E3     165
-#define BUZZER_F3     175
-#define BUZZER_FS3    185
-#define BUZZER_G3     196
-#define BUZZER_GS3    208
-#define BUZZER_A3     220
-#define BUZZER_AS3    233
-#define BUZZER_B3     247
-#define BUZZER_C4     262
-#define BUZZER_CS4    277
-#define BUZZER_D4     294
-#define BUZZER_DS4    311
-#define BUZZER_E4     330
-#define BUZZER_F4     349
-#define BUZZER_FS4    370
-#define BUZZER_G4     392
-#define BUZZER_GS4    415
-#define BUZZER_A4     440
-#define BUZZER_AS4    466
-#define BUZZER_B4     494
-#define BUZZER_C5     523
-#define BUZZER_CS5    554
-#define BUZZER_D5     587
-#define BUZZER_DS5    622
-#define BUZZER_E5     659
-#define BUZZER_F5     698
-#define BUZZER_FS5    740
-#define BUZZER_G5     784
-#define BUZZER_GS5    831
-#define BUZZER_A5     880
-#define BUZZER_AS5    932
-#define BUZZER_B5     988
-#define BUZZER_C6     1047
-#define BUZZER_CS6    1109
-#define BUZZER_D6     1175
-#define BUZZER_DS6    1245
-#define BUZZER_E6     1319
-#define BUZZER_F6     1397
-#define BUZZER_FS6    1480
-#define BUZZER_G6     1568
-#define BUZZER_GS6    1661
-#define BUZZER_A6     1760
-#define BUZZER_AS6    1865
-#define BUZZER_B6     1976
-#define BUZZER_C7     2093
-#define BUZZER_CS7    2217
-#define BUZZER_D7     2349
-#define BUZZER_DS7    2489
-#define BUZZER_E7     2637
-#define BUZZER_F7     2794
-#define BUZZER_FS7    2960
-#define BUZZER_G7     3136
-#define BUZZER_GS7    3322
-#define BUZZER_A7     3520
-#define BUZZER_AS7    3729
-#define BUZZER_B7     3951
-#define BUZZER_C8     4186
-#define BUZZER_CS8    4435
-#define BUZZER_D8     4699
-#define BUZZER_DS8    4978
+#define RTTL_INTEL ":d=16,o=5,b=320:d,p,d,p,d,p,g,p,g,p,g,p,d,p,d,p,d,p,a,p,a,p,a,2p"
+#define RTTL_FIDO ":d=16,o=6,b=800:f,4p,f,4p,f,4p,f,4p,c,4p,c,4p,c,4p,c,1p,1p,1p,1p"
+#define RTTL_MOSAIC ":d=8,o=6,b=400:c,e,g,e,c,g,e,g,c,g,c,e,c,g,e,g,e,c"
+#define RTTL_ELISA ":d=4,o=7,b=125:e,d#,e,d#,e,b,d,c,a"
+
+//////////////////////////////////////////////////////////////////////
 
 Buzzer::Buzzer(uint8_t pin)
 {
     this->_pin = pin;
 }
 
-void Buzzer::beep()
-{
-    tone(_pin, BUZZER_D8, BUZZER_BEEP_MILLIS);
-}
+//////////////////////////////////////////////////////////////////////
 
 void Buzzer::init()
 {
     pinMode(_pin, OUTPUT);
 }
+
+//////////////////////////////////////////////////////////////////////
+// StatusIndicator events
+//////////////////////////////////////////////////////////////////////
 
 void Buzzer::moveExecuting(MOVE move)
 {
@@ -131,7 +73,7 @@ void Buzzer::programStarted(uint8_t total_moves)
 
 void Buzzer::programFinished()
 {
-    beep();
+    playRttl(RTTL_ELISA);
 }
 
 void Buzzer::programReset()
@@ -143,3 +85,115 @@ void Buzzer::programAborted(uint8_t executed, uint8_t total)
 {
     beep();
 }
+
+//////////////////////////////////////////////////////////////////////
+// utility functions
+//////////////////////////////////////////////////////////////////////
+
+void Buzzer::beep()
+{
+    tone(_pin, BUZZER_BEEP_FREQUENCY, BUZZER_BEEP_MILLIS);
+}
+
+//////////////////////////////////////////////////////////////////////
+
+static const uint16_t FREQUENCIES[] =
+{
+    440, 466, 494, 523, 554, 587, 622, 659, 698, 740, 784, 831,
+    880, 932, 987, 1046, 1108, 1174, 1244,1318, 1396, 1479, 1567, 1661,
+    1760, 1864, 1975, 2093, 2217, 2349, 2489, 2637, 2793, 2959, 3135, 3322,
+    3520, 3729, 3951, 4186, 4434, 4698, 4978, 5274, 5587, 5919, 6271, 6644,
+    7040, 7458, 7902, 8372, 8869, 9397, 9956, 10548, 11175, 11839, 12543, 13289,
+    14080, 14917, 15804, 16744, 17739, 18794, 19912, 21096, 22350, 23679, 25087,
+
+};
+
+//////////////////////////////////////////////////////////////////////
+
+void Buzzer::playRttl(const char* rttl)
+{
+    // song name
+    while (*rttl && *rttl != ':') rttl++;
+    rttl++;
+
+    // default values
+    uint8_t default_duration, default_octave, bps;
+    while (*rttl && *rttl != ':')
+    {
+        switch (*rttl)
+        {
+        case 'd': // note duration
+            rttl += 2;
+            default_duration = atoi(rttl);
+            while (*rttl >= '0' && *rttl <= '9') rttl++;
+            break;
+
+        case 'o': // octave
+            rttl += 2;
+            default_octave = atoi(rttl);
+            while (*rttl >= '0' && *rttl <= '9') rttl++;
+            break;
+
+        case 'b': // beats per second
+            rttl += 2;
+            bps = atoi(rttl);
+            while (*rttl >= '0' && *rttl <= '9') rttl++;
+            break;
+
+        default:
+            rttl++;
+        }
+    }
+    rttl++;
+
+    // play notes
+    uint16_t duration = default_duration;
+    int8_t note = -1;
+    uint8_t octave = default_octave;
+    while (*rttl)
+    {
+        if (*rttl >= 0 && *rttl <= 9)
+        {
+            // eat numbers
+            if (note < 0) duration = atoi(rttl) * bps / 60;
+                else octave = atoi(rttl);
+            while (*rttl >= '0' && *rttl <= '9') rttl++;
+        }
+        else
+        {
+            // eat note
+            switch (*rttl)
+            {
+                // tone
+                case 'p': note = 0; break;
+                case 'a': note = 1; break;
+                case 'b': note = 3; break;
+                case 'c': note = 4; break;
+                case 'd': note = 6; break;
+                case 'e': note = 8; break;
+                case 'f': note = 9; break;
+                case 'g': note = 10; break;
+                case '#': note++; break;
+
+                case ',': case '\0':
+
+                    if (note != -1 && octave >= 4 && octave <= 8) {
+                        if (note > 0) tone(_pin,
+                            FREQUENCIES[((octave - 4) * 10) + note - 1]);
+                        delay(1000 / duration);
+                        noTone(_pin);
+                    }
+
+                    duration = default_duration;
+                    note = -1;
+                    octave = default_octave;
+                    break;
+            }
+            rttl++;
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+// EOF

@@ -48,6 +48,12 @@ public:
      */
 	void beep();
 
+    /**
+     * RTTL parser and tone player.
+     * @param rttl Ring Tone Transfer Language string.
+     */
+    void playRttl(const char* rttl);
+
 protected:
 
 	//////////////////////////////////////////////////////////////////////
