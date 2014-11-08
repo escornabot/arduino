@@ -47,8 +47,11 @@ See LICENSE.txt for details
 // memory capacity for program movements
 #define MOVE_LIMIT 100
 
+// milliseconds delay before starting to move
+#define DELAY_BEFORE_GO 500
+
 // milliseconds to pause after every movement
-#define AFTER_MOVEMENT_PAUSE 300
+#define AFTER_MOVEMENT_PAUSE 0
 
 // point of view set when Vacalourabot is started
 #define POV_INITIAL	POV_VACALOURA

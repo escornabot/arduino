@@ -28,8 +28,8 @@ See LICENSE.txt for details
 #define BUZZER_BEEP_FREQUENCY 4699
 #define BUZZER_BEEP_MILLIS 100
 
-#define RTTL_INTEL ":d=16,o=5,b=320:d,p,d,p,d,p,g,p,g,p,g,p,d,p,d,p,d,p,a,p,a,p,a,2p"
-#define RTTL_FIDO ":d=16,o=6,b=800:f,4p,f,4p,f,4p,f,4p,c,4p,c,4p,c,4p,c,1p,1p,1p,1p"
+#define RTTL_INTEL ":d=16,o=5,b=320:d,p,d,p,d,p,g,p,g,p,g,p,d,p,d,p,d,p,a,p,a,p,"
+#define RTTL_FIDO ":d=16,o=6,b=800:f,4p,f,4p,f,4p,f,4p,c,4p,c,4p,c,4p,c"
 #define RTTL_MOSAIC ":d=8,o=6,b=400:c,e,g,e,c,g,e,g,c,g,c,e,c,g,e,g,e,c"
 #define RTTL_ELISA ":d=4,o=7,b=125:e,d#,e,d#,e,b,d,c,a"
 
@@ -73,7 +73,7 @@ void Buzzer::programStarted(uint8_t total_moves)
 
 void Buzzer::programFinished()
 {
-    playRttl(RTTL_ELISA);
+    playRttl(RTTL_FIDO);
 }
 
 void Buzzer::programReset()

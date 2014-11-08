@@ -37,7 +37,7 @@ void go()
         #endif
 
         // let user to release the 'go' button before the action
-        delay(1000);
+        delay(DELAY_BEFORE_GO);
 
         ENGINE->executeProgram(PROGRAM);
     }
@@ -80,6 +80,7 @@ void setup()
     #if USE_PERSISTENT_MEMORY
     PROGRAM->load();
     #endif
+
 }
 
 
