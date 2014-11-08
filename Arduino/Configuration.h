@@ -54,7 +54,7 @@ See LICENSE.txt for details
 #define AFTER_MOVEMENT_PAUSE 0
 
 // point of view set when Vacalourabot is started
-#define POV_INITIAL	POV_VACALOURA
+#define POV_INITIAL	POV_ESCORNABOT
 
 // buzzer
 #define USE_BUZZER true
@@ -106,7 +106,7 @@ See LICENSE.txt for details
 
 // step calibration
 #define STEPPERS_STEPS_PER_SECOND 1000
-#define STEPPERS_LINE_STEPS 2000
+#define STEPPERS_LINE_STEPS 2664
 #define STEPPERS_TURN_STEPS 1512
 
 #endif
