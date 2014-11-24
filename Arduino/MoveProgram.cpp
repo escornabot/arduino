@@ -22,6 +22,7 @@ See LICENSE.txt for details
 
 */
 
+#include "Move.h"
 #include "MoveProgram.h"
 #include "StatusIndicatorManager.h"
 
@@ -32,7 +33,7 @@ MoveProgram::MoveProgram(uint16_t pause_after_movement)
 {
     _pause_after_movement = pause_after_movement;
 	_program_file.move_count = 0;
-	_point_of_view = POV_INITIAL;
+	_point_of_view = POV_ESCORNABOT;
 }
 
 

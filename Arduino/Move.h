@@ -43,7 +43,7 @@ typedef uint8_t MOVE;
 // point of view in order to execute the movements
 enum
 {
-	POV_VACALOURA,
+	POV_ESCORNABOT,
 	POV_CHILD,
 };
 typedef uint8_t POV;
