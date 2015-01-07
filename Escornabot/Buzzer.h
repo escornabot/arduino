@@ -26,9 +26,9 @@ See LICENSE.txt for details
 #define _BUZZER_H
 
 #include <stdint.h>
-#include "StatusIndicator.h"
+#include "EventListener.h"
 
-class Buzzer : public StatusIndicator
+class Buzzer : public EventListener
 {
 public:
 

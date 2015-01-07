@@ -30,7 +30,7 @@ See LICENSE.txt for details
 #include "MoveProgram.h"
 #include "Engine.h"
 #include "ButtonSet.h"
-#include "StatusIndicatorManager.h"
+#include "EventManager.h"
 
 // motor engine defined from configuration
 #ifdef ENGINE_TYPE_HBRIDGE
@@ -122,8 +122,8 @@ See LICENSE.txt for details
 ///// global vars
 
 // status indicators
-StatusIndicatorManager INDICATORS_INSTANCE;
-StatusIndicatorManager* INDICATORS = &INDICATORS_INSTANCE;
+EventManager EVENTS_INSTANCE;
+EventManager* EVENTS = &EVENTS_INSTANCE;
 
 // engine
 Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;

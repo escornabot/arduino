@@ -1,4 +1,4 @@
-// StatusIndicatorManager.h
+// EventManager.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,21 +22,21 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _STATUS_INDICATOR_MANAGER_H
-#define _STATUS_INDICATOR_MANAGER_H
+#ifndef _EVENT_MANAGER_H
+#define _EVENT_MANAGER_H
 
-#include "StatusIndicator.h"
+#include "EventListener.h"
 
-class StatusIndicatorManager
+class EventManager
 {
 public:
 
-    StatusIndicatorManager()
+    EventManager()
     {
         _first = NULL;
     }
 
-    void add(StatusIndicator* indicator);
+    void add(EventListener* indicator);
 
     void indicateMoveExecuting(MOVE move);
 
@@ -54,10 +54,10 @@ public:
 
 private:
 
-    StatusIndicator* _first;
+    EventListener* _first;
 
 };
 
-#endif // _STATUS_INDICATOR_MANAGER_H
+#endif // _EVENT_MANAGER_H
 
 // EOF

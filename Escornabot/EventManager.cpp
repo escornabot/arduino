@@ -1,4 +1,4 @@
-// StatusIndicatorManager.cpp
+// EventManager.cpp
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,11 +22,11 @@ See LICENSE.txt for details
 
 */
 
-#include "StatusIndicatorManager.h"
+#include "EventManager.h"
 
 //////////////////////////////////////////////////////////////////////
 
-void StatusIndicatorManager::add(StatusIndicator* indicator)
+void EventManager::add(EventListener* indicator)
 {
     if (_first == NULL)
     {
@@ -34,7 +34,7 @@ void StatusIndicatorManager::add(StatusIndicator* indicator)
     }
     else
     {
-        StatusIndicator* i = _first;
+        EventListener* i = _first;
         while (i->getNext() != NULL) i = i->getNext();
         i->setNext(indicator);
     }
@@ -42,9 +42,9 @@ void StatusIndicatorManager::add(StatusIndicator* indicator)
 
 //////////////////////////////////////////////////////////////////////
 
-void StatusIndicatorManager::indicateMoveExecuting(MOVE move)
+void EventManager::indicateMoveExecuting(MOVE move)
 {
-    StatusIndicator* i = _first;
+    EventListener* i = _first;
     while (i != NULL)
     {
         i->moveExecuting(move);
@@ -54,9 +54,9 @@ void StatusIndicatorManager::indicateMoveExecuting(MOVE move)
 
 //////////////////////////////////////////////////////////////////////
 
-void StatusIndicatorManager::indicateMoveExecuted(MOVE move)
+void EventManager::indicateMoveExecuted(MOVE move)
 {
-    StatusIndicator* i = _first;
+    EventListener* i = _first;
     while (i != NULL)
     {
         i->moveExecuted(move);
@@ -66,9 +66,9 @@ void StatusIndicatorManager::indicateMoveExecuted(MOVE move)
 
 //////////////////////////////////////////////////////////////////////
 
-void StatusIndicatorManager::indicateMoveAdded(MOVE move)
+void EventManager::indicateMoveAdded(MOVE move)
 {
-    StatusIndicator* i = _first;
+    EventListener* i = _first;
     while (i != NULL)
     {
         i->moveAdded(move);
@@ -78,9 +78,9 @@ void StatusIndicatorManager::indicateMoveAdded(MOVE move)
 
 //////////////////////////////////////////////////////////////////////
 
-void StatusIndicatorManager::indicateProgramStarted(uint8_t total_moves)
+void EventManager::indicateProgramStarted(uint8_t total_moves)
 {
-    StatusIndicator* i = _first;
+    EventListener* i = _first;
     while (i != NULL)
     {
         i->programStarted(total_moves);
@@ -90,9 +90,9 @@ void StatusIndicatorManager::indicateProgramStarted(uint8_t total_moves)
 
 //////////////////////////////////////////////////////////////////////
 
-void StatusIndicatorManager::indicateProgramFinished()
+void EventManager::indicateProgramFinished()
 {
-    StatusIndicator* i = _first;
+    EventListener* i = _first;
     while (i != NULL)
     {
         i->programFinished();
@@ -102,9 +102,9 @@ void StatusIndicatorManager::indicateProgramFinished()
 
 //////////////////////////////////////////////////////////////////////
 
-void StatusIndicatorManager::indicateProgramReset()
+void EventManager::indicateProgramReset()
 {
-    StatusIndicator* i = _first;
+    EventListener* i = _first;
     while (i != NULL)
     {
         i->programReset();
@@ -114,9 +114,9 @@ void StatusIndicatorManager::indicateProgramReset()
 
 //////////////////////////////////////////////////////////////////////
 
-void StatusIndicatorManager::indicateProgramAborted(uint8_t executed, uint8_t total)
+void EventManager::indicateProgramAborted(uint8_t executed, uint8_t total)
 {
-    StatusIndicator* i = _first;
+    EventListener* i = _first;
     while (i != NULL)
     {
         i->programAborted(executed, total);

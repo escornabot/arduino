@@ -68,12 +68,12 @@ void setup()
     // init buzzer
     #if USE_BUZZER
     BUZZER.init();
-    INDICATORS->add(&BUZZER);
+    EVENTS->add(&BUZZER);
     #endif
 
     #if USE_SIMPLE_LED
     SIMPLE_LED.init();
-    INDICATORS->add(&SIMPLE_LED);
+    EVENTS->add(&SIMPLE_LED);
     #endif
 
     // restore last program

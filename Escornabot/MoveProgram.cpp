@@ -1,4 +1,3 @@
-// MoveProgram.cpp
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -24,9 +23,9 @@ See LICENSE.txt for details
 
 #include "Move.h"
 #include "MoveProgram.h"
-#include "StatusIndicatorManager.h"
+#include "EventManager.h"
 
-extern StatusIndicatorManager* INDICATORS;
+extern EventManager* EVENTS;
 
 
 MoveProgram::MoveProgram(uint16_t pause_after_movement)
@@ -41,7 +40,7 @@ MoveProgram::MoveProgram(uint16_t pause_after_movement)
 void MoveProgram::clear()
 {
 	_program_file.move_count = 0;
-    INDICATORS->indicateProgramReset();
+    EVENTS->indicateProgramReset();
 }
 
 
@@ -70,7 +69,7 @@ void MoveProgram::setPointOfView(POV point_of_view)
 void MoveProgram::addMove(MOVE move)
 {
 	_program_file.move_list[_program_file.move_count++] = move;
-    INDICATORS->indicateMoveAdded(move);
+    EVENTS->indicateMoveAdded(move);
 }
 
 

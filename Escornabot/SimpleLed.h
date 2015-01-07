@@ -4,9 +4,9 @@
 #define _SIMPLE_LED_H
 
 #include <stdint.h>
-#include "StatusIndicator.h"
+#include "EventListener.h"
 
-class SimpleLed : public StatusIndicator
+class SimpleLed : public EventListener
 {
 public:
 

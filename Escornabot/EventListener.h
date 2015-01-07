@@ -1,4 +1,4 @@
-// StatusIndicator.h
+// EventListener.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -28,22 +28,22 @@ See LICENSE.txt for details
 #include "Move.h"
 #include <stddef.h>
 
-class StatusIndicator
+class EventListener
 {
 
 public:
 
-    StatusIndicator()
+    EventListener()
     {
         this->_next = NULL;
     }
 
-    StatusIndicator* getNext()
+    EventListener* getNext()
     {
         return this->_next;
     }
 
-    void setNext(StatusIndicator* value)
+    void setNext(EventListener* value)
     {
         this->_next = value;
     }
@@ -95,9 +95,9 @@ public:
 
 private:
 
-    StatusIndicator* _next;
+    EventListener* _next;
 };
 
-#endif //  _STATUS_INDICATOR_H
+#endif //  _EVENT_LISTENER_H
 
 // EOF

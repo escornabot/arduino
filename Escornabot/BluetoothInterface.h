@@ -26,7 +26,7 @@ See LICENSE.txt for details
 #define _BLUETOOTH_INTERFACE_H
 
 #include "ButtonSet.h"
-#include "StatusIndicator.h"
+#include "EventListener.h"
 #include <Arduino.h>
 
 // one-key comands: one character by line
@@ -35,7 +35,7 @@ const static char* BUTTONS_RELEASED = "neswgr";
 
 #define COMMAND_MAX_LENGTH 10
 
-class BluetoothInterface : public ButtonSet, public StatusIndicator
+class BluetoothInterface : public ButtonSet, public EventListener
 {
 public:
 

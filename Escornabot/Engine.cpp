@@ -23,17 +23,17 @@ See LICENSE.txt for details
 */
 
 #include "Engine.h"
-#include "StatusIndicatorManager.h"
+#include "EventManager.h"
 #include <Arduino.h>
 
-extern StatusIndicatorManager* INDICATORS;
+extern EventManager* EVENTS;
 
 void Engine::executeProgram(MoveProgram* program)
 {
     uint8_t move_count = program->getMoveCount();
 
     // program is started
-    INDICATORS->indicateProgramStarted(move_count);
+    EVENTS->indicateProgramStarted(move_count);
 
     // move by move
     for (int m = 0; m < move_count; m++)
@@ -41,7 +41,7 @@ void Engine::executeProgram(MoveProgram* program)
         MOVE move = program->getMove(m);
 
         // pre move indication
-        INDICATORS->indicateMoveExecuting(move);
+        EVENTS->indicateMoveExecuting(move);
 
         // which move
         switch (move)
@@ -61,14 +61,14 @@ void Engine::executeProgram(MoveProgram* program)
         }
 
         // post move indication
-        INDICATORS->indicateMoveExecuted(move);
+        EVENTS->indicateMoveExecuted(move);
 
         // post move pause
         delay(program->getPauseAfterMovement());
     }
 
     // program is finished
-    INDICATORS->indicateProgramFinished();
+    EVENTS->indicateProgramFinished();
 }
 
 // EOF
