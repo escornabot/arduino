@@ -25,8 +25,8 @@ See LICENSE.txt for details
 #ifndef _STATUS_INDICATOR_H
 #define _STATUS_INDICATOR_H
 
-#include "Move.h"
 #include <stddef.h>
+#include "Types.h"
 
 class EventListener
 {

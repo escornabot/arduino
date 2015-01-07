@@ -27,13 +27,14 @@ See LICENSE.txt for details
 
 #include <Arduino.h>
 #include "Configuration.h"
+#include "Types.h"
 #include "MoveProgram.h"
 #include "Engine.h"
 #include "ButtonSet.h"
 #include "EventManager.h"
 
 // motor engine defined from configuration
-#ifdef ENGINE_TYPE_HBRIDGE
+#if defined(ENGINE_TYPE_HBRIDGE)
 
     #include "EngineHBridge.h"
     const EngineHBridge::Config ENGINE_CONFIG = {
@@ -48,7 +49,7 @@ See LICENSE.txt for details
     };
     EngineHBridge ENGINE_INSTANCE (&ENGINE_CONFIG);
 
-#else ifdef ENGINE_TYPE_STEPPERS
+#elif defined(ENGINE_TYPE_STEPPERS)
 
     #include "EngineSteppers.h"
     const EngineSteppers::Config ENGINE_CONFIG = {
@@ -109,10 +110,12 @@ See LICENSE.txt for details
 
 #endif // Button set
 
+
 #ifdef USE_BUZZER
     #include "Buzzer.h"
     Buzzer BUZZER = Buzzer(BUZZER_PIN);
 #endif
+
 
 #ifdef USE_SIMPLE_LED
     #include "SimpleLed.h"

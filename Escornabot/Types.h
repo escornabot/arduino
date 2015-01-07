@@ -1,4 +1,4 @@
-// Escornabot.ino
+// Types.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,31 +22,61 @@ See LICENSE.txt for details
 
 */
 
-#include "Bot.h"
+#ifndef _TYPES_H
+#define _TYPES_H
+
+#include <stdint.h>
+#include "Configuration.h"
 
 //////////////////////////////////////////////////////////////////////
 
-// instance
-Bot ESCORNABOT;
-
-//////////////////////////////////////////////////////////////////////
-
-void setup()
+// movement commands
+enum
 {
-//    Serial.begin(9600);
-    ESCORNABOT.init();
-}
+    MOVE_NONE,
+    MOVE_FORWARD,
+    MOVE_RIGHT,
+    MOVE_BACKWARD,
+    MOVE_LEFT,
+};
+typedef uint8_t MOVE;
 
 //////////////////////////////////////////////////////////////////////
 
-void loop()
+// point of view in order to execute the movements
+enum
 {
-    ESCORNABOT.loop();
-    delay(50);
-}
+    POV_ESCORNABOT,
+    POV_CHILD,
+};
+typedef uint8_t POV;
 
 //////////////////////////////////////////////////////////////////////
 
+// buttons
+enum
+{
+    BUTTON_NONE = 0,
+    BUTTON_UP = 1,
+    BUTTON_RIGHT = 2,
+    BUTTON_DOWN = 3,
+    BUTTON_LEFT = 4,
+    BUTTON_GO = 5,
+    BUTTON_RESET = 6,
+};
+typedef uint8_t BUTTON;
+
+//////////////////////////////////////////////////////////////////////
+
+// program file
+typedef struct {
+    uint8_t move_count;
+    MOVE move_list[MOVE_LIMIT];
+} ProgramFile;
+
+//////////////////////////////////////////////////////////////////////
+
+#endif // _TYPES_H
 
 // EOF
 

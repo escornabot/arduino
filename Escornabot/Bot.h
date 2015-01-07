@@ -1,4 +1,4 @@
-// Move.h
+// Bot.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,41 +22,37 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _MOVE_H
-#define _MOVE_H
+#ifndef _BOT_H
+#define _BOT_H
 
-#include "Configuration.h"
-#include <stdint.h>
+#include "EventListener.h"
+#include "Types.h"
 
-// movement commands
-enum
+/**
+ * \brief Object instance in order to register as an event listener.
+ * \author @caligari
+ */
+class Bot : public EventListener
 {
-	MOVE_NONE,
-	MOVE_FORWARD,
-	MOVE_RIGHT,
-	MOVE_BACKWARD,
-	MOVE_LEFT,
+public:
+
+	void init();
+
+	void loop();
+
+    virtual void moveExecuting(MOVE move);
+
+    virtual void programFinished();
+
+
+private:
+
+	void _go();
+
+	void _storeMove(MOVE move);
+
 };
-typedef uint8_t MOVE;
 
-
-// point of view in order to execute the movements
-enum
-{
-	POV_ESCORNABOT,
-	POV_CHILD,
-};
-typedef uint8_t POV;
-
-
-// program file
-typedef struct {
-	uint8_t move_count;
-	MOVE move_list[MOVE_LIMIT];
-} ProgramFile;
-
-
-#endif // _MOVE_H
+#endif // _BOT_H
 
 // EOF
-

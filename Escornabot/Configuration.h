@@ -59,6 +59,7 @@ See LICENSE.txt for details
 // buzzer
 #define USE_BUZZER true
 #define BUZZER_PIN 10
+#define PROGRAM_FINISHED_RTTL RTTL_FIDO
 
 // simple led
 #define USE_SIMPLE_LED true

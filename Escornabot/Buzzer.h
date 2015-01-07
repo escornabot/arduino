@@ -25,10 +25,15 @@ See LICENSE.txt for details
 #ifndef _BUZZER_H
 #define _BUZZER_H
 
-#include <stdint.h>
-#include "EventListener.h"
+#define RTTL_INTEL ":d=16,o=5,b=320:d,p,d,p,d,p,g,p,g,p,g,p,d,p,d,p,d,p,a,p,a,p,"
+#define RTTL_FIDO ":d=16,o=6,b=800:f,4p,f,4p,f,4p,f,4p,c,4p,c,4p,c,4p,c"
+#define RTTL_MOSAIC ":d=8,o=6,b=400:c,e,g,e,c,g,e,g,c,g,c,e,c,g,e,g,e,c"
+#define RTTL_ELISA ":d=4,o=7,b=125:e,d#,e,d#,e,b,d,c,a"
 
-class Buzzer : public EventListener
+
+#include <stdint.h>
+
+class Buzzer
 {
 public:
 
@@ -53,56 +58,6 @@ public:
      * @param rttl Ring Tone Transfer Language string.
      */
     void playRttl(const char* rttl);
-
-protected:
-
-	//////////////////////////////////////////////////////////////////////
-	// StatusIndicator implementation
-	//////////////////////////////////////////////////////////////////////
-
-    /**
-     * Handles when a movement from the program was executed.
-     * @param move The movement.
-     */
-    virtual void moveExecuting(MOVE move);
-
-    /**
-     * Handles when a movement from the program was executed.
-     * @param move The movement.
-     */
-    virtual void moveExecuted(MOVE move);
-
-    /**
-     * Handles when a new movement was added to the program.
-     * @param move The movement.
-     */
-    virtual void moveAdded(MOVE move);
-
-    /**
-     * Handles when the program has stated.
-     * @param total_moves Total moves in the program.
-     */
-    virtual void programStarted(uint8_t total_moves);
-
-    /**
-     * Handles when the program has finished.
-     */
-    virtual void programFinished();
-
-    /**
-     * Handles when the program has reset.
-     */
-    virtual void programReset();
-
-    /**
-     * Handles when the program was aborted.
-     * @param executed Number of executed moves after aborted.
-     * @param total Total moves in the program.
-     */
-    virtual void programAborted(uint8_t executed, uint8_t total);
-
-	//////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////
 
 private:
 

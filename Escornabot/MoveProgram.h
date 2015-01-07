@@ -28,8 +28,7 @@ See LICENSE.txt for details
 #include <stdint.h>
 
 #include "Configuration.h"
-#include "Move.h"
-
+#include "Types.h"
 
 class MoveProgram
 {
