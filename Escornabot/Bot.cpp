@@ -58,35 +58,38 @@ void Bot::init()
 
 void Bot::loop()
 {
-    switch (BUTTONS->scanButtons())
+    BUTTONS->scanButtons();
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void Bot::buttonPressed(BUTTON button)
+{
+    BUZZER.beep();
+
+    switch (button)
     {
-        case ButtonSet::BUTTON_UP:
-            BUZZER.beep();
+        case BUTTON_UP:
             _storeMove(MOVE_FORWARD);
             break;
 
-        case ButtonSet::BUTTON_RIGHT:
-            BUZZER.beep();
+        case BUTTON_RIGHT:
             _storeMove(MOVE_RIGHT);
             break;
 
-        case ButtonSet::BUTTON_DOWN:
-            BUZZER.beep();
+        case BUTTON_DOWN:
             _storeMove(MOVE_BACKWARD);
             break;
 
-        case ButtonSet::BUTTON_LEFT:
-            BUZZER.beep();
+        case BUTTON_LEFT:
             _storeMove(MOVE_LEFT);
             break;
 
-        case ButtonSet::BUTTON_GO:
-            BUZZER.beep();
+        case BUTTON_GO:
             _go();
             break;
 
-        case ButtonSet::BUTTON_RESET:
-            BUZZER.beep();
+        case BUTTON_RESET:
             PROGRAM->clear();
             break;
     }

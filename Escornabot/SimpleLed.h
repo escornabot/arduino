@@ -6,6 +6,11 @@
 #include <stdint.h>
 #include "EventListener.h"
 
+
+/**
+ * \brief Listener of events and turning on/off a digital output.
+ * \author @caligari
+ */
 class SimpleLed : public EventListener
 {
 public:

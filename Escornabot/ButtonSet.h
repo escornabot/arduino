@@ -26,25 +26,20 @@ See LICENSE.txt for details
 #define _BUTTON_SET_H
 
 #include <stdint.h>
+#include "Types.h"
 
 /**
- * Interface to different Vacaloura engines.
+ * \brief Interface to different Escornabot button sets.
+ * \author @caligari
  */
 class ButtonSet
 {
 public:
 
-	enum
-	{
-		BUTTON_NONE,
-		BUTTON_UP,
-		BUTTON_RIGHT,
-		BUTTON_DOWN,
-		BUTTON_LEFT,
-		BUTTON_GO,
-		BUTTON_RESET,
-	};
-        typedef uint8_t BUTTON;
+	/**
+	 * Constructor.
+	 */
+	ButtonSet();
 
 	/**
 	 * Does the hardware initialization.
@@ -55,8 +50,20 @@ public:
 	 * Scans the button input to test if anyone is pressed.
 	 * @return The button being pressed.
 	 */
-	virtual BUTTON scanButtons() = 0;
+	virtual void scanButtons() = 0;
 
+protected:
+
+	void pressed(BUTTON button);
+
+	void released(BUTTON button);
+
+	bool isPressed(BUTTON button)
+			{ return _button_statuses[button - 1] != 0; }
+
+private:
+
+	uint32_t _button_statuses[6];
 };
 
 

@@ -41,6 +41,9 @@ See LICENSE.txt for details
 // milliseconds after a button is considered as pressed
 #define BUTTON_MIN_PRESSED 30
 
+// milliseconds after a button is considered as long pressed
+#define BUTTON_LONG_PRESSED 3000
+
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
 
@@ -57,7 +60,7 @@ See LICENSE.txt for details
 #define POV_INITIAL	POV_ESCORNABOT
 
 // buzzer
-#define USE_BUZZER true
+#define USE_BUZZER false
 #define BUZZER_PIN 10
 #define PROGRAM_FINISHED_RTTL RTTL_FIDO
 
@@ -138,12 +141,12 @@ See LICENSE.txt for details
 #define BS_ANALOG_PIN A0
 
 // input values for each key pressed
-#define BS_ANALOG_VALUE_UP 471
-#define BS_ANALOG_VALUE_RIGHT 299
-#define BS_ANALOG_VALUE_DOWN 211
-#define BS_ANALOG_VALUE_LEFT 118
-#define BS_ANALOG_VALUE_GO 158
-#define BS_ANALOG_VALUE_RESET 82
+#define BS_ANALOG_VALUE_UP 157
+#define BS_ANALOG_VALUE_RIGHT 136
+#define BS_ANALOG_VALUE_DOWN 114
+#define BS_ANALOG_VALUE_LEFT 66
+#define BS_ANALOG_VALUE_GO 91
+#define BS_ANALOG_VALUE_RESET 41
 
 #endif // BUTTONS_ANALOG
 

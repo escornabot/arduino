@@ -1,4 +1,4 @@
-// Escornabot.ino
+// ButtonSet.cpp
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,30 +22,57 @@ See LICENSE.txt for details
 
 */
 
-#include "Bot.h"
+#include "ButtonSet.h"
+#include "EventManager.h"
+#include <Arduino.h>
+
+extern EventManager* EVENTS;
 
 //////////////////////////////////////////////////////////////////////
 
-// instance
-Bot ESCORNABOT;
-
-//////////////////////////////////////////////////////////////////////
-
-void setup()
+ButtonSet::ButtonSet()
 {
-    ESCORNABOT.init();
+	for (int b = 0; b < 6; b++)
+		this->_button_statuses[b] = 0;
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void loop()
+void ButtonSet::pressed(BUTTON button)
 {
-    ESCORNABOT.loop();
-    delay(50);
+	button--;
+	if (_button_statuses[button] == 0)
+	{
+		_button_statuses[button] = millis();
+	}
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void ButtonSet::released(BUTTON button)
+{
+	button--;
+	if (_button_statuses[button] != 0)
+	{
+		uint32_t pressed_millis = millis() - _button_statuses[button];
+
+		if (pressed_millis > BUTTON_MIN_PRESSED)
+		{
+			if (pressed_millis < BUTTON_LONG_PRESSED)
+			{
+				EVENTS->indicateButtonPressed(button + 1);
+			}
+			else
+			{
+				EVENTS->indicateButtonLongPressed(button + 1);
+			}
+
+			_button_statuses[button] = 0;
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
 
 
 // EOF
-

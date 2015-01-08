@@ -26,30 +26,31 @@ See LICENSE.txt for details
 #include "Configuration.h"
 #include <Arduino.h>
 
-// arduino value when analog input is open
-#define OPEN_VALUE  1023
+#define PULLUP_VALUE 990
+
+//////////////////////////////////////////////////////////////////////
 
 ButtonSetAnalog::ButtonSetAnalog(const Config* config)
 {
     this->_config = config;
 }
 
+//////////////////////////////////////////////////////////////////////
 
 void ButtonSetAnalog::init()
 {
-    pinMode(_config->pin_button_set, INPUT);
+    pinMode(_config->pin_button_set, INPUT_PULLUP);
     _last_button = BUTTON_NONE;
 }
 
+//////////////////////////////////////////////////////////////////////
 
-ButtonSet::BUTTON ButtonSetAnalog::scanButtons()
+void ButtonSetAnalog::scanButtons()
 {
-    delay(BUTTON_MIN_PRESSED);
-
     int16_t value = analogRead(_config->pin_button_set);
     int16_t diff, minor_diff;
 
-    minor_diff = value;
+    minor_diff = abs(value - PULLUP_VALUE);
     BUTTON button = BUTTON_NONE;
 
     diff = abs(value - _config->value_button_up);
@@ -94,12 +95,15 @@ ButtonSet::BUTTON ButtonSetAnalog::scanButtons()
         button = BUTTON_RESET;
     }
 
-    // return button only when it changes
     if (button != _last_button)
     {
+        if (_last_button != BUTTON_NONE) released(_last_button);
+        if (button != BUTTON_NONE) pressed(button);
         _last_button = button;
-        return button;
     }
-
-    return BUTTON_NONE;
 }
+
+//////////////////////////////////////////////////////////////////////
+
+
+// EOF

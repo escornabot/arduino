@@ -28,6 +28,11 @@ See LICENSE.txt for details
 #include <stddef.h>
 #include "Types.h"
 
+
+/**
+ * \brief Abstract event listener to be implemented by listeners.
+ * \author @caligari
+ */
 class EventListener
 {
 
@@ -92,6 +97,18 @@ public:
      * @param total Total moves in the program.
      */
     virtual void programAborted(uint8_t executed, uint8_t total) {}
+
+    /**
+     * Handles when a button was pressed.
+     * @param button The button.
+     */
+    virtual void buttonPressed(BUTTON button) {}
+
+    /**
+     * Handles when a button was long pressed.
+     * @param button The button.
+     */
+    virtual void buttonLongPressed(BUTTON button) {}
 
 private:
 

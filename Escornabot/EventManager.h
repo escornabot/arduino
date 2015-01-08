@@ -27,6 +27,10 @@ See LICENSE.txt for details
 
 #include "EventListener.h"
 
+/**
+ * \brief Event manager that receives events and dispatch to listeners.
+ * \author @caligari
+ */
 class EventManager
 {
 public:
@@ -51,6 +55,10 @@ public:
     void indicateProgramReset();
 
     void indicateProgramAborted(uint8_t executed, uint8_t total);
+
+    void indicateButtonPressed(BUTTON button);
+
+    void indicateButtonLongPressed(BUTTON button);
 
 private:
 

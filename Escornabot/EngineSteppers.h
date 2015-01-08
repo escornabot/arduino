@@ -27,6 +27,10 @@ See LICENSE.txt for details
 
 #include "Engine.h"
 
+/**
+ * \brief Engine using 2 stepper motors controlled by an array of Darlington.
+ * \author @caligari
+ */
 class EngineSteppers : Engine
 {
 public:

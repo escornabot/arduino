@@ -30,6 +30,11 @@ See LICENSE.txt for details
 #include "Configuration.h"
 #include "Types.h"
 
+
+/**
+ * \brief Container of program movements.
+ * \author @caligari
+ */
 class MoveProgram
 {
 private:

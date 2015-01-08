@@ -36,20 +36,25 @@ class Bot : public EventListener
 {
 public:
 
-	void init();
+    void init();
 
-	void loop();
+    void loop();
+
+    ////////////////////////////////////////////////////////////
+    // EventListener interface
+    ////////////////////////////////////////////////////////////
 
     virtual void moveExecuting(MOVE move);
 
     virtual void programFinished();
 
+    virtual void buttonPressed(BUTTON button);
 
 private:
 
-	void _go();
+    void _go();
 
-	void _storeMove(MOVE move);
+    void _storeMove(MOVE move);
 
 };
 

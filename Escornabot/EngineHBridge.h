@@ -29,7 +29,8 @@ See LICENSE.txt for details
 
 
 /**
- * Engine using 2 motors controlled by an H-Bridge L9110 module.
+ * \brief Engine using 2 motors controlled by an H-Bridge L9110 module.
+ * \author @caligari
  */
 class EngineHBridge : Engine
 {

@@ -33,6 +33,10 @@ See LICENSE.txt for details
 
 #include <stdint.h>
 
+/**
+ * \brief Generates tones with a buzzer connected to a PWM output.
+ * \author @caligari
+ */
 class Buzzer
 {
 public:

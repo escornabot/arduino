@@ -126,4 +126,29 @@ void EventManager::indicateProgramAborted(uint8_t executed, uint8_t total)
 
 //////////////////////////////////////////////////////////////////////
 
+void EventManager::indicateButtonPressed(BUTTON button)
+{
+    EventListener* i = _first;
+    while (i != NULL)
+    {
+        i->buttonPressed(button);
+        i = i->getNext();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void EventManager::indicateButtonLongPressed(BUTTON button)
+{
+    EventListener* i = _first;
+    while (i != NULL)
+    {
+        i->buttonLongPressed(button);
+        i = i->getNext();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+
 // EOF

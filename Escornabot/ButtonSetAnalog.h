@@ -28,7 +28,8 @@ See LICENSE.txt for details
 #include "ButtonSet.h"
 
 /**
- * Implementation of a button set connected to 1 analog input.
+ * \brief Implementation of a button set connected to 1 analog input.
+ * \author @caligari
  */
 class ButtonSetAnalog : ButtonSet
 {
@@ -53,9 +54,8 @@ public:
 
 	/**
 	 * Reads the buttons
-	 * @return The button being pressed.
 	 */
-	virtual BUTTON scanButtons();
+	virtual void scanButtons();
 
 private:
 

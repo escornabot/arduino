@@ -35,6 +35,10 @@ const static char* BUTTONS_RELEASED = "neswgr";
 
 #define COMMAND_MAX_LENGTH 10
 
+/**
+ * \brief Interface to use a bluetooth module over serial interface
+ * \author @caligari
+ */
 class BluetoothInterface : public ButtonSet, public EventListener
 {
 public:
@@ -62,10 +66,10 @@ public:
      * Reads the buttons
      * @return The button being pressed.
      */
-    virtual BUTTON scanButtons();
+    virtual void scanButtons();
 
     ////////////////////////////////////////////////////////////
-    // StatusIndicator interface
+    // EventListener interface
     ////////////////////////////////////////////////////////////
 
     /**

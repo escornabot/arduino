@@ -28,8 +28,10 @@ See LICENSE.txt for details
 #include <stdint.h>
 #include "MoveProgram.h"
 
+
 /**
- * Interface to different Vacaloura engines.
+ * \brief Interface to different Escornabot engines.
+ * \author @caligari
  */
 class Engine
 {

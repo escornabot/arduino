@@ -49,22 +49,26 @@ void BluetoothInterface::init()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-ButtonSet::BUTTON BluetoothInterface::scanButtons()
+void BluetoothInterface::scanButtons()
 {
     while (_readLine())
     {
         // one-char commands
         if (strlen(_command) == 1)
         {
-            char* found = strchr(BUTTONS_RELEASED, _command[0]);
+            char* found = strchr(BUTTONS_PRESSED, _command[0]);
             if (found)
             {
-                return (BUTTON)((found - BUTTONS_RELEASED) + 1);
+                pressed((BUTTON)((found - BUTTONS_PRESSED) + 1));
+            }
+
+            found = strchr(BUTTONS_RELEASED, _command[0]);
+            if (found)
+            {
+                released((BUTTON)((found - BUTTONS_RELEASED) + 1));
             }
         }
     }
-
-    return BUTTON_NONE;
 }
 
 //////////////////////////////////////////////////////////////////////
