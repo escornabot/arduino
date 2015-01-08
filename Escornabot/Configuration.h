@@ -141,12 +141,12 @@ See LICENSE.txt for details
 #define BS_ANALOG_PIN A0
 
 // input values for each key pressed
-#define BS_ANALOG_VALUE_UP 157
-#define BS_ANALOG_VALUE_RIGHT 136
+#define BS_ANALOG_VALUE_UP 41
+#define BS_ANALOG_VALUE_RIGHT 67
 #define BS_ANALOG_VALUE_DOWN 114
-#define BS_ANALOG_VALUE_LEFT 66
-#define BS_ANALOG_VALUE_GO 91
-#define BS_ANALOG_VALUE_RESET 41
+#define BS_ANALOG_VALUE_LEFT 157
+#define BS_ANALOG_VALUE_GO 136
+#define BS_ANALOG_VALUE_RESET 91
 
 #endif // BUTTONS_ANALOG
 
