@@ -1,7 +1,7 @@
 
 # Arduino firmware
 
-This is the Arduino firmware to the Escornabot.
+This is the Arduino firmware for the Escornabot project.
 
 ## Migration
 
