@@ -25,13 +25,13 @@ See LICENSE.txt for details
 #ifndef _CONFIGURATION_H
 #define _CONFIGURATION_H
 
+
 //////////////////////////////////////////////////////////////////////
 ///// general configuration
 //////////////////////////////////////////////////////////////////////
 
 // engine to use
 #define ENGINE_TYPE_STEPPERS
-//#define ENGINE_TYPE_HBRIDGE
 
 // button set to use
 //#define BUTTONS_DIGITAL
@@ -68,29 +68,7 @@ See LICENSE.txt for details
 #define USE_SIMPLE_LED true
 #define SIMPLE_LED_PIN 13
 
-//////////////////////////////////////////////////////////////////////
-///// HBRIDGE engine setup
-//////////////////////////////////////////////////////////////////////
 
-#ifdef ENGINE_TYPE_HBRIDGE
-
-// HBRIDGE pin setup (outputs)
-#define HBRIDGE_MOTOR_LEFT_A 6
-#define HBRIDGE_MOTOR_LEFT_B 7
-#define HBRIDGE_MOTOR_RIGHT_A 8
-#define HBRIDGE_MOTOR_RIGHT_B 9
-
-// HBRIDGE pin setup (outputs PWM, usually 3, 5, 6, 9, 10, and 11)
-#define HBRIDGE_MOTOR_LEFT_EN 10
-#define HBRIDGE_MOTOR_RIGHT_EN 11
-
-// step unit long in milliseconds
-#define HBRIDGE_STEP_MILLIS 500
-
-// 90 degrees turn long in milliseconds
-#define HBRIDGE_TURN_MILLIS 350
-
-#endif // ENGINE_TYPE_HBRIDGE
 
 //////////////////////////////////////////////////////////////////////
 ///// Steppers engine setup
@@ -115,6 +93,8 @@ See LICENSE.txt for details
 
 #endif
 
+
+
 //////////////////////////////////////////////////////////////////////
 ///// Button set digital
 //////////////////////////////////////////////////////////////////////
@@ -130,6 +110,8 @@ See LICENSE.txt for details
 #define BS_DIGITAL_RESET A5
 
 #endif // BUTTONS_DIGITAL
+
+
 
 //////////////////////////////////////////////////////////////////////
 ///// Button set analog
@@ -150,7 +132,10 @@ See LICENSE.txt for details
 
 #endif // BUTTONS_ANALOG
 
+
+
 //////////////////////////////////////////////////////////////////////
+///// Button set Bluetooth
 //////////////////////////////////////////////////////////////////////
 
 #ifdef BUTTONS_BLUETOOTH
@@ -165,8 +150,12 @@ See LICENSE.txt for details
 
 #endif // BUTTONS_BLUETOOTH
 
+
+
+
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
+
 
 #endif // _CONFIGURATION_H
 
