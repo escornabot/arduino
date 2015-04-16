@@ -27,10 +27,12 @@ See LICENSE.txt for details
 
 #include <stddef.h>
 #include <stdint.h>
-#include "MoveProgram.h"
+#include "Types.h"
+#include "MoveList.h"
 
-#define EEPROM_ADDR_PROGRAM 0
-#define EEPROM_SIZE_PROGRAM sizeof(ProgramFile)
+// eeprom organization
+#define EEPROM_ADDR_MOVE_LIST 0
+#define EEPROM_SIZE_MOVE_LIST (MOVE_LIMIT + 1)
 
 /**
  * Provides convenient methods to use persistent memory (EEPROM) and be sure
@@ -38,6 +40,24 @@ See LICENSE.txt for details
  */
 class PersistentMemory
 {
+public:
+
+    /**
+     * Saves the list of movements in EEPROM.
+     * @param move_list Array with the movements.
+     * @param move_count Number of movements.
+     * @return OK is true. Error is false.
+     */
+    bool saveProgram(MOVE* move_list, uint8_t move_count);
+
+    /**
+     * Loads a program of movements from EEPROM.
+     * @param move_list Array with the movements.
+     * @param move_count Number of movements.
+     * @return OK is true. Error is false.
+     */
+    bool loadProgram(MOVE* move_list, uint8_t *move_count);
+
 private:
 
     /**
@@ -45,7 +65,7 @@ private:
      *
      * @return Amount of memory in bytes.
      */
-    size_t totalBytes();
+    size_t _totalBytes();
 
     /**
      * Saves a buffer to the persistent memory.
@@ -54,7 +74,7 @@ private:
      * @buffer Main memory pointer with the data to save.
      * @size Length in bytes of the buffer to save.
      */
-    bool save(size_t address, uint8_t* buffer, size_t length);
+    bool _save(size_t address, uint8_t* buffer, size_t length);
 
     /**
      * Loads a buffer from the persistent memory.
@@ -64,34 +84,13 @@ private:
      * @size Length in bytes of the buffer to load.
      * @return OK is true. Error is false.
      */
-    bool load(size_t address, uint8_t* buffer, size_t length);
+    bool _load(size_t address, uint8_t* buffer, size_t length);
 
     /**
      * Fills the memory with zeroes.
      */
-    void clear();
+    void _clear();
 
-public:
-
-    /**
-     * Saves the program of movements in EEPROM.
-     * @param program Pointer to the ProgramFile structure to save.
-     * @return OK is true. Error is false.
-     */
-    inline bool saveProgram(ProgramFile* program)
-    {
-        return save(EEPROM_ADDR_PROGRAM, (uint8_t*)program, EEPROM_SIZE_PROGRAM);
-    }
-
-    /**
-     * Loads a program of movements from EEPROM.
-     * @param program Pointer to the ProgramFile structure to load.
-     * @return OK is true. Error is false.
-     */
-    inline bool loadProgram(ProgramFile* program)
-    {
-        return load(EEPROM_ADDR_PROGRAM, (uint8_t*)program, EEPROM_SIZE_PROGRAM);
-    }
 };
 
 

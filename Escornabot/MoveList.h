@@ -1,4 +1,4 @@
-// MoveProgram.h
+// MoveList.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,8 +22,8 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _MOVE_PROGRAM_H
-#define _MOVE_PROGRAM_H
+#ifndef _MOVE_LIST_H
+#define _MOVE_LIST_H
 
 #include <stdint.h>
 
@@ -35,22 +35,14 @@ See LICENSE.txt for details
  * \brief Container of program movements.
  * \author @caligari
  */
-class MoveProgram
+class MoveList
 {
-private:
-
-	ProgramFile _program_file;
-
-	POV _point_of_view;
-
-	uint16_t _pause_after_movement;
-
 public:
 
 	/**
 	 * Constructor.
 	 */
-	MoveProgram(uint16_t pause_after_movement);
+	MoveList();
 
 	/**
 	 * Removes all movements from program.
@@ -62,20 +54,6 @@ public:
 	 * @return Amount of movements.
 	 */
 	uint8_t getMoveCount();
-
-	/**
-	 * Returns the current point of view to execute the movements.
-	 * @return The point of view.
-	 */
-	POV getPointOfView();
-
-	/**
-	 * Sets the current point of view to execute the movements.
-	 * @param point_of_view The point of view.
-	 */
-	void setPointOfView(POV point_of_view);
-
-	uint16_t getPauseAfterMovement() { return _pause_after_movement; }
 
 	/**
 	 * Adds a new movement at the end of the program.
@@ -102,8 +80,16 @@ public:
 	void load();
 
 	#endif
+
+private:
+
+    uint8_t _move_count;
+
+    MOVE _move_list[MOVE_LIMIT];
+
 };
 
-#endif // _MOVE_PROGRAM_H
+
+#endif // _MOVE_LIST_H
 
 // EOF

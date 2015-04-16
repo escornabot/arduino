@@ -26,7 +26,7 @@ See LICENSE.txt for details
 #define _ENGINE_H
 
 #include <stdint.h>
-#include "MoveProgram.h"
+#include "MoveList.h"
 
 
 /**
@@ -58,9 +58,11 @@ public:
 
 	/**
 	 * Executes the movement program.
-	 * @param program The program with the movements.
+	 * @param program Movements to execute.
+	 * @param pause Milliseconds waiting between movements.
+	 * @param pov Point of view of movements (POV_ESCORNABOT or POV_CHILD).
 	 */
-	void executeProgram(MoveProgram* program);
+	void execute(MoveList* program, uint16_t pause, POV pov);
 };
 
 

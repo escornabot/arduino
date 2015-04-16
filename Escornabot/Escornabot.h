@@ -28,7 +28,7 @@ See LICENSE.txt for details
 #include <Arduino.h>
 #include "Configuration.h"
 #include "Types.h"
-#include "MoveProgram.h"
+#include "MoveList.h"
 #include "Engine.h"
 #include "ButtonSet.h"
 #include "EventManager.h"
@@ -135,8 +135,8 @@ Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
 ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
 
 // program
-MoveProgram PROGRAM_INSTANCE(AFTER_MOVEMENT_PAUSE);
-MoveProgram* PROGRAM = &PROGRAM_INSTANCE;
+MoveList PROGRAM_INSTANCE;
+MoveList* PROGRAM = &PROGRAM_INSTANCE;
 
 
 #endif // _ESCORNABOT_H

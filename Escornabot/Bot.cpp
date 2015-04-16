@@ -126,7 +126,7 @@ void Bot::_go()
         // let user to release the 'go' button before the action
         delay(DELAY_BEFORE_GO);
 
-        ENGINE->executeProgram(PROGRAM);
+        ENGINE->execute(PROGRAM, AFTER_MOVEMENT_PAUSE, POV_ESCORNABOT);
     }
 }
 

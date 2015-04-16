@@ -1,3 +1,4 @@
+// MoveList.cpp
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -21,61 +22,46 @@ See LICENSE.txt for details
 
 */
 
-#include "MoveProgram.h"
+#include "Types.h"
+#include "MoveList.h"
 #include "EventManager.h"
 
 extern EventManager* EVENTS;
 
 
-MoveProgram::MoveProgram(uint16_t pause_after_movement)
+MoveList::MoveList()
 {
-    _pause_after_movement = pause_after_movement;
-	_program_file.move_count = 0;
-	_point_of_view = POV_ESCORNABOT;
+	_move_count = 0;
 }
 
 
 
-void MoveProgram::clear()
+void MoveList::clear()
 {
-	_program_file.move_count = 0;
+	_move_count = 0;
     EVENTS->indicateProgramReset();
 }
 
 
 
-uint8_t MoveProgram::getMoveCount()
+uint8_t MoveList::getMoveCount()
 {
-	return _program_file.move_count;
+	return _move_count;
 }
 
 
 
-POV MoveProgram::getPointOfView()
+void MoveList::addMove(MOVE move)
 {
-	return _point_of_view;
-}
-
-
-
-void MoveProgram::setPointOfView(POV point_of_view)
-{
-	_point_of_view = point_of_view;
-}
-
-
-
-void MoveProgram::addMove(MOVE move)
-{
-	_program_file.move_list[_program_file.move_count++] = move;
+	_move_list[_move_count++] = move;
     EVENTS->indicateMoveAdded(move);
 }
 
 
 
-MOVE MoveProgram::getMove(uint8_t index)
+MOVE MoveList::getMove(uint8_t index)
 {
-	return _program_file.move_list[index];
+	return _move_list[index];
 }
 
 
@@ -87,23 +73,23 @@ MOVE MoveProgram::getMove(uint8_t index)
 extern PersistentMemory* PERSISTENT_MEMORY;
 
 
-void MoveProgram::save()
+void MoveList::save()
 {
     // save only when there are movements to save
-    if (_program_file.move_count > 0)
+    if (_move_count > 0)
     {
-        PERSISTENT_MEMORY->saveProgram(&_program_file);
+        PERSISTENT_MEMORY->saveProgram(_move_list, _move_count);
     }
 }
 
 
-void MoveProgram::load()
+void MoveList::load()
 {
-    if (!PERSISTENT_MEMORY->loadProgram(&_program_file)
-        || _program_file.move_count > MOVE_LIMIT)
+    if (!PERSISTENT_MEMORY->loadProgram(_move_list, &_move_count)
+        || _move_count > MOVE_LIMIT)
     {
       // invalidate the program (clear)
-      _program_file.move_count = 0;
+      _move_count = 0;
     }
 }
 

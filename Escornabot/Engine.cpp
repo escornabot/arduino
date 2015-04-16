@@ -28,15 +28,14 @@ See LICENSE.txt for details
 
 extern EventManager* EVENTS;
 
-void Engine::executeProgram(MoveProgram* program)
+void Engine::execute(MoveList* program, uint16_t pause, POV pov)
 {
-    uint8_t move_count = program->getMoveCount();
-
     // program is started
-    EVENTS->indicateProgramStarted(move_count);
+    uint8_t count = program->getMoveCount();
+    EVENTS->indicateProgramStarted(count);
 
     // move by move
-    for (int m = 0; m < move_count; m++)
+    for (int m = 0; m < count; m++)
     {
         MOVE move = program->getMove(m);
 
@@ -49,12 +48,15 @@ void Engine::executeProgram(MoveProgram* program)
             case MOVE_RIGHT:
                 turn90Degrees(1);
                 break;
+
             case MOVE_LEFT:
                 turn90Degrees(-1);
                 break;
+
             case MOVE_FORWARD:
                 moveStraight(1);
                 break;
+
             case MOVE_BACKWARD:
                 moveStraight(-1);
                 break;
@@ -64,7 +66,7 @@ void Engine::executeProgram(MoveProgram* program)
         EVENTS->indicateMoveExecuted(move);
 
         // post move pause
-        delay(program->getPauseAfterMovement());
+        delayMicroseconds(pause * 1000);
     }
 
     // program is finished
