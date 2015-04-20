@@ -105,10 +105,16 @@ public:
     virtual void buttonPressed(BUTTON button) {}
 
     /**
-     * Handles when a button was long pressed.
+     * Handles when a button was released.
      * @param button The button.
      */
-    virtual void buttonLongPressed(BUTTON button) {}
+    virtual void buttonReleased(BUTTON button) {}
+
+    /**
+     * Handles when a button was long released.
+     * @param button The button.
+     */
+    virtual void buttonLongReleased(BUTTON button) {}
 
 private:
 

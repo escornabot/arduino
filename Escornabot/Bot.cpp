@@ -63,7 +63,7 @@ void Bot::loop()
 
 //////////////////////////////////////////////////////////////////////
 
-void Bot::buttonPressed(BUTTON button)
+void Bot::buttonReleased(BUTTON button)
 {
     BUZZER.beep();
 

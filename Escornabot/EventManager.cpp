@@ -138,12 +138,24 @@ void EventManager::indicateButtonPressed(BUTTON button)
 
 //////////////////////////////////////////////////////////////////////
 
-void EventManager::indicateButtonLongPressed(BUTTON button)
+void EventManager::indicateButtonReleased(BUTTON button)
 {
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->buttonLongPressed(button);
+        i->buttonReleased(button);
+        i = i->getNext();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void EventManager::indicateButtonLongReleased(BUTTON button)
+{
+    EventListener* i = _first;
+    while (i != NULL)
+    {
+        i->buttonLongReleased(button);
         i = i->getNext();
     }
 }

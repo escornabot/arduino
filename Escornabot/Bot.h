@@ -48,7 +48,7 @@ public:
 
     virtual void programFinished();
 
-    virtual void buttonPressed(BUTTON button);
+    virtual void buttonReleased(BUTTON button);
 
 private:
 

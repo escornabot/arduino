@@ -28,6 +28,7 @@ See LICENSE.txt for details
 #include <stdint.h>
 #include "Enums.h"
 
+
 /**
  * \brief Interface to different Escornabot button sets.
  * \author @caligari

@@ -45,6 +45,7 @@ void ButtonSet::pressed(BUTTON button)
 	if (_button_statuses[button] == 0)
 	{
 		_button_statuses[button] = millis();
+		EVENTS->indicateButtonPressed(button + 1);
 	}
 }
 
@@ -61,11 +62,11 @@ void ButtonSet::released(BUTTON button)
 		{
 			if (pressed_millis < BUTTON_LONG_PRESSED)
 			{
-				EVENTS->indicateButtonPressed(button + 1);
+				EVENTS->indicateButtonReleased(button + 1);
 			}
 			else
 			{
-				EVENTS->indicateButtonLongPressed(button + 1);
+				EVENTS->indicateButtonLongReleased(button + 1);
 			}
 
 			_button_statuses[button] = 0;

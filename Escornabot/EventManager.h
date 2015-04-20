@@ -58,7 +58,9 @@ public:
 
     void indicateButtonPressed(BUTTON button);
 
-    void indicateButtonLongPressed(BUTTON button);
+    void indicateButtonReleased(BUTTON button);
+
+    void indicateButtonLongReleased(BUTTON button);
 
 private:
 
