@@ -26,7 +26,7 @@ See LICENSE.txt for details
 #define _STATUS_INDICATOR_H
 
 #include <stddef.h>
-#include "Types.h"
+#include "Enums.h"
 
 
 /**

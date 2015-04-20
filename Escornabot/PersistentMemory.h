@@ -27,7 +27,7 @@ See LICENSE.txt for details
 
 #include <stddef.h>
 #include <stdint.h>
-#include "Types.h"
+#include "Enums.h"
 #include "MoveList.h"
 
 // eeprom organization

@@ -26,7 +26,7 @@ See LICENSE.txt for details
 #define _BOT_H
 
 #include "EventListener.h"
-#include "Types.h"
+#include "Enums.h"
 
 /**
  * \brief Object instance in order to register as an event listener.

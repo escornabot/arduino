@@ -28,7 +28,7 @@ See LICENSE.txt for details
 #include <stdint.h>
 
 #include "Configuration.h"
-#include "Types.h"
+#include "Enums.h"
 
 
 /**

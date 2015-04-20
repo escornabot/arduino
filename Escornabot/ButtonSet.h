@@ -26,7 +26,7 @@ See LICENSE.txt for details
 #define _BUTTON_SET_H
 
 #include <stdint.h>
-#include "Types.h"
+#include "Enums.h"
 
 /**
  * \brief Interface to different Escornabot button sets.

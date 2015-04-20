@@ -22,7 +22,7 @@ See LICENSE.txt for details
 
 */
 
-#include "Types.h"
+#include "Enums.h"
 #include "MoveList.h"
 #include "EventManager.h"
 

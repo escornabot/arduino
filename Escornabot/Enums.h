@@ -1,4 +1,4 @@
-// Types.h
+// Enums.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,22 +22,21 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _TYPES_H
-#define _TYPES_H
+#ifndef _ENUMS_H
+#define _ENUMS_H
 
 #include <stdint.h>
-#include "Configuration.h"
 
 //////////////////////////////////////////////////////////////////////
 
 // movement commands
 enum
 {
-    MOVE_NONE,
-    MOVE_FORWARD,
-    MOVE_RIGHT,
-    MOVE_BACKWARD,
-    MOVE_LEFT,
+    MOVE_NONE = 0,
+    MOVE_FORWARD = 1,
+    MOVE_RIGHT = 2,
+    MOVE_BACKWARD = 3,
+    MOVE_LEFT = 4,
 };
 typedef uint8_t MOVE;
 
@@ -46,8 +45,8 @@ typedef uint8_t MOVE;
 // point of view in order to execute the movements
 enum
 {
-    POV_ESCORNABOT,
-    POV_CHILD,
+    POV_ESCORNABOT = 1,
+    POV_CHILD = 2,
 };
 typedef uint8_t POV;
 
@@ -68,7 +67,7 @@ typedef uint8_t BUTTON;
 
 //////////////////////////////////////////////////////////////////////
 
-#endif // _TYPES_H
+#endif // _ENUMS_H
 
 // EOF
 

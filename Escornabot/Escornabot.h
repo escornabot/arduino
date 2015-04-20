@@ -27,7 +27,7 @@ See LICENSE.txt for details
 
 #include <Arduino.h>
 #include "Configuration.h"
-#include "Types.h"
+#include "Enums.h"
 #include "MoveList.h"
 #include "Engine.h"
 #include "ButtonSet.h"
