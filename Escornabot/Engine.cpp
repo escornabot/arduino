@@ -69,6 +69,11 @@ void Engine::executeProgram(MoveProgram* program)
 
     // program is finished
     INDICATORS->indicateProgramFinished();
+
+    #if !USE_PERSISTENT_MEMORY
+        // clear the program
+        program->clear();
+    #endif
 }
 
 // EOF
