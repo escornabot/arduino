@@ -42,7 +42,7 @@ See LICENSE.txt for details
 #define BUTTON_MIN_PRESSED 30
 
 // store configuration and program within internal EEPROM
-#define USE_PERSISTENT_MEMORY false
+#define USE_PERSISTENT_MEMORY true
 
 // memory capacity for program movements
 #define MOVE_LIMIT 100
