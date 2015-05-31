@@ -48,6 +48,8 @@ public:
 
     virtual void programFinished();
 
+    virtual void programAborted(uint8_t executed, uint8_t total);
+
     virtual void buttonReleased(BUTTON button);
 
 private:

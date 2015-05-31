@@ -106,7 +106,19 @@ void Bot::moveExecuting(MOVE move)
 
 void Bot::programFinished()
 {
+    #if PROGRAM_RESET_ALWAYS
+    PROGRAM->clear();
+    #endif
     BUZZER.playRttl(PROGRAM_FINISHED_RTTL);
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void Bot::programAborted(uint8_t executed, uint8_t total)
+{
+    #if PROGRAM_RESET_ALWAYS
+    PROGRAM->clear();
+    #endif
 }
 
 //////////////////////////////////////////////////////////////////////
