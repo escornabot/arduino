@@ -44,6 +44,9 @@ See LICENSE.txt for details
 // milliseconds after a button is considered as long pressed
 #define BUTTON_LONG_PRESSED 3000
 
+// put to false to add movements to the program after its execution
+#define PROGRAM_RESET_ALWAYS true
+
 // store configuration and program within internal EEPROM
 #define USE_PERSISTENT_MEMORY true
 
@@ -120,15 +123,15 @@ See LICENSE.txt for details
 #ifdef BUTTONS_ANALOG
 
 // Button set pin setup (analog input)
-#define BS_ANALOG_PIN A0
+#define BS_ANALOG_PIN A4
 
 // input values for each key pressed
-#define BS_ANALOG_VALUE_UP 41
-#define BS_ANALOG_VALUE_RIGHT 67
-#define BS_ANALOG_VALUE_DOWN 114
-#define BS_ANALOG_VALUE_LEFT 157
-#define BS_ANALOG_VALUE_GO 136
-#define BS_ANALOG_VALUE_RESET 91
+#define BS_ANALOG_VALUE_UP 223
+#define BS_ANALOG_VALUE_RIGHT 616
+#define BS_ANALOG_VALUE_DOWN 520
+#define BS_ANALOG_VALUE_LEFT 357
+#define BS_ANALOG_VALUE_GO 573
+#define BS_ANALOG_VALUE_RESET 450
 
 #endif // BUTTONS_ANALOG
 
