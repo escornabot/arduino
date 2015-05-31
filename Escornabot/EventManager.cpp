@@ -42,6 +42,18 @@ void EventManager::add(EventListener* indicator)
 
 //////////////////////////////////////////////////////////////////////
 
+void EventManager::indicateTick(uint32_t micros)
+{
+    EventListener* i = _first;
+    while (i != NULL)
+    {
+        i->tick(micros);
+        i = i->getNext();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
 void EventManager::indicateMoveExecuting(MOVE move)
 {
     EventListener* i = _first;

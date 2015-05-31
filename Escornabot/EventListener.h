@@ -57,6 +57,8 @@ public:
     // public interface
     //////////////////////////////////////////////////////////////////////
 
+    virtual void tick(uint32_t micros) {}
+
     /**
      * Handles when a movement from the program has started its execution.
      * @param move The movement.

@@ -58,7 +58,7 @@ void Bot::init()
 
 void Bot::loop()
 {
-    BUTTONS->scanButtons();
+    EVENTS->indicateTick(micros());
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -36,6 +36,8 @@ ButtonSetDigital::ButtonSetDigital(const Config* config)
 
 void ButtonSetDigital::init()
 {
+    ButtonSet::init();
+
     // configure Arduino pins
     pinMode(_config->pin_button_up, INPUT);
     pinMode(_config->pin_button_right, INPUT);

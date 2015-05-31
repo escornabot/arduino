@@ -27,7 +27,16 @@ See LICENSE.txt for details
 #include "EventManager.h"
 #include <Arduino.h>
 
+//////////////////////////////////////////////////////////////////////
+
 extern EventManager* EVENTS;
+
+//////////////////////////////////////////////////////////////////////
+
+void ButtonSet::init()
+{
+    EVENTS->add(this);
+}
 
 //////////////////////////////////////////////////////////////////////
 
@@ -44,7 +53,7 @@ void ButtonSet::pressed(BUTTON button)
 	button--;
 	if (_button_statuses[button] == 0)
 	{
-		_button_statuses[button] = millis();
+		_button_statuses[button] = _current_millis;
 		EVENTS->indicateButtonPressed(button + 1);
 	}
 }
@@ -56,7 +65,7 @@ void ButtonSet::released(BUTTON button)
 	button--;
 	if (_button_statuses[button] != 0)
 	{
-		uint32_t pressed_millis = millis() - _button_statuses[button];
+		uint32_t pressed_millis = _current_millis - _button_statuses[button];
 
 		if (pressed_millis > BUTTON_MIN_PRESSED)
 		{
@@ -76,5 +85,12 @@ void ButtonSet::released(BUTTON button)
 
 //////////////////////////////////////////////////////////////////////
 
+void ButtonSet::tick(uint32_t micros)
+{
+    _current_millis = micros / 1000;
+    scanButtons();
+}
+
+//////////////////////////////////////////////////////////////////////
 
 // EOF

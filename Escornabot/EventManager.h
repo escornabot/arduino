@@ -42,6 +42,8 @@ public:
 
     void add(EventListener* indicator);
 
+    void indicateTick(uint32_t micros);
+
     void indicateMoveExecuting(MOVE move);
 
     void indicateMoveExecuted(MOVE move);

@@ -39,7 +39,7 @@ const static char* BUTTONS_RELEASED = "neswgr";
  * \brief Interface to use a bluetooth module over serial interface
  * \author @caligari
  */
-class BluetoothInterface : public ButtonSet, public EventListener
+class BluetoothInterface : public ButtonSet
 {
 public:
 

@@ -39,6 +39,7 @@ ButtonSetAnalog::ButtonSetAnalog(const Config* config)
 
 void ButtonSetAnalog::init()
 {
+    ButtonSet::init();
     pinMode(_config->pin_button_set, INPUT_PULLUP);
     _last_button = BUTTON_NONE;
 }
@@ -104,6 +105,5 @@ void ButtonSetAnalog::scanButtons()
 }
 
 //////////////////////////////////////////////////////////////////////
-
 
 // EOF

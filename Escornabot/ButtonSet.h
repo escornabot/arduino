@@ -27,13 +27,14 @@ See LICENSE.txt for details
 
 #include <stdint.h>
 #include "Enums.h"
+#include "EventListener.h"
 
 
 /**
  * \brief Interface to different Escornabot button sets.
  * \author @caligari
  */
-class ButtonSet
+class ButtonSet : public EventListener
 {
 public:
 
@@ -45,13 +46,18 @@ public:
 	/**
 	 * Does the hardware initialization.
 	 */
-	virtual void init() = 0;
+	virtual void init();
 
 	/**
 	 * Scans the button input to test if anyone is pressed.
 	 * @return The button being pressed.
 	 */
 	virtual void scanButtons() = 0;
+
+	/**
+	 * Executes the thread
+	 */
+	virtual void tick(uint32_t micros);
 
 protected:
 
@@ -65,6 +71,9 @@ protected:
 private:
 
 	uint32_t _button_statuses[6];
+
+	uint32_t _current_millis;
+
 };
 
 
