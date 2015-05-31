@@ -65,12 +65,12 @@ void EngineSteppers::turn90Degrees(int8_t times)
     if (times < 0)
     {
         turns = -times;
-        steps = _config->turn_steps;
+        steps = -_config->turn_steps;
     }
     else
     {
         turns = times;
-        steps = -_config->turn_steps;
+        steps = _config->turn_steps;
     }
 
     while (turns-- > 0)
