@@ -26,7 +26,6 @@ See LICENSE.txt for details
 #define _BUTTON_SET_DIGITAL_H
 
 #include "ButtonSet.h"
-#include "EventListener.h"
 
 /**
  * \brief Implementation of a button set connected to 6 digital inputs.

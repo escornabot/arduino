@@ -56,6 +56,8 @@ public:
 
 	void turn90Degrees(int8_t times);
 
+	void turn(int16_t degrees);
+
 	void moveStraight(int8_t units);
 
 private:

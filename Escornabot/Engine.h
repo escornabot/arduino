@@ -43,14 +43,21 @@ public:
 	virtual void init() = 0;
 
 	/**
-	 * Turns left or right in 90 degrees angles (from Vacaloura's POV).
+	 * Turns left or right in 90 degrees angles (from Escornabot's POV).
 	 * @param times Amount of right angles to turn. Positive is clockwise,
 	 *     negative is counter-clockwise.
 	 */
 	virtual void turn90Degrees(int8_t times) = 0;
 
 	/**
-	 * Moves forward or backward direction (from Vacaloura's POV).
+	 * Turns left or right an angle specified in degrees (from Escornabot's POV).
+	 * @param degrees Amount of degrees to turn. Positive is clockwise,
+	 *     negative is counter-clockwise.
+	 */
+	virtual void turn(int16_t degrees) = 0;
+
+	/**
+	 * Moves forward or backward direction (from Escornabot's POV).
 	 * @param units Amount of units to move. Positive is forwards, negative
 	 *     is backwards.
 	 */
