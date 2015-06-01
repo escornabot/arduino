@@ -53,6 +53,9 @@ See LICENSE.txt for details
 // memory capacity for program movements
 #define MOVE_LIMIT 100
 
+// milliseconds for the "pause" movement
+#define PAUSE_MOVE_MILLIS 1000
+
 // milliseconds delay before starting to move
 #define DELAY_BEFORE_GO 500
 

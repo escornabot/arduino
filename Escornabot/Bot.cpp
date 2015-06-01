@@ -97,6 +97,20 @@ void Bot::buttonReleased(BUTTON button)
 
 //////////////////////////////////////////////////////////////////////
 
+void Bot::buttonLongReleased(BUTTON button)
+{
+    BUZZER.beep();
+
+    switch (button)
+    {
+        case BUTTON_DOWN:
+            _storeMove(MOVE_PAUSE);
+            break;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
 void Bot::moveExecuting(MOVE move)
 {
     BUZZER.beep();

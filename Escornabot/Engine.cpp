@@ -60,6 +60,10 @@ void Engine::execute(MoveList* program, uint16_t pause, POV pov)
             case MOVE_BACKWARD:
                 moveStraight(-1);
                 break;
+
+            case MOVE_PAUSE:
+                delay(PAUSE_MOVE_MILLIS);
+                break;
         }
 
         // post move indication

@@ -52,6 +52,8 @@ public:
 
     virtual void buttonReleased(BUTTON button);
 
+    virtual void buttonLongReleased(BUTTON button);
+
 private:
 
     void _go();
