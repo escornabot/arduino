@@ -33,6 +33,16 @@ extern EventManager* EVENTS;
 
 //////////////////////////////////////////////////////////////////////
 
+ButtonSet::ButtonSet()
+{
+    for (int b = 0; b < 6; b++)
+        this->_button_statuses[b] = 0;
+
+    this->_current_millis = 0;
+}
+
+//////////////////////////////////////////////////////////////////////
+
 void ButtonSet::init()
 {
     EVENTS->add(this);
@@ -40,47 +50,36 @@ void ButtonSet::init()
 
 //////////////////////////////////////////////////////////////////////
 
-ButtonSet::ButtonSet()
-{
-	for (int b = 0; b < 6; b++)
-		this->_button_statuses[b] = 0;
-}
-
-//////////////////////////////////////////////////////////////////////
-
 void ButtonSet::pressed(BUTTON button)
 {
-	button--;
-	if (_button_statuses[button] == 0)
-	{
-		_button_statuses[button] = _current_millis;
-		EVENTS->indicateButtonPressed(button + 1);
-	}
+    button--;
+    if (_button_statuses[button] == 0)
+    {
+        _button_statuses[button] = _current_millis;
+        EVENTS->indicateButtonPressed(button + 1);
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
 
 void ButtonSet::released(BUTTON button)
 {
-	button--;
-	if (_button_statuses[button] != 0)
-	{
-		uint32_t pressed_millis = _current_millis - _button_statuses[button];
+    button--;
 
-		if (pressed_millis > BUTTON_MIN_PRESSED)
-		{
-			if (pressed_millis < BUTTON_LONG_PRESSED)
-			{
-				EVENTS->indicateButtonReleased(button + 1);
-			}
-			else
-			{
-				EVENTS->indicateButtonLongReleased(button + 1);
-			}
+    if (_button_statuses[button] != 0)
+    {
+        uint32_t pressed_millis = _current_millis - _button_statuses[button];
 
-			_button_statuses[button] = 0;
-		}
-	}
+        if (pressed_millis > BUTTON_MIN_PRESSED)
+        {
+            if (pressed_millis < BUTTON_LONG_PRESSED)
+            {
+                EVENTS->indicateButtonReleased(button + 1);
+            }
+
+            _button_statuses[button] = 0;
+        }
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -88,6 +87,21 @@ void ButtonSet::released(BUTTON button)
 void ButtonSet::tick(uint32_t micros)
 {
     _current_millis = micros / 1000;
+
+    // raise long-pressed events
+    for (int b = 0; b < 6; b++)
+    {
+        if (_button_statuses[b] != 0)
+        {
+            uint32_t pressed_millis = _current_millis - _button_statuses[b];
+            if (pressed_millis > BUTTON_LONG_PRESSED)
+            {
+                EVENTS->indicateButtonLongReleased(b + 1);
+                _button_statuses[b] = 0;
+            }
+        }
+    }
+
     scanButtons();
 }
 

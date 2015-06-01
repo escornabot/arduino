@@ -63,9 +63,17 @@ void Bot::loop()
 
 //////////////////////////////////////////////////////////////////////
 
+void Bot::buttonPressed(BUTTON button)
+{
+    SIMPLE_LED.setStatus(true);
+}
+
+//////////////////////////////////////////////////////////////////////
+
 void Bot::buttonReleased(BUTTON button)
 {
     BUZZER.beep();
+    SIMPLE_LED.setStatus(false);
 
     switch (button)
     {
@@ -100,6 +108,7 @@ void Bot::buttonReleased(BUTTON button)
 void Bot::buttonLongReleased(BUTTON button)
 {
     BUZZER.beep();
+    SIMPLE_LED.setStatus(false);
 
     switch (button)
     {

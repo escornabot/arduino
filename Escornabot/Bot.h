@@ -50,6 +50,8 @@ public:
 
     virtual void programAborted(uint8_t executed, uint8_t total);
 
+    virtual void buttonPressed(BUTTON button);
+
     virtual void buttonReleased(BUTTON button);
 
     virtual void buttonLongReleased(BUTTON button);

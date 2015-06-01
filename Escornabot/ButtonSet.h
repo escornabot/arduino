@@ -55,7 +55,7 @@ public:
 	virtual void scanButtons() = 0;
 
 	/**
-	 * Executes the thread
+	 * Runs the execution thread.
 	 */
 	virtual void tick(uint32_t micros);
 

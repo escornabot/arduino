@@ -42,7 +42,7 @@ See LICENSE.txt for details
 #define BUTTON_MIN_PRESSED 30
 
 // milliseconds after a button is considered as long pressed
-#define BUTTON_LONG_PRESSED 3000
+#define BUTTON_LONG_PRESSED 1000
 
 // put to false to add movements to the program after its execution
 #define PROGRAM_RESET_ALWAYS true
