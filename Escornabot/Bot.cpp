@@ -43,7 +43,6 @@ void Bot::init()
 
     #if USE_SIMPLE_LED
     SIMPLE_LED.init();
-    EVENTS->add(&SIMPLE_LED);
     #endif
 
     // restore last program
@@ -59,6 +58,8 @@ void Bot::init()
 void Bot::loop()
 {
     EVENTS->indicateTick(micros());
+
+    if (!ENGINE->isExecuting()) delay(10);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -74,6 +75,12 @@ void Bot::buttonReleased(BUTTON button)
 {
     BUZZER.beep();
     SIMPLE_LED.setStatus(false);
+
+    if (ENGINE->isExecuting())
+    {
+        ENGINE->cancelExecution();
+        return;
+    }
 
     switch (button)
     {
@@ -110,6 +117,12 @@ void Bot::buttonLongReleased(BUTTON button)
     BUZZER.beep();
     SIMPLE_LED.setStatus(false);
 
+    if (ENGINE->isExecuting())
+    {
+        ENGINE->cancelExecution();
+        return;
+    }
+
     switch (button)
     {
         case BUTTON_DOWN:
@@ -132,6 +145,7 @@ void Bot::programFinished()
     #if PROGRAM_RESET_ALWAYS
     PROGRAM->clear();
     #endif
+
     BUZZER.playRttl(PROGRAM_FINISHED_RTTL);
 }
 

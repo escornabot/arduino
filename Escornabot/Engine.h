@@ -38,6 +38,11 @@ class Engine
 public:
 
 	/**
+	 * Constructor.
+	 */
+	Engine();
+
+	/**
 	 * Does the hardware initialization.
 	 */
 	virtual void init() = 0;
@@ -70,6 +75,21 @@ public:
 	 * @param pov Point of view of movements (POV_ESCORNABOT or POV_CHILD).
 	 */
 	void execute(MoveList* program, uint16_t pause, POV pov);
+
+	bool isExecuting() { return _is_executing; }
+
+	void cancelExecution() { _is_cancelling = true; }
+
+protected:
+
+	bool _is_executing;
+
+	bool _is_cancelling;
+
+	MoveList* _program;
+
+	uint8_t _current_move;
+
 };
 
 

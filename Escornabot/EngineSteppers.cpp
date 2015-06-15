@@ -23,6 +23,7 @@ See LICENSE.txt for details
 */
 
 #include "EngineSteppers.h"
+#include "EventManager.h"
 #include <Arduino.h>
 
 //////////////////////////////////////////////////////////////////////
@@ -33,9 +34,17 @@ const static uint8_t step_pattern[] = {
 
 //////////////////////////////////////////////////////////////////////
 
+extern EventManager* EVENTS;
+
+//////////////////////////////////////////////////////////////////////
+
 EngineSteppers::EngineSteppers(const Config* cfg)
 {
     _config = cfg;
+
+    _movement_steps_r = 0;
+    _movement_steps_l = 0;
+
     _pattern_index_left = 0;
     _pattern_index_right = 0;
 }
@@ -54,31 +63,18 @@ void EngineSteppers::init()
     pinMode(_config->motor_right_in4, OUTPUT);
 
     // set coils in row
-    _motorsOn(8, 8);
+    _movement_steps_r = 8;
+    _movement_steps_l = 8;
+
+    EVENTS->add(this);
 }
 
 //////////////////////////////////////////////////////////////////////
 
 void EngineSteppers::turn90Degrees(int8_t times)
 {
-    uint8_t turns;
-    uint16_t steps;
-
-    if (times < 0)
-    {
-        turns = -times;
-        steps = -_config->turn_steps;
-    }
-    else
-    {
-        turns = times;
-        steps = _config->turn_steps;
-    }
-
-    while (turns-- > 0)
-    {
-        _motorsOn(steps, steps);
-    }
+    _movement_steps_r = _config->turn_steps * times;
+    _movement_steps_l = _movement_steps_r;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -86,73 +82,20 @@ void EngineSteppers::turn90Degrees(int8_t times)
 void EngineSteppers::turn(int16_t degrees)
 {
     uint32_t steps;
-
     steps = (degrees < 0 ? -_config->turn_steps : _config->turn_steps);
     steps *= degrees;
     steps /= 90;
 
-    _motorsOn(steps, steps);
+    _movement_steps_r = steps;
+    _movement_steps_l = steps;
 }
 
 //////////////////////////////////////////////////////////////////////
 
 void EngineSteppers::moveStraight(int8_t units)
 {
-    uint8_t moves;
-    uint16_t steps;
-
-    if (units < 0)
-    {
-        moves = -units;
-        steps = -_config->line_steps;
-    }
-    else
-    {
-        moves = units;
-        steps = _config->line_steps;
-    }
-
-    while (moves-- > 0)
-    {
-        _motorsOn(-steps, steps);
-    }
-}
-
-//////////////////////////////////////////////////////////////////////
-
-void EngineSteppers::_motorsOn(int16_t steps_left, int16_t steps_right)
-{
-    int8_t delta_left = (steps_left > 0 ? 1 : -1);
-    int8_t delta_right = (steps_right > 0 ? 1 : -1);
-
-    bool end = false;
-    while (!end)
-    {
-        end = true;
-
-        if (steps_left != 0)
-        {
-            end = false;
-            _motorStepLeft(step_pattern[_pattern_index_left]);
-            _pattern_index_left += delta_left + 8;
-            _pattern_index_left %= 8;
-            steps_left -= delta_left;
-        }
-
-        if (steps_right != 0)
-        {
-            end = false;
-            _motorStepRight(step_pattern[_pattern_index_right]);
-            _pattern_index_right += delta_right + 8;
-            _pattern_index_right %= 8;
-            steps_right -= delta_right;
-        }
-
-        delayMicroseconds(1000000 / _config->steps_per_second);
-    }
-
-    _motorStepLeft(0);
-    _motorStepRight(0);
+    _movement_steps_r = _config->line_steps * units;
+    _movement_steps_l = -_movement_steps_r;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -173,6 +116,110 @@ void EngineSteppers::_motorStepLeft(uint8_t pattern)
     digitalWrite(_config->motor_left_in2, bitRead(pattern, 1));
     digitalWrite(_config->motor_left_in3, bitRead(pattern, 2));
     digitalWrite(_config->motor_left_in4, bitRead(pattern, 3));
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void EngineSteppers::tick(uint32_t micros)
+{
+    if (_movement_steps_l == 0 && _movement_steps_r == 0)
+    {
+        // deactivate Darlingtons
+        _motorStepLeft(0);
+        _motorStepRight(0);
+
+        // post move indication
+        EVENTS->indicateMoveExecuted(_current_move);
+
+        // prepare next movement
+        _next_movement();
+    }
+    else
+    {
+        if (_movement_steps_l != 0)
+        {
+            // left motor step
+            int8_t delta = (_movement_steps_l > 0 ? 1 : -1);
+            _motorStepLeft(step_pattern[_pattern_index_left]);
+            _pattern_index_left += delta + 8;
+            _pattern_index_left %= 8;
+            _movement_steps_l -= delta;
+        }
+
+        if (_movement_steps_r != 0)
+        {
+            // right motor step
+            int8_t delta = (_movement_steps_r > 0 ? 1 : -1);
+            _motorStepRight(step_pattern[_pattern_index_right]);
+            _pattern_index_right += delta + 8;
+            _pattern_index_right %= 8;
+            _movement_steps_r -= delta;
+        }
+
+        if (_is_cancelling)
+        {
+            _movement_steps_r = 0;
+            _movement_steps_l = 0;
+        }
+        else
+        {
+            delayMicroseconds(1000000 / _config->steps_per_second);
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void EngineSteppers::_next_movement()
+{
+    if (!_is_executing) return;
+
+    if (_is_cancelling)
+    {
+        EVENTS->indicateProgramAborted(_current_move, _program->getMoveCount());
+        _current_move = _program->getMoveCount();
+    }
+
+    if (_current_move == _program->getMoveCount())
+    {
+        // end of program
+        _is_executing = false;
+        _program = NULL;
+
+        // program is finished
+        if (!_is_cancelling) EVENTS->indicateProgramFinished();
+    }
+    else
+    {
+        // pre move indication
+        EVENTS->indicateMoveExecuting(_current_move);
+
+        // program the new movement
+        _current_move++;
+        switch (_program->getMove(_current_move - 1))
+        {
+            case MOVE_RIGHT:
+                turn90Degrees(1);
+                break;
+
+            case MOVE_LEFT:
+                turn90Degrees(-1);
+                break;
+
+            case MOVE_FORWARD:
+                moveStraight(1);
+                break;
+
+            case MOVE_BACKWARD:
+                moveStraight(-1);
+                break;
+/*
+            case MOVE_PAUSE:
+                delay(PAUSE_MOVE_MILLIS);
+                break;
+*/
+        }
+    }
 }
 
 //////////////////////////////////////////////////////////////////////

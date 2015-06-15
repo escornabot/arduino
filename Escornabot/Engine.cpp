@@ -26,55 +26,34 @@ See LICENSE.txt for details
 #include "EventManager.h"
 #include <Arduino.h>
 
+//////////////////////////////////////////////////////////////////////
+
 extern EventManager* EVENTS;
+
+//////////////////////////////////////////////////////////////////////
+
+Engine::Engine()
+{
+    _is_executing = false;
+    _is_cancelling = false;
+    _current_move = 0;
+    this->_program = NULL;
+}
+
+//////////////////////////////////////////////////////////////////////
 
 void Engine::execute(MoveList* program, uint16_t pause, POV pov)
 {
-    // program is started
-    uint8_t count = program->getMoveCount();
-    EVENTS->indicateProgramStarted(count);
+    if (program->getMoveCount() == 0) return;
 
-    // move by move
-    for (int m = 0; m < count; m++)
-    {
-        MOVE move = program->getMove(m);
+    _is_cancelling = false;
+    _is_executing = true;
+    _current_move = 0;
+    _program = program;
 
-        // pre move indication
-        EVENTS->indicateMoveExecuting(move);
-
-        // which move
-        switch (move)
-        {
-            case MOVE_RIGHT:
-                turn90Degrees(1);
-                break;
-
-            case MOVE_LEFT:
-                turn90Degrees(-1);
-                break;
-
-            case MOVE_FORWARD:
-                moveStraight(1);
-                break;
-
-            case MOVE_BACKWARD:
-                moveStraight(-1);
-                break;
-
-            case MOVE_PAUSE:
-                delay(PAUSE_MOVE_MILLIS);
-                break;
-        }
-
-        // post move indication
-        EVENTS->indicateMoveExecuted(move);
-
-        // post move pause
-        delayMicroseconds(pause * 1000);
-    }
-
-    // program is finished
-    EVENTS->indicateProgramFinished();
+    EVENTS->indicateProgramStarted(program->getMoveCount());
 }
+
+//////////////////////////////////////////////////////////////////////
 
 // EOF

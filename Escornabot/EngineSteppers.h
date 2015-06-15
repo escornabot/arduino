@@ -26,12 +26,13 @@ See LICENSE.txt for details
 #define _ENGINE_STEPPERS_H
 
 #include "Engine.h"
+#include "EventListener.h"
 
 /**
  * \brief Engine using 2 stepper motors controlled by an array of Darlington.
  * \author @caligari
  */
-class EngineSteppers : Engine
+class EngineSteppers : Engine, public EventListener
 {
 public:
 
@@ -60,16 +61,21 @@ public:
 
 	void moveStraight(int8_t units);
 
+	virtual void tick(uint32_t micros);
+
 private:
 
 	const Config* _config;
 
-	void _motorsOn(int16_t steps_left, int16_t steps_right);
     void _motorStepRight(uint8_t pattern);
     void _motorStepLeft(uint8_t pattern);
 
 	int8_t _pattern_index_left;
 	int8_t _pattern_index_right;
+
+	void _next_movement();
+	int16_t _movement_steps_r;
+	int16_t _movement_steps_l;
 };
 
 
