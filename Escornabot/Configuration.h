@@ -94,7 +94,7 @@ See LICENSE.txt for details
 
 // step calibration
 #define STEPPERS_STEPS_PER_SECOND 1000
-#define STEPPERS_LINE_STEPS 1500
+#define STEPPERS_LINE_STEPS 1738
 #define STEPPERS_TURN_STEPS 1024
 
 #endif
