@@ -34,8 +34,8 @@ See LICENSE.txt for details
 #define ENGINE_TYPE_STEPPERS
 
 // button set to use
-//#define BUTTONS_DIGITAL
 #define BUTTONS_ANALOG
+//#define BUTTONS_DIGITAL
 //#define BUTTONS_BLUETOOTH
 
 // milliseconds after a button is considered as pressed
@@ -125,16 +125,19 @@ See LICENSE.txt for details
 
 #ifdef BUTTONS_ANALOG
 
+#define BS_ANALOG_WIRES 2
+//#define BS_ANALOG_WIRES 3
+
 // Button set pin setup (analog input)
 #define BS_ANALOG_PIN A4
 
 // input values for each key pressed
-#define BS_ANALOG_VALUE_UP 223
-#define BS_ANALOG_VALUE_RIGHT 616
-#define BS_ANALOG_VALUE_DOWN 520
-#define BS_ANALOG_VALUE_LEFT 357
-#define BS_ANALOG_VALUE_GO 573
-#define BS_ANALOG_VALUE_RESET 450
+#define BS_ANALOG_VALUE_UP 221
+#define BS_ANALOG_VALUE_RIGHT 618
+#define BS_ANALOG_VALUE_DOWN 518
+#define BS_ANALOG_VALUE_LEFT 354
+#define BS_ANALOG_VALUE_GO 574
+#define BS_ANALOG_VALUE_RESET 448
 
 #endif // BUTTONS_ANALOG
 

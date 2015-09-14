@@ -88,6 +88,7 @@ See LICENSE.txt for details
     #include "ButtonSetAnalog.h"
     const ButtonSetAnalog::Config BS_CONFIG = {
         pin_button_set: BS_ANALOG_PIN,
+        pullup: (BS_ANALOG_WIRES == 3 ? false : true),
         value_button_up: BS_ANALOG_VALUE_UP,
         value_button_right: BS_ANALOG_VALUE_RIGHT,
         value_button_down: BS_ANALOG_VALUE_DOWN,

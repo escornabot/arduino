@@ -37,6 +37,7 @@ public:
 
 	typedef struct {
 		uint8_t pin_button_set;
+                bool pullup;
 		int16_t value_button_up;
 		int16_t value_button_right;
 		int16_t value_button_down;
