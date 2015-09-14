@@ -83,14 +83,14 @@ See LICENSE.txt for details
 #ifdef ENGINE_TYPE_STEPPERS
 
 // stepper pin setup (digital outputs)
-#define STEPPERS_MOTOR_LEFT_IN1	2
-#define STEPPERS_MOTOR_LEFT_IN2	3
-#define STEPPERS_MOTOR_LEFT_IN3	4
-#define STEPPERS_MOTOR_LEFT_IN4	5
-#define STEPPERS_MOTOR_RIGHT_IN1 6
-#define STEPPERS_MOTOR_RIGHT_IN2 7
-#define STEPPERS_MOTOR_RIGHT_IN3 8
-#define STEPPERS_MOTOR_RIGHT_IN4 9
+#define STEPPERS_MOTOR_RIGHT_IN1 5
+#define STEPPERS_MOTOR_RIGHT_IN2 4
+#define STEPPERS_MOTOR_RIGHT_IN3 3
+#define STEPPERS_MOTOR_RIGHT_IN4 2
+#define STEPPERS_MOTOR_LEFT_IN1 9
+#define STEPPERS_MOTOR_LEFT_IN2 8
+#define STEPPERS_MOTOR_LEFT_IN3 7
+#define STEPPERS_MOTOR_LEFT_IN4 6
 
 // step calibration
 #define STEPPERS_STEPS_PER_SECOND 1000
@@ -131,7 +131,7 @@ See LICENSE.txt for details
 // Button set pin setup (analog input)
 #define BS_ANALOG_PIN A4
 
-// input values for each key pressed
+// input values for each key pressed (0 if key doesn't exist)
 #define BS_ANALOG_VALUE_UP 221
 #define BS_ANALOG_VALUE_RIGHT 618
 #define BS_ANALOG_VALUE_DOWN 518

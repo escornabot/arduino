@@ -73,7 +73,7 @@ void EngineSteppers::init()
 
 void EngineSteppers::turn90Degrees(int8_t times)
 {
-    _movement_steps_r = _config->turn_steps * times;
+    _movement_steps_r = -_config->turn_steps * times;
     _movement_steps_l = _movement_steps_r;
 }
 
@@ -82,7 +82,7 @@ void EngineSteppers::turn90Degrees(int8_t times)
 void EngineSteppers::turn(int16_t degrees)
 {
     uint32_t steps;
-    steps = (degrees < 0 ? -_config->turn_steps : _config->turn_steps);
+    steps = (degrees < 0 ? _config->turn_steps : -_config->turn_steps);
     steps *= degrees;
     steps /= 90;
 
