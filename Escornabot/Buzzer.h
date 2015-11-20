@@ -70,3 +70,5 @@ private:
 };
 
 #endif // _BUZZER_H
+
+// EOF

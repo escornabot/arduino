@@ -53,6 +53,6 @@ private:
 
 };
 
-#endif _SIMPLE_LED_H
+#endif // _SIMPLE_LED_H
 
 // EOF
