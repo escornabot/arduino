@@ -93,9 +93,11 @@ See LICENSE.txt for details
 #define STEPPERS_MOTOR_LEFT_IN4 6
 
 // step calibration
-#define STEPPERS_STEPS_PER_SECOND 1000
+#define STEPPERS_STEPS_PER_SECOND 1000 //Starting speed
 #define STEPPERS_LINE_STEPS 1738
 #define STEPPERS_TURN_STEPS 1024
+#define STEPPERS_ACCELERATION_STEPS 350
+#define STEPPERS_MAX_DELTA_STEPS_PER_SECOND 1200 // Additional steps above STEPPERS_STEPS_PER_SECOND
 
 #endif
 
@@ -138,6 +140,16 @@ See LICENSE.txt for details
 #define BS_ANALOG_VALUE_LEFT 354
 #define BS_ANALOG_VALUE_GO 574
 #define BS_ANALOG_VALUE_RESET 448
+
+// input values for each key pressed (0 if key doesn't exist)
+// The following values have been tested with Brivoi in two-wire configuration
+//#define BS_ANALOG_VALUE_UP 769
+//#define BS_ANALOG_VALUE_RIGHT 330
+//#define BS_ANALOG_VALUE_DOWN 515
+//#define BS_ANALOG_VALUE_LEFT 654
+//#define BS_ANALOG_VALUE_GO 881
+//#define BS_ANALOG_VALUE_RESET 0
+
 
 #endif // BUTTONS_ANALOG
 

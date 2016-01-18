@@ -64,6 +64,8 @@ See LICENSE.txt for details
         steps_per_second: STEPPERS_STEPS_PER_SECOND,
         line_steps: STEPPERS_LINE_STEPS,
         turn_steps: STEPPERS_TURN_STEPS,
+        max_delta_steps_per_second: STEPPERS_MAX_DELTA_STEPS_PER_SECOND,
+        acceleration_steps: STEPPERS_ACCELERATION_STEPS,
     };
     EngineSteppers ENGINE_INSTANCE (&ENGINE_CONFIG);
 
