@@ -25,7 +25,7 @@ See LICENSE.txt for details
 #include "PersistentMemory.h"
 
 #include <avr/eeprom.h>
-#include <avr/crc16.h>
+//#include <avr/crc16.h>
 
 
 static PersistentMemory PERSISTENT_MEMORY_INSTANCE;

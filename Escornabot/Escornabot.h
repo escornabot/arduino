@@ -123,6 +123,19 @@ See LICENSE.txt for details
     SimpleLed SIMPLE_LED = SimpleLed(SIMPLE_LED_PIN);
 #endif
 
+
+#ifdef USE_KEYPAD_LEDS
+    #include "KeypadLeds.h"
+    const KeypadLeds::Config KEYPAD_LEDS_CONFIG = {
+        pin_led_up: KEYPAD_LED_PIN_UP,
+        pin_led_right: KEYPAD_LED_PIN_LEFT,
+        pin_led_down: KEYPAD_LED_PIN_DOWN,
+        pin_led_left: KEYPAD_LED_PIN_RIGHT,
+        pin_led_go: KEYPAD_LED_PIN_GO,
+    };
+    KeypadLeds KEYPAD_LEDS = KeypadLeds(&KEYPAD_LEDS_CONFIG);
+#endif
+
 ///// global vars
 
 // status indicators

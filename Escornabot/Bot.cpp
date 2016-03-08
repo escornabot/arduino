@@ -45,6 +45,10 @@ void Bot::init()
     SIMPLE_LED.init();
     #endif
 
+    #if USE_KEYPAD_LEDS
+    KEYPAD_LEDS.init();
+    #endif
+
     // restore last program
     #if USE_PERSISTENT_MEMORY
     PROGRAM->load();

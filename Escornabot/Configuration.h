@@ -71,9 +71,16 @@ See LICENSE.txt for details
 #define PROGRAM_FINISHED_RTTL RTTL_FIDO
 
 // simple led
-#define USE_SIMPLE_LED true
+#define USE_SIMPLE_LED false 
 #define SIMPLE_LED_PIN 13
 
+// keypad leds
+#define USE_KEYPAD_LEDS true
+#define KEYPAD_LED_PIN_UP A0
+#define KEYPAD_LED_PIN_LEFT A1
+#define KEYPAD_LED_PIN_DOWN A2
+#define KEYPAD_LED_PIN_RIGHT A3
+#define KEYPAD_LED_PIN_GO 13
 
 
 //////////////////////////////////////////////////////////////////////

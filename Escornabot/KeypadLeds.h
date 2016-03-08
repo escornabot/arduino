@@ -1,4 +1,4 @@
-// ButtonSetAnalog.h
+// KeypadLeds.h
 /*
 
 Copyright (C) 2014 Bricolabs - http://bricolabs.cc
@@ -22,51 +22,44 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _BUTTON_SET_ANALOG_H
-#define _BUTTON_SET_ANALOG_H
+#ifndef _KEYPAD_LEDS_H
+#define _KEYPAD_LEDS_H
 
-#include "ButtonSet.h"
+#include "EventListener.h"
 
 /**
- * \brief Implementation of a button set connected to 1 analog input.
+ * \brief Manage keypad events to turn on/off keypad leds.
  * \author @caligari
  */
-class ButtonSetAnalog : ButtonSet
-{
+class KeypadLeds : public EventListener {
+
 public:
 
     typedef struct {
-        uint8_t pin_button_set;
-        bool pullup;
-        int16_t value_button_up;
-        int16_t value_button_right;
-        int16_t value_button_down;
-        int16_t value_button_left;
-        int16_t value_button_go;
-        int16_t value_button_reset;
+        uint8_t pin_led_up;
+        uint8_t pin_led_right;
+        uint8_t pin_led_down;
+        uint8_t pin_led_left;
+        uint8_t pin_led_go;
     } Config;
 
-    ButtonSetAnalog(const Config* config);
+    KeypadLeds(const Config* config);
 
-    /**
-     * Does the hardware initialization.
-     */
-    virtual void init();
+    void init();
 
-    /**
-     * Reads the buttons
-     */
-    virtual void scanButtons();
+    void setLed(uint8_t BUTTON, bool light);
 
 private:
 
     const Config* _config;
 
-    BUTTON _last_button;
+    virtual void buttonPressed(BUTTON button) { setLed(button, true ); }
 
+    virtual void buttonReleased(BUTTON button) { setLed(button, false); }
+
+    virtual void buttonLongReleased(BUTTON button) { setLed(button, false); }
 };
 
-
-#endif // _BUTTON_SET_ANALOG_H
+#endif // _KEYPAD_LEDS_H
 
 // EOF
