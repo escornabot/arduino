@@ -70,15 +70,23 @@ void Bot::loop()
 
 void Bot::buttonPressed(BUTTON button)
 {
+    #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(true);
+    #endif
 }
 
 //////////////////////////////////////////////////////////////////////
 
 void Bot::buttonReleased(BUTTON button)
 {
+
+    #if USE_BUZZER
     BUZZER.beep();
+    #endif
+
+    #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(false);
+    #endif
 
     if (ENGINE->isExecuting())
     {
@@ -118,8 +126,13 @@ void Bot::buttonReleased(BUTTON button)
 
 void Bot::buttonLongReleased(BUTTON button)
 {
+    #if USE_BUZZER
     BUZZER.beep();
+    #endif
+
+    #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(false);
+    #endif
 
     if (ENGINE->isExecuting())
     {
@@ -139,7 +152,9 @@ void Bot::buttonLongReleased(BUTTON button)
 
 void Bot::moveExecuting(MOVE move)
 {
+    #if USE_BUZZER
     BUZZER.beep();
+    #endif
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -150,7 +165,9 @@ void Bot::programFinished()
     PROGRAM->clear();
     #endif
 
+    #if USE_BUZZER
     BUZZER.playRttl(PROGRAM_FINISHED_RTTL);
+    #endif
 }
 
 //////////////////////////////////////////////////////////////////////
