@@ -48,6 +48,7 @@ public:
     void init();
 
     void setLed(uint8_t BUTTON, bool light);
+    void setAllLed(bool light);
 
     virtual void buttonPressed(BUTTON button) { setLed(button, true ); }
     virtual void buttonReleased(BUTTON button) { setLed(button, false); }
@@ -55,6 +56,7 @@ public:
 
     virtual void moveExecuting(MOVE move) { setLed(_mov2btn(move), true); }
     virtual void moveExecuted(MOVE move) { setLed(_mov2btn(move), false); }
+    virtual void programAborted(uint8_t exe, uint8_t tot) { setAllLed(false); }
 
 private:
 

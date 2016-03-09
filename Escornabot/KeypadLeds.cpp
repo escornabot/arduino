@@ -33,35 +33,43 @@ void KeypadLeds::init()
 
 void KeypadLeds::setLed(uint8_t button, bool light)
 {
-    uint8_t pin = 255;
+    int val = light ? HIGH : LOW;
 
-    switch (button) {
-
+    switch (button)
+    {
         case BUTTON_UP:
-            pin = _config->pin_led_up;
+            digitalWrite(_config->pin_led_up, val);
             break;
 
         case BUTTON_RIGHT:
-            pin = _config->pin_led_right;
+            digitalWrite(_config->pin_led_right, val);
             break;
 
         case BUTTON_DOWN:
-            pin = _config->pin_led_down;
+            digitalWrite(_config->pin_led_down, val);
             break;
 
         case BUTTON_LEFT:
-            pin = _config->pin_led_left;
+            digitalWrite(_config->pin_led_left, val);
             break;
 
         case BUTTON_GO:
-            pin = _config->pin_led_go;
+            digitalWrite(_config->pin_led_go, val);
             break;
     }
+}
 
-    if (pin != 255)
-    {
-        digitalWrite(pin, light ? HIGH : LOW);
-    }
+//////////////////////////////////////////////////////////////////////
+
+void KeypadLeds::setAllLed(bool light)
+{
+    int val = light ? HIGH : LOW;
+
+    digitalWrite(_config->pin_led_up, val);
+    digitalWrite(_config->pin_led_right, val);
+    digitalWrite(_config->pin_led_down, val);
+    digitalWrite(_config->pin_led_left, val);
+    digitalWrite(_config->pin_led_go, val);
 }
 
 //////////////////////////////////////////////////////////////////////
