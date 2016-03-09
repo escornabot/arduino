@@ -49,15 +49,19 @@ public:
 
     void setLed(uint8_t BUTTON, bool light);
 
+    virtual void buttonPressed(BUTTON button) { setLed(button, true ); }
+    virtual void buttonReleased(BUTTON button) { setLed(button, false); }
+    virtual void buttonLongReleased(BUTTON button) { setLed(button, false); }
+
+    virtual void moveExecuting(MOVE move) { setLed(_mov2btn(move), true); }
+    virtual void moveExecuted(MOVE move) { setLed(_mov2btn(move), false); }
+
 private:
 
     const Config* _config;
 
-    virtual void buttonPressed(BUTTON button) { setLed(button, true ); }
+    BUTTON _mov2btn(MOVE move);
 
-    virtual void buttonReleased(BUTTON button) { setLed(button, false); }
-
-    virtual void buttonLongReleased(BUTTON button) { setLed(button, false); }
 };
 
 #endif // _KEYPAD_LEDS_H

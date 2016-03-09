@@ -31,11 +31,11 @@ void KeypadLeds::init()
 
 //////////////////////////////////////////////////////////////////////
 
-void KeypadLeds::setLed(uint8_t BUTTON, bool light)
+void KeypadLeds::setLed(uint8_t button, bool light)
 {
     uint8_t pin = 255;
 
-    switch (BUTTON) {
+    switch (button) {
 
         case BUTTON_UP:
             pin = _config->pin_led_up;
@@ -62,6 +62,32 @@ void KeypadLeds::setLed(uint8_t BUTTON, bool light)
     {
         digitalWrite(pin, light ? HIGH : LOW);
     }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+BUTTON KeypadLeds::_mov2btn(MOVE move)
+{
+    switch (move) {
+
+        case MOVE_FORWARD:
+            return BUTTON_UP;
+            // break;
+
+        case MOVE_RIGHT:
+            return BUTTON_RIGHT;
+            // break;
+
+        case MOVE_BACKWARD:
+            return BUTTON_DOWN;
+            // break;
+
+        case MOVE_LEFT:
+            return BUTTON_LEFT;
+            // break;
+    }
+
+    return BUTTON_NONE;
 }
 
 //////////////////////////////////////////////////////////////////////
