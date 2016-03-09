@@ -191,11 +191,12 @@ void EngineSteppers::_next_movement()
     }
     else
     {
+        // program the new movement
+        _current_move++;
+
         // pre move indication
         EVENTS->indicateMoveExecuting(_current_move);
 
-        // program the new movement
-        _current_move++;
         switch (_program->getMove(_current_move - 1))
         {
             case MOVE_RIGHT:
