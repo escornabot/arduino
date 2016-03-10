@@ -122,104 +122,98 @@ void EngineSteppers::_motorStepLeft(uint8_t pattern)
 
 void EngineSteppers::tick(uint32_t micros)
 {
+    if (!isExecuting()) return;
+
     if (_movement_steps_l == 0 && _movement_steps_r == 0)
     {
         // deactivate Darlingtons
         _motorStepLeft(0);
         _motorStepRight(0);
 
-        // post move indication
-        EVENTS->indicateMoveExecuted(_current_move);
+        EVENTS->indicateMoveExecuted(_getCurrentMove());
 
         // prepare next movement
-        _next_movement();
+        _program_index++;
+        _prepareMove();
+        return;
+    }
+
+    if (_movement_steps_l != 0)
+    {
+        // left motor step
+        int8_t delta = (_movement_steps_l > 0 ? 1 : -1);
+        _motorStepLeft(step_pattern[_pattern_index_left]);
+        _pattern_index_left += delta + 8;
+        _pattern_index_left %= 8;
+        _movement_steps_l -= delta;
+    }
+
+    if (_movement_steps_r != 0)
+    {
+        // right motor step
+        int8_t delta = (_movement_steps_r > 0 ? 1 : -1);
+        _motorStepRight(step_pattern[_pattern_index_right]);
+        _pattern_index_right += delta + 8;
+        _pattern_index_right %= 8;
+        _movement_steps_r -= delta;
+    }
+
+    if (_is_cancelling)
+    {
+        _movement_steps_r = 0;
+        _movement_steps_l = 0;
     }
     else
     {
-        if (_movement_steps_l != 0)
-        {
-            // left motor step
-            int8_t delta = (_movement_steps_l > 0 ? 1 : -1);
-            _motorStepLeft(step_pattern[_pattern_index_left]);
-            _pattern_index_left += delta + 8;
-            _pattern_index_left %= 8;
-            _movement_steps_l -= delta;
-        }
-
-        if (_movement_steps_r != 0)
-        {
-            // right motor step
-            int8_t delta = (_movement_steps_r > 0 ? 1 : -1);
-            _motorStepRight(step_pattern[_pattern_index_right]);
-            _pattern_index_right += delta + 8;
-            _pattern_index_right %= 8;
-            _movement_steps_r -= delta;
-        }
-
-        if (_is_cancelling)
-        {
-            _movement_steps_r = 0;
-            _movement_steps_l = 0;
-        }
-        else
-        {
-            delayMicroseconds(1000000 / _config->steps_per_second);
-        }
+        delayMicroseconds(1000000 / _config->steps_per_second);
     }
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void EngineSteppers::_next_movement()
+void EngineSteppers::_prepareMove()
 {
-    if (!_is_executing) return;
-
     if (_is_cancelling)
     {
-        EVENTS->indicateProgramAborted(_current_move, _program->getMoveCount());
-        _current_move = _program->getMoveCount();
-    }
-
-    if (_current_move == _program->getMoveCount())
-    {
-        // end of program
-        _is_executing = false;
+        // program is cancelled
+        EVENTS->indicateProgramAborted(_program_index, _program->getMoveCount());
         _program = NULL;
-
-        // program is finished
-        if (!_is_cancelling) EVENTS->indicateProgramFinished();
+        return;
     }
-    else
+
+    if (_program_index == _program->getMoveCount())
     {
-        // program the new movement
-        _current_move++;
+        // program is finished
+        _program = NULL;
+        EVENTS->indicateProgramFinished();
+        return;
+    }
 
-        // pre move indication
-        EVENTS->indicateMoveExecuting(_current_move);
+    MOVE move = _getCurrentMove();
+    EVENTS->indicateMoveExecuting(move);
 
-        switch (_program->getMove(_current_move - 1))
-        {
-            case MOVE_RIGHT:
-                turn90Degrees(1);
-                break;
+    switch (move)
+    {
+        case MOVE_RIGHT:
+            turn90Degrees(1);
+            break;
 
-            case MOVE_LEFT:
-                turn90Degrees(-1);
-                break;
+        case MOVE_LEFT:
+            turn90Degrees(-1);
+            break;
 
-            case MOVE_FORWARD:
-                moveStraight(1);
-                break;
+        case MOVE_FORWARD:
+            moveStraight(1);
+            break;
 
-            case MOVE_BACKWARD:
-                moveStraight(-1);
-                break;
+        case MOVE_BACKWARD:
+            moveStraight(-1);
+            break;
 /*
-            case MOVE_PAUSE:
-                delay(PAUSE_MOVE_MILLIS);
-                break;
+        case MOVE_PAUSE:
+            delay(PAUSE_MOVE_MILLIS);
+            break;
 */
-        }
     }
 }
 

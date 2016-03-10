@@ -34,10 +34,9 @@ extern EventManager* EVENTS;
 
 Engine::Engine()
 {
-    _is_executing = false;
+    _program = NULL;
+    _program_index = 0;
     _is_cancelling = false;
-    _current_move = 0;
-    this->_program = NULL;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -46,12 +45,12 @@ void Engine::execute(MoveList* program, uint16_t pause, POV pov)
 {
     if (program->getMoveCount() == 0) return;
 
+    _program_index = 0;
     _is_cancelling = false;
-    _is_executing = true;
-    _current_move = 0;
     _program = program;
 
     EVENTS->indicateProgramStarted(program->getMoveCount());
+    _prepareMove();
 }
 
 //////////////////////////////////////////////////////////////////////

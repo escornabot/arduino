@@ -25,7 +25,7 @@ See LICENSE.txt for details
 #ifndef _ENGINE_H
 #define _ENGINE_H
 
-#include <stdint.h>
+#include <stddef.h>
 #include "MoveList.h"
 
 
@@ -46,13 +46,6 @@ public:
 	 * Does the hardware initialization.
 	 */
 	virtual void init() = 0;
-
-	/**
-	 * Turns left or right in 90 degrees angles (from Escornabot's POV).
-	 * @param times Amount of right angles to turn. Positive is clockwise,
-	 *     negative is counter-clockwise.
-	 */
-	virtual void turn90Degrees(int8_t times) = 0;
 
 	/**
 	 * Turns left or right an angle specified in degrees (from Escornabot's POV).
@@ -76,19 +69,20 @@ public:
 	 */
 	void execute(MoveList* program, uint16_t pause, POV pov);
 
-	bool isExecuting() { return _is_executing; }
-
 	void cancelExecution() { _is_cancelling = true; }
+
+	bool isExecuting() { return _program != NULL; }
+
 
 protected:
 
-	bool _is_executing;
+	MoveList* _program;
+	uint8_t _program_index;
+    MOVE _getCurrentMove() { return _program->getMove(_program_index); }
 
 	bool _is_cancelling;
 
-	MoveList* _program;
-
-	uint8_t _current_move;
+    virtual void _prepareMove() = 0;
 
 };
 

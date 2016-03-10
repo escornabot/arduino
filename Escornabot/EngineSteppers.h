@@ -63,6 +63,10 @@ public:
 
 	virtual void tick(uint32_t micros);
 
+protected:
+
+    virtual void _prepareMove();
+
 private:
 
 	const Config* _config;
@@ -73,7 +77,6 @@ private:
 	int8_t _pattern_index_left;
 	int8_t _pattern_index_right;
 
-	void _next_movement();
 	int16_t _movement_steps_r;
 	int16_t _movement_steps_l;
 };
