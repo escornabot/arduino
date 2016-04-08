@@ -66,7 +66,7 @@ See LICENSE.txt for details
 #define POV_INITIAL	POV_ESCORNABOT
 
 // buzzer
-#define USE_BUZZER false
+#define USE_BUZZER true
 #define BUZZER_PIN 10
 #define PROGRAM_FINISHED_RTTL RTTL_FIDO
 
