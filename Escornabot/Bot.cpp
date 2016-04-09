@@ -79,11 +79,6 @@ void Bot::buttonPressed(BUTTON button)
 
 void Bot::buttonReleased(BUTTON button)
 {
-
-    #if USE_BUZZER
-    BUZZER.beep();
-    #endif
-
     #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(false);
     #endif
@@ -126,10 +121,6 @@ void Bot::buttonReleased(BUTTON button)
 
 void Bot::buttonLongReleased(BUTTON button)
 {
-    #if USE_BUZZER
-    BUZZER.beep();
-    #endif
-
     #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(false);
     #endif

@@ -30,14 +30,21 @@ See LICENSE.txt for details
 #define RTTL_MOSAIC ":d=8,o=6,b=400:c,e,g,e,c,g,e,g,c,g,c,e,c,g,e,g,e,c"
 #define RTTL_ELISA ":d=4,o=7,b=125:e,d#,e,d#,e,b,d,c,a"
 
+#define BUZZER_BEEP_FREQUENCY 4699
+#define BUZZER_BEEP_MILLIS 100
 
 #include <stdint.h>
+#include "EventListener.h"
+
+// A, E, C#, E(-8)
+const static uint16_t BTN_TONES[] = { 5274, 2637, 4434, 3520 };
+
 
 /**
  * \brief Generates tones with a buzzer connected to a PWM output.
  * \author @caligari
  */
-class Buzzer
+class Buzzer : public EventListener
 {
 public:
 
@@ -55,7 +62,12 @@ public:
     /**
      * Simple beep generator.
      */
-	void beep();
+	void beep() { beep(BUZZER_BEEP_FREQUENCY); }
+
+    /**
+     * Beep generator with a tone.
+     */
+	void beep(uint16_t frequency);
 
     /**
      * RTTL parser and tone player.
@@ -63,7 +75,15 @@ public:
      */
     void playRttl(const char* rttl);
 
+    
+	//////////////////////////////////////////////////////////////////////
+	// Buzzer interface
+	//////////////////////////////////////////////////////////////////////
+    
+    virtual void buttonReleased(BUTTON btn);
+
 private:
+
 
 	uint8_t _pin;
 
