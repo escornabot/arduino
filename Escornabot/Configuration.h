@@ -69,6 +69,10 @@ See LICENSE.txt for details
 #define USE_BUZZER true
 #define BUZZER_PIN 10
 #define PROGRAM_FINISHED_RTTL RTTL_FIDO
+#define TONE_FREQ_UP 2637
+#define TONE_FREQ_RIGHT 4434
+#define TONE_FREQ_DOWN 3520
+#define TONE_FREQ_LEFT 2217
 
 // simple led
 #define USE_SIMPLE_LED false
@@ -136,15 +140,15 @@ See LICENSE.txt for details
 //#define BS_ANALOG_WIRES 3
 
 // Button set pin setup (analog input)
-#define BS_ANALOG_PIN A4
+#define BS_ANALOG_PIN A7
 
 // input values for each key pressed (0 if key doesn't exist)
-#define BS_ANALOG_VALUE_UP 221
-#define BS_ANALOG_VALUE_RIGHT 618
-#define BS_ANALOG_VALUE_DOWN 518
-#define BS_ANALOG_VALUE_LEFT 354
-#define BS_ANALOG_VALUE_GO 574
-#define BS_ANALOG_VALUE_RESET 448
+#define BS_ANALOG_VALUE_UP 512
+#define BS_ANALOG_VALUE_RIGHT 860
+#define BS_ANALOG_VALUE_DOWN 769
+#define BS_ANALOG_VALUE_LEFT 683
+#define BS_ANALOG_VALUE_GO 810
+#define BS_ANALOG_VALUE_RESET 0
 
 #endif // BUTTONS_ANALOG
 

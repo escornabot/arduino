@@ -44,8 +44,6 @@ public:
     // EventListener interface
     ////////////////////////////////////////////////////////////
 
-    virtual void moveExecuting(MOVE move);
-
     virtual void programFinished();
 
     virtual void programAborted(uint8_t executed, uint8_t total);

@@ -141,15 +141,6 @@ void Bot::buttonLongReleased(BUTTON button)
 
 //////////////////////////////////////////////////////////////////////
 
-void Bot::moveExecuting(MOVE move)
-{
-    #if USE_BUZZER
-    BUZZER.beep();
-    #endif
-}
-
-//////////////////////////////////////////////////////////////////////
-
 void Bot::programFinished()
 {
     #if PROGRAM_RESET_ALWAYS

@@ -35,9 +35,10 @@ See LICENSE.txt for details
 
 #include <stdint.h>
 #include "EventListener.h"
+#include "Configuration.h"
 
 // A, E, C#, E(-8)
-const static uint16_t BTN_TONES[] = { 5274, 2637, 4434, 3520 };
+const static uint16_t BTN_TONES[] = { TONE_FREQ_UP, TONE_FREQ_RIGHT, TONE_FREQ_DOWN, TONE_FREQ_LEFT };
 
 
 /**
@@ -59,33 +60,36 @@ public:
 	 */
 	void init();
 
-    /**
-     * Simple beep generator.
-     */
+        /**
+         * Simple beep generator.
+         */
 	void beep() { beep(BUZZER_BEEP_FREQUENCY); }
 
-    /**
-     * Beep generator with a tone.
-     */
+        /**
+         * Beep generator with a tone.
+         */
 	void beep(uint16_t frequency);
 
-    /**
-     * RTTL parser and tone player.
-     * @param rttl Ring Tone Transfer Language string.
-     */
-    void playRttl(const char* rttl);
+        /**
+         * RTTL parser and tone player.
+         * @param rttl Ring Tone Transfer Language string.
+         */
+        void playRttl(const char* rttl);
 
     
 	//////////////////////////////////////////////////////////////////////
 	// Buzzer interface
 	//////////////////////////////////////////////////////////////////////
     
-    virtual void buttonReleased(BUTTON btn);
+        virtual void buttonReleased(BUTTON btn) { _beepDirection(btn); }
+
+	virtual void moveExecuting(MOVE move) { _beepDirection(move); }
 
 private:
 
+        uint8_t _pin;
 
-	uint8_t _pin;
+        void _beepDirection(uint8_t direction);
 
 };
 

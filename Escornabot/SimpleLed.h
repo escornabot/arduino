@@ -33,14 +33,14 @@ public:
 	//////////////////////////////////////////////////////////////////////
 
 	// turn on between movement pauses
-    virtual void moveExecuted(MOVE move) { setStatus(true); }
+        virtual void moveExecuted(MOVE move) { setStatus(true); }
 	virtual void moveExecuting(MOVE move) { setStatus(false); }
-    virtual void programFinished() { setStatus(false); }
+        virtual void programFinished() { setStatus(false); }
 
 	// turn on when button is pressed (200 milliseconds)
-    virtual void moveAdded(MOVE move) { flashOne(200); }
-    virtual void programReset() { flashOne(200); }
-    virtual void programStarted(uint8_t total_moves) { flashOne(200); }
+        virtual void moveAdded(MOVE move) { flashOne(200); }
+        virtual void programReset() { flashOne(200); }
+        virtual void programStarted(uint8_t total_moves) { flashOne(200); }
 
 
 

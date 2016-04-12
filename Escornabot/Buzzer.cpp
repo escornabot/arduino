@@ -155,9 +155,9 @@ void Buzzer::playRttl(const char* rttl)
 
 //////////////////////////////////////////////////////////////////////
 
-void Buzzer::buttonReleased(BUTTON btn) 
+void Buzzer::_beepDirection(uint8_t dir) 
 { 
-    if (btn >= 1 && btn <= 4) beep(BTN_TONES[btn - 1]); 
+    if (dir >= 1 && dir <= 4) beep(BTN_TONES[dir - 1]);
 }
 
 //////////////////////////////////////////////////////////////////////
