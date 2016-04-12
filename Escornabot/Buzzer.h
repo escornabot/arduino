@@ -1,7 +1,7 @@
 // Buzzer.h
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -35,11 +35,6 @@ See LICENSE.txt for details
 
 #include <stdint.h>
 #include "EventListener.h"
-#include "Configuration.h"
-
-// A, E, C#, E(-8)
-const static uint16_t BTN_TONES[] = { TONE_FREQ_UP, TONE_FREQ_RIGHT, TONE_FREQ_DOWN, TONE_FREQ_LEFT };
-
 
 /**
  * \brief Generates tones with a buzzer connected to a PWM output.
@@ -49,47 +44,47 @@ class Buzzer : public EventListener
 {
 public:
 
-	/**
-	 * Constructor.
-	 * @param pin Pin where the buzzer is connected (PWM output)
-	 */
-	Buzzer(uint8_t pin);
+    /**
+     * Constructor.
+     * @param pin Pin where the buzzer is connected (PWM output)
+     */
+    Buzzer(uint8_t pin);
 
-	/**
-	 * Does the hardware initialization.
-	 */
-	void init();
+    /**
+     * Does the hardware initialization.
+     */
+    void init();
 
-        /**
-         * Simple beep generator.
-         */
-	void beep() { beep(BUZZER_BEEP_FREQUENCY); }
+    /**
+     * Simple beep generator.
+     */
+    void beep() { beep(BUZZER_BEEP_FREQUENCY); }
 
-        /**
-         * Beep generator with a tone.
-         */
-	void beep(uint16_t frequency);
+    /**
+     * Beep generator with a tone.
+     */
+    void beep(uint16_t frequency);
 
-        /**
-         * RTTL parser and tone player.
-         * @param rttl Ring Tone Transfer Language string.
-         */
-        void playRttl(const char* rttl);
+    /**
+     * RTTL parser and tone player.
+     * @param rttl Ring Tone Transfer Language string.
+     */
+    void playRttl(const char* rttl);
 
     
-	//////////////////////////////////////////////////////////////////////
-	// Buzzer interface
-	//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
+    // Buzzer interface
+    //////////////////////////////////////////////////////////////////////
     
-        virtual void buttonReleased(BUTTON btn) { _beepDirection(btn); }
+    virtual void buttonReleased(BUTTON btn) { _beepDirection(btn); }
 
-	virtual void moveExecuting(MOVE move) { _beepDirection(move); }
+    virtual void moveExecuting(MOVE move) { _beepDirection(move); }
 
 private:
 
-        uint8_t _pin;
+    uint8_t _pin;
 
-        void _beepDirection(uint8_t direction);
+    void _beepDirection(uint8_t direction);
 
 };
 

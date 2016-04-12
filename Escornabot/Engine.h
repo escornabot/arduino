@@ -1,7 +1,7 @@
 // Engine.h
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -37,50 +37,50 @@ class Engine
 {
 public:
 
-	/**
-	 * Constructor.
-	 */
-	Engine();
+    /**
+     * Constructor.
+     */
+    Engine();
 
-	/**
-	 * Does the hardware initialization.
-	 */
-	virtual void init() = 0;
+    /**
+     * Does the hardware initialization.
+     */
+    virtual void init() = 0;
 
-	/**
-	 * Turns left or right an angle specified in degrees (from Escornabot's POV).
-	 * @param degrees Amount of degrees to turn. Positive is clockwise,
-	 *     negative is counter-clockwise.
-	 */
-	virtual void turn(int16_t degrees) = 0;
+    /**
+     * Turns left or right an angle specified in degrees (from Escornabot's POV).
+     * @param degrees Amount of degrees to turn. Positive is clockwise,
+     *     negative is counter-clockwise.
+     */
+    virtual void turn(int16_t degrees) = 0;
 
-	/**
-	 * Moves forward or backward direction (from Escornabot's POV).
-	 * @param units Amount of units to move. Positive is forwards, negative
-	 *     is backwards.
-	 */
-	virtual void moveStraight(int8_t units) = 0;
+    /**
+     * Moves forward or backward direction (from Escornabot's POV).
+     * @param units Amount of units to move. Positive is forwards, negative
+     *     is backwards.
+     */
+    virtual void moveStraight(int8_t units) = 0;
 
-	/**
-	 * Executes the movement program.
-	 * @param program Movements to execute.
-	 * @param pause Milliseconds waiting between movements.
-	 * @param pov Point of view of movements (POV_ESCORNABOT or POV_CHILD).
-	 */
-	void execute(MoveList* program, uint16_t pause, POV pov);
+    /**
+     * Executes the movement program.
+     * @param program Movements to execute.
+     * @param pause Milliseconds waiting between movements.
+     * @param pov Point of view of movements (POV_ESCORNABOT or POV_CHILD).
+     */
+    void execute(MoveList* program, uint16_t pause, POV pov);
 
-	void cancelExecution() { _is_cancelling = true; }
+    void cancelExecution() { _is_cancelling = true; }
 
-	bool isExecuting() { return _program != NULL; }
+    bool isExecuting() { return _program != NULL; }
 
 
 protected:
 
-	MoveList* _program;
-	uint8_t _program_index;
+    MoveList* _program;
+    uint8_t _program_index;
     MOVE _getCurrentMove() { return _program->getMove(_program_index); }
 
-	bool _is_cancelling;
+    bool _is_cancelling;
 
     virtual void _prepareMove() = 0;
 

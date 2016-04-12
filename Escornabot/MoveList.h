@@ -1,7 +1,7 @@
 // MoveList.h
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -39,47 +39,47 @@ class MoveList
 {
 public:
 
-	/**
-	 * Constructor.
-	 */
-	MoveList();
+    /**
+     * Constructor.
+     */
+    MoveList();
 
-	/**
-	 * Removes all movements from program.
-	 */
-	void clear();
+    /**
+     * Removes all movements from program.
+     */
+    void clear();
 
-	/**
-	 * Returns the amount of movements in program.
-	 * @return Amount of movements.
-	 */
-	uint8_t getMoveCount();
+    /**
+     * Returns the amount of movements in program.
+     * @return Amount of movements.
+     */
+    uint8_t getMoveCount();
 
-	/**
-	 * Adds a new movement at the end of the program.
-	 * @param move The movement to add.
-	 */
-	void addMove(MOVE move);
+    /**
+     * Adds a new movement at the end of the program.
+     * @param move The movement to add.
+     */
+    void addMove(MOVE move);
 
-	/**
-	 * Gets the movement from program at specified position.
-	 * @param index Position index (zero-based).
-	 */
-	MOVE getMove(uint8_t index);
+    /**
+     * Gets the movement from program at specified position.
+     * @param index Position index (zero-based).
+     */
+    MOVE getMove(uint8_t index);
 
-	#if USE_PERSISTENT_MEMORY
+    #if USE_PERSISTENT_MEMORY
 
-	/**
-	 * Saves the program in EEPROM.
-	 */
-	void save();
+    /**
+     * Saves the program in EEPROM.
+     */
+    void save();
 
-	/**
-	 * Loads the program from EEPROM.
-	 */
-	void load();
+    /**
+     * Loads the program from EEPROM.
+     */
+    void load();
 
-	#endif
+    #endif
 
 private:
 

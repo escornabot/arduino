@@ -1,7 +1,7 @@
 // Buzzer.cpp
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -25,6 +25,17 @@ See LICENSE.txt for details
 #include "Buzzer.h"
 #include "EventManager.h"
 #include <Arduino.h>
+#include "Configuration.h"
+
+//////////////////////////////////////////////////////////////////////
+
+// fast index between tones and directions
+const static uint16_t BTN_TONES[] = { 
+    TONE_FREQ_UP,     // 1
+    TONE_FREQ_RIGHT,  // 2
+    TONE_FREQ_DOWN,   // 3
+    TONE_FREQ_LEFT    // 4
+};
 
 //////////////////////////////////////////////////////////////////////
 

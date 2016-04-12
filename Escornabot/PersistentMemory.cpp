@@ -1,7 +1,7 @@
 // PersistentMemory.cpp
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -60,10 +60,10 @@ bool PersistentMemory::_load(size_t address, uint8_t* buffer, size_t length)
 
 void PersistentMemory::_clear()
 {
-	for (int a = 0; a < E2END; a++)
-	{
-		eeprom_write_byte((uint8_t*)a, 0);
-	}
+    for (int a = 0; a < E2END; a++)
+    {
+        eeprom_write_byte((uint8_t*)a, 0);
+    }
 }
 
 

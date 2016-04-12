@@ -1,7 +1,7 @@
 // Configuration.h
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -63,7 +63,7 @@ See LICENSE.txt for details
 #define AFTER_MOVEMENT_PAUSE 0
 
 // point of view set when Vacalourabot is started
-#define POV_INITIAL	POV_ESCORNABOT
+#define POV_INITIAL    POV_ESCORNABOT
 
 // buzzer
 #define USE_BUZZER true
@@ -161,10 +161,10 @@ See LICENSE.txt for details
 #ifdef BUTTONS_BLUETOOTH
 
 // Arduino serial port
-#define BS_BLUETOOTH_SERIAL	Serial
-//#define BS_BLUETOOTH_SERIAL	Serial1
-//#define BS_BLUETOOTH_SERIAL	Serial2
-//#define BS_BLUETOOTH_SERIAL	Serial3
+#define BS_BLUETOOTH_SERIAL    Serial
+//#define BS_BLUETOOTH_SERIAL    Serial1
+//#define BS_BLUETOOTH_SERIAL    Serial2
+//#define BS_BLUETOOTH_SERIAL    Serial3
 
 #define BS_BLUETOOTH_BAUDS 9600
 
