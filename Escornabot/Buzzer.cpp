@@ -168,7 +168,14 @@ void Buzzer::playRttl(const char* rttl)
 
 void Buzzer::_beepDirection(uint8_t dir) 
 { 
-    if (dir >= 1 && dir <= 4) beep(BTN_TONES[dir - 1]);
+    if (dir >= 1 && dir <= 4) 
+    {
+        beep(BTN_TONES[dir - 1]);
+    }
+    else
+    {
+        beep();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
