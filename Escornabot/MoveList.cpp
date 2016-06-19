@@ -1,7 +1,7 @@
 // MoveList.cpp
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -31,14 +31,14 @@ extern EventManager* EVENTS;
 
 MoveList::MoveList()
 {
-	_move_count = 0;
+    _move_count = 0;
 }
 
 
 
 void MoveList::clear()
 {
-	_move_count = 0;
+    _move_count = 0;
     EVENTS->indicateProgramReset();
 }
 
@@ -46,14 +46,14 @@ void MoveList::clear()
 
 uint8_t MoveList::getMoveCount()
 {
-	return _move_count;
+    return _move_count;
 }
 
 
 
 void MoveList::addMove(MOVE move)
 {
-	_move_list[_move_count++] = move;
+    _move_list[_move_count++] = move;
     EVENTS->indicateMoveAdded(move);
 }
 
@@ -61,7 +61,7 @@ void MoveList::addMove(MOVE move)
 
 MOVE MoveList::getMove(uint8_t index)
 {
-	return _move_list[index];
+    return _move_list[index];
 }
 
 

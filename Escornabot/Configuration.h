@@ -1,7 +1,7 @@
 // Configuration.h
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -63,17 +63,28 @@ See LICENSE.txt for details
 #define AFTER_MOVEMENT_PAUSE 0
 
 // point of view set when Vacalourabot is started
-#define POV_INITIAL	POV_ESCORNABOT
+#define POV_INITIAL    POV_ESCORNABOT
 
 // buzzer
 #define USE_BUZZER true
 #define BUZZER_PIN 10
 #define PROGRAM_FINISHED_RTTL RTTL_FIDO
+#define TONE_FREQ_UP 2637
+#define TONE_FREQ_RIGHT 4434
+#define TONE_FREQ_DOWN 3520
+#define TONE_FREQ_LEFT 2217
 
 // simple led
-#define USE_SIMPLE_LED true
+#define USE_SIMPLE_LED false
 #define SIMPLE_LED_PIN 13
 
+// keypad leds
+#define USE_KEYPAD_LEDS true
+#define KEYPAD_LED_PIN_UP A0
+#define KEYPAD_LED_PIN_RIGHT A3
+#define KEYPAD_LED_PIN_DOWN A2
+#define KEYPAD_LED_PIN_LEFT A1
+#define KEYPAD_LED_PIN_GO 13
 
 
 //////////////////////////////////////////////////////////////////////
@@ -129,15 +140,15 @@ See LICENSE.txt for details
 //#define BS_ANALOG_WIRES 3
 
 // Button set pin setup (analog input)
-#define BS_ANALOG_PIN A4
+#define BS_ANALOG_PIN A7
 
 // input values for each key pressed (0 if key doesn't exist)
-#define BS_ANALOG_VALUE_UP 221
-#define BS_ANALOG_VALUE_RIGHT 618
-#define BS_ANALOG_VALUE_DOWN 518
-#define BS_ANALOG_VALUE_LEFT 354
-#define BS_ANALOG_VALUE_GO 574
-#define BS_ANALOG_VALUE_RESET 448
+#define BS_ANALOG_VALUE_UP 512
+#define BS_ANALOG_VALUE_RIGHT 860
+#define BS_ANALOG_VALUE_DOWN 769
+#define BS_ANALOG_VALUE_LEFT 683
+#define BS_ANALOG_VALUE_GO 810
+#define BS_ANALOG_VALUE_RESET 0
 
 #endif // BUTTONS_ANALOG
 
@@ -150,10 +161,10 @@ See LICENSE.txt for details
 #ifdef BUTTONS_BLUETOOTH
 
 // Arduino serial port
-#define BS_BLUETOOTH_SERIAL	Serial
-//#define BS_BLUETOOTH_SERIAL	Serial1
-//#define BS_BLUETOOTH_SERIAL	Serial2
-//#define BS_BLUETOOTH_SERIAL	Serial3
+#define BS_BLUETOOTH_SERIAL    Serial
+//#define BS_BLUETOOTH_SERIAL    Serial1
+//#define BS_BLUETOOTH_SERIAL    Serial2
+//#define BS_BLUETOOTH_SERIAL    Serial3
 
 #define BS_BLUETOOTH_BAUDS 9600
 

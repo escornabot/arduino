@@ -1,7 +1,7 @@
 // ButtonSet.h
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -38,41 +38,41 @@ class ButtonSet : public EventListener
 {
 public:
 
-	/**
-	 * Constructor.
-	 */
-	ButtonSet();
+    /**
+     * Constructor.
+     */
+    ButtonSet();
 
-	/**
-	 * Does the hardware initialization.
-	 */
-	virtual void init();
+    /**
+     * Does the hardware initialization.
+     */
+    virtual void init();
 
-	/**
-	 * Scans the button input to test if anyone is pressed.
-	 * @return The button being pressed.
-	 */
-	virtual void scanButtons() = 0;
+    /**
+     * Scans the button input to test if anyone is pressed.
+     * @return The button being pressed.
+     */
+    virtual void scanButtons() = 0;
 
-	/**
-	 * Runs the execution thread.
-	 */
-	virtual void tick(uint32_t micros);
+    /**
+     * Runs the execution thread.
+     */
+    virtual void tick(uint32_t micros);
 
 protected:
 
-	void pressed(BUTTON button);
+    void pressed(BUTTON button);
 
-	void released(BUTTON button);
+    void released(BUTTON button);
 
-	bool isPressed(BUTTON button)
-			{ return _button_statuses[button - 1] != 0; }
+    bool isPressed(BUTTON button)
+            { return _button_statuses[button - 1] != 0; }
 
 private:
 
-	uint32_t _button_statuses[6];
+    uint32_t _button_statuses[6];
 
-	uint32_t _current_millis;
+    uint32_t _current_millis;
 
 };
 

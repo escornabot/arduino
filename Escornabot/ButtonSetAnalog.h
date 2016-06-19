@@ -1,7 +1,7 @@
 // ButtonSetAnalog.h
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -35,34 +35,34 @@ class ButtonSetAnalog : ButtonSet
 {
 public:
 
-	typedef struct {
-		uint8_t pin_button_set;
-                bool pullup;
-		int16_t value_button_up;
-		int16_t value_button_right;
-		int16_t value_button_down;
-		int16_t value_button_left;
-		int16_t value_button_go;
-		int16_t value_button_reset;
-	} Config;
+    typedef struct {
+        uint8_t pin_button_set;
+        bool pullup;
+        int16_t value_button_up;
+        int16_t value_button_right;
+        int16_t value_button_down;
+        int16_t value_button_left;
+        int16_t value_button_go;
+        int16_t value_button_reset;
+    } Config;
 
-	ButtonSetAnalog(const Config* config);
+    ButtonSetAnalog(const Config* config);
 
-	/**
-	 * Does the hardware initialization.
-	 */
-	virtual void init();
+    /**
+     * Does the hardware initialization.
+     */
+    virtual void init();
 
-	/**
-	 * Reads the buttons
-	 */
-	virtual void scanButtons();
+    /**
+     * Reads the buttons
+     */
+    virtual void scanButtons();
 
 private:
 
-	const Config* _config;
+    const Config* _config;
 
-	BUTTON _last_button;
+    BUTTON _last_button;
 
 };
 

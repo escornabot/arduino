@@ -1,7 +1,7 @@
 // Engine.cpp
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -34,10 +34,9 @@ extern EventManager* EVENTS;
 
 Engine::Engine()
 {
-    _is_executing = false;
+    _program = NULL;
+    _program_index = 0;
     _is_cancelling = false;
-    _current_move = 0;
-    this->_program = NULL;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -46,12 +45,12 @@ void Engine::execute(MoveList* program, uint16_t pause, POV pov)
 {
     if (program->getMoveCount() == 0) return;
 
+    _program_index = 0;
     _is_cancelling = false;
-    _is_executing = true;
-    _current_move = 0;
     _program = program;
 
     EVENTS->indicateProgramStarted(program->getMoveCount());
+    _prepareMove();
 }
 
 //////////////////////////////////////////////////////////////////////

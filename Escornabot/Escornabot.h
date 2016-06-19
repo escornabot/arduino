@@ -1,7 +1,7 @@
 // Escornabot.h
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -112,15 +112,28 @@ See LICENSE.txt for details
 #endif // Button set
 
 
-#ifdef USE_BUZZER
+#if USE_BUZZER
     #include "Buzzer.h"
     Buzzer BUZZER = Buzzer(BUZZER_PIN);
 #endif
 
 
-#ifdef USE_SIMPLE_LED
+#if USE_SIMPLE_LED
     #include "SimpleLed.h"
     SimpleLed SIMPLE_LED = SimpleLed(SIMPLE_LED_PIN);
+#endif
+
+
+#if USE_KEYPAD_LEDS
+    #include "KeypadLeds.h"
+    const KeypadLeds::Config KEYPAD_LEDS_CONFIG = {
+        pin_led_up: KEYPAD_LED_PIN_UP,
+        pin_led_right: KEYPAD_LED_PIN_RIGHT,
+        pin_led_down: KEYPAD_LED_PIN_DOWN,
+        pin_led_left: KEYPAD_LED_PIN_LEFT,
+        pin_led_go: KEYPAD_LED_PIN_GO,
+    };
+    KeypadLeds KEYPAD_LEDS = KeypadLeds(&KEYPAD_LEDS_CONFIG);
 #endif
 
 ///// global vars

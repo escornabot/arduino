@@ -1,7 +1,7 @@
 // Bot.cpp
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -45,6 +45,10 @@ void Bot::init()
     SIMPLE_LED.init();
     #endif
 
+    #if USE_KEYPAD_LEDS
+    KEYPAD_LEDS.init();
+    #endif
+
     // restore last program
     #if USE_PERSISTENT_MEMORY
     PROGRAM->load();
@@ -66,15 +70,18 @@ void Bot::loop()
 
 void Bot::buttonPressed(BUTTON button)
 {
+    #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(true);
+    #endif
 }
 
 //////////////////////////////////////////////////////////////////////
 
 void Bot::buttonReleased(BUTTON button)
 {
-    BUZZER.beep();
+    #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(false);
+    #endif
 
     if (ENGINE->isExecuting())
     {
@@ -114,8 +121,9 @@ void Bot::buttonReleased(BUTTON button)
 
 void Bot::buttonLongReleased(BUTTON button)
 {
-    BUZZER.beep();
+    #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(false);
+    #endif
 
     if (ENGINE->isExecuting())
     {
@@ -133,20 +141,15 @@ void Bot::buttonLongReleased(BUTTON button)
 
 //////////////////////////////////////////////////////////////////////
 
-void Bot::moveExecuting(MOVE move)
-{
-    BUZZER.beep();
-}
-
-//////////////////////////////////////////////////////////////////////
-
 void Bot::programFinished()
 {
     #if PROGRAM_RESET_ALWAYS
     PROGRAM->clear();
     #endif
 
+    #if USE_BUZZER
     BUZZER.playRttl(PROGRAM_FINISHED_RTTL);
+    #endif
 }
 
 //////////////////////////////////////////////////////////////////////

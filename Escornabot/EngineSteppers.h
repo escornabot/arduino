@@ -1,7 +1,7 @@
 // EngineSteppers.h
 /*
 
-Copyright (C) 2014 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -36,46 +36,49 @@ class EngineSteppers : Engine, public EventListener
 {
 public:
 
-	typedef struct {
-		uint8_t motor_left_in1;
-		uint8_t motor_left_in2;
-		uint8_t motor_left_in3;
-		uint8_t motor_left_in4;
-		uint8_t motor_right_in1;
-		uint8_t motor_right_in2;
-		uint8_t motor_right_in3;
-		uint8_t motor_right_in4;
-		int16_t steps_per_second;
+    typedef struct {
+        uint8_t motor_left_in1;
+        uint8_t motor_left_in2;
+        uint8_t motor_left_in3;
+        uint8_t motor_left_in4;
+        uint8_t motor_right_in1;
+        uint8_t motor_right_in2;
+        uint8_t motor_right_in3;
+        uint8_t motor_right_in4;
+        int16_t steps_per_second;
         int16_t line_steps;
         int16_t turn_steps;
 
-	} Config;
+    } Config;
 
-	EngineSteppers(const Config* cfg);
+    EngineSteppers(const Config* cfg);
 
-	void init();
+    void init();
 
-	void turn90Degrees(int8_t times);
+    void turn90Degrees(int8_t times);
 
-	void turn(int16_t degrees);
+    void turn(int16_t degrees);
 
-	void moveStraight(int8_t units);
+    void moveStraight(int8_t units);
 
-	virtual void tick(uint32_t micros);
+    virtual void tick(uint32_t micros);
+
+protected:
+
+    virtual void _prepareMove();
 
 private:
 
-	const Config* _config;
+    const Config* _config;
 
     void _motorStepRight(uint8_t pattern);
     void _motorStepLeft(uint8_t pattern);
 
-	int8_t _pattern_index_left;
-	int8_t _pattern_index_right;
+    int8_t _pattern_index_left;
+    int8_t _pattern_index_right;
 
-	void _next_movement();
-	int16_t _movement_steps_r;
-	int16_t _movement_steps_l;
+    int16_t _movement_steps_r;
+    int16_t _movement_steps_l;
 };
 
 
