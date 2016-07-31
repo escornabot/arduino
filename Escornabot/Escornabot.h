@@ -100,6 +100,10 @@ See LICENSE.txt for details
 
 #elif defined(BUTTONS_BLUETOOTH)
 
+    #ifndef BS_BLUETOOTH_SERIAL
+        #define BS_BLUETOOTH_SERIAL Serial
+    #endif
+
     #include "BluetoothInterface.h"
     const BluetoothInterface::Config BS_CONFIG = {
         serial: &(BS_BLUETOOTH_SERIAL),

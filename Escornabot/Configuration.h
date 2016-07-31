@@ -160,8 +160,8 @@ See LICENSE.txt for details
 
 #ifdef BUTTONS_BLUETOOTH
 
-// Arduino serial port
-#define BS_BLUETOOTH_SERIAL    Serial
+// Arduino serial port (default: Serial)
+//#define BS_BLUETOOTH_SERIAL    Serial
 //#define BS_BLUETOOTH_SERIAL    Serial1
 //#define BS_BLUETOOTH_SERIAL    Serial2
 //#define BS_BLUETOOTH_SERIAL    Serial3
