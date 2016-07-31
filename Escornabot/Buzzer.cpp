@@ -30,7 +30,7 @@ See LICENSE.txt for details
 //////////////////////////////////////////////////////////////////////
 
 // fast index between tones and directions
-const static uint16_t BTN_TONES[] = { 
+const static uint16_t BTN_TONES[] = {
     TONE_FREQ_UP,     // 1
     TONE_FREQ_RIGHT,  // 2
     TONE_FREQ_DOWN,   // 3
@@ -87,7 +87,8 @@ void Buzzer::playRttl(const char* rttl)
     rttl++;
 
     // default values
-    uint8_t default_duration, default_octave, bps;
+    uint8_t default_duration= 16, default_octave = 5;
+    uint16_t bps = 320;
     while (*rttl && *rttl != ':')
     {
         switch (*rttl)
@@ -166,9 +167,9 @@ void Buzzer::playRttl(const char* rttl)
 
 //////////////////////////////////////////////////////////////////////
 
-void Buzzer::_beepDirection(uint8_t dir) 
-{ 
-    if (dir >= 1 && dir <= 4) 
+void Buzzer::_beepDirection(uint8_t dir)
+{
+    if (dir >= 1 && dir <= 4)
     {
         beep(BTN_TONES[dir - 1]);
     }
