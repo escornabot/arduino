@@ -27,7 +27,16 @@ See LICENSE.txt for details
 
 #define NL '\n'
 
+//////////////////////////////////////////////////////////////////////
+
+const static char* BUTTONS_PRESSED = "NESWGR";
+const static char* BUTTONS_RELEASED = "neswgr";
 const static char* SI_PROGRAM = "PRG:";
+
+//////////////////////////////////////////////////////////////////////
+
+#include "EventManager.h"
+extern EventManager* EVENTS;
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -43,6 +52,7 @@ BluetoothInterface::BluetoothInterface(const Config* cfg)
 
 void BluetoothInterface::init()
 {
+    ButtonSet::init();
     _config->serial->begin(_config->bauds, SERIAL_8N1);
 }
 
@@ -59,13 +69,15 @@ void BluetoothInterface::scanButtons()
             char* found = strchr(BUTTONS_PRESSED, _command[0]);
             if (found)
             {
-                pressed((BUTTON)((found - BUTTONS_PRESSED) + 1));
+                BUTTON button = (BUTTON)((found - BUTTONS_PRESSED) + 1);
+                EVENTS->indicateButtonReleased(button);
             }
 
             found = strchr(BUTTONS_RELEASED, _command[0]);
             if (found)
             {
-                released((BUTTON)((found - BUTTONS_RELEASED) + 1));
+                BUTTON button = (BUTTON)((found - BUTTONS_RELEASED) + 1);
+                EVENTS->indicateButtonLongReleased(button);
             }
         }
     }

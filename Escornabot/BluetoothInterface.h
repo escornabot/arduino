@@ -29,10 +29,6 @@ See LICENSE.txt for details
 #include "EventListener.h"
 #include <Arduino.h>
 
-// one-key comands: one character by line
-const static char* BUTTONS_PRESSED = "NESWGR";
-const static char* BUTTONS_RELEASED = "neswgr";
-
 #define COMMAND_MAX_LENGTH 10
 
 /**
