@@ -70,14 +70,14 @@ void BluetoothInterface::scanButtons()
             if (found)
             {
                 BUTTON button = (BUTTON)((found - BUTTONS_PRESSED) + 1);
-                EVENTS->indicateButtonReleased(button);
+                EVENTS->indicateButtonLongReleased(button);
             }
 
             found = strchr(BUTTONS_RELEASED, _command[0]);
             if (found)
             {
                 BUTTON button = (BUTTON)((found - BUTTONS_RELEASED) + 1);
-                EVENTS->indicateButtonLongReleased(button);
+                EVENTS->indicateButtonReleased(button);
             }
         }
     }
