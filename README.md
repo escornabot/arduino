@@ -10,9 +10,10 @@ Please, [open issues here][ISS01] if you find any problem with this firmware. Th
 
 ## Available versions:
 
+  - [v1.3.2][VER201608] (August 2016)
   - [v1.3.1][VER201606] (June 2016)
   - [v1.2 Brivoi][BRI01] (September 2015)
-  - [v1.1 Placidus][PLA01] (January 2015)
+  - ~~[v1.1 Placidus][PLA01] (January 2015)~~ (deprecated)
 
 
 ## Instructions
@@ -27,4 +28,5 @@ To configure and load the firmware, please, follow the [official guide][GUI01].
 [ISS01]: https://github.com/escornabot/arduino/issues
 [PLA01]: https://github.com/escornabot/arduino/releases/tag/v1.1-placidus
 [VER201606]: https://github.com/escornabot/arduino/releases/tag/v1.3.1
+[VER201608]: https://github.com/escornabot/arduino/releases/tag/v1.3.2
 
