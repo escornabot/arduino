@@ -11,8 +11,7 @@ Please, [open issues here][ISS01] if you find any problem with this firmware. Th
 ## Available versions:
 
   - [v1.3.2][VER201608] (August 2016)
-  - [v1.3.1][VER201606] (June 2016)
-  - [v1.2 Brivoi][BRI01] (September 2015)
+  - ~~[v1.2 Brivoi][BRI01] (September 2015)~~ (deprecated)
   - ~~[v1.1 Placidus][PLA01] (January 2015)~~ (deprecated)
 
 
