@@ -7,13 +7,7 @@ __More info about the Escornabot at [escornabot.com][ESC01]__
 
 Please, [open issues here][ISS01] if you find any problem with this firmware. Thank you!
 
-
-## Available versions:
-
-  - [v1.3.2][VER201608] (August 2016)
-  - ~~[v1.2 Brivoi][BRI01] (September 2015)~~ (deprecated)
-  - ~~[v1.1 Placidus][PLA01] (January 2015)~~ (deprecated)
-
+Download the __[last version from here](https://github.com/escornabot/arduino/releases/latest)__
 
 ## Instructions
 
