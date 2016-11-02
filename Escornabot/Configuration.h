@@ -33,10 +33,9 @@ See LICENSE.txt for details
 // engine to use
 #define ENGINE_TYPE_STEPPERS
 
-// button set to use
+// button set to use (analog input, digital input)
 #define BUTTONS_ANALOG
 //#define BUTTONS_DIGITAL
-//#define BUTTONS_BLUETOOTH
 
 // milliseconds after a button is considered as pressed
 #define BUTTON_MIN_PRESSED 30
@@ -64,6 +63,10 @@ See LICENSE.txt for details
 
 // point of view set when Vacalourabot is started
 #define POV_INITIAL    POV_ESCORNABOT
+
+// bluetooth serial
+#define USE_BLUETOOTH true
+#define BLUETOOTH_BAUDS 9600
 
 // buzzer
 #define USE_BUZZER true
@@ -158,17 +161,15 @@ See LICENSE.txt for details
 ///// Button set Bluetooth
 //////////////////////////////////////////////////////////////////////
 
-#ifdef BUTTONS_BLUETOOTH
+#ifdef USE_BLUETOOTH
 
 // Arduino serial port (default: Serial)
-//#define BS_BLUETOOTH_SERIAL    Serial
-//#define BS_BLUETOOTH_SERIAL    Serial1
-//#define BS_BLUETOOTH_SERIAL    Serial2
-//#define BS_BLUETOOTH_SERIAL    Serial3
+//#define BLUETOOTH_SERIAL    Serial
+//#define BLUETOOTH_SERIAL    Serial1
+//#define BLUETOOTH_SERIAL    Serial2
+//#define BLUETOOTH_SERIAL    Serial3
 
-#define BS_BLUETOOTH_BAUDS 9600
-
-#endif // BUTTONS_BLUETOOTH
+#endif // USE_BLUETOOTH
 
 
 

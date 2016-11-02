@@ -1,9 +1,4 @@
 
-# github wiki pages
-/Wiki
-
-
-# sublime 
-*.sublime-project
-*.sublime-workspace
+# platformio
+.pioenvs/
 

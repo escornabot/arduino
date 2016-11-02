@@ -33,7 +33,14 @@ void Bot::init()
     ENGINE->init();
 
     // init button set
+    #if USE_BUTTONS
     BUTTONS->init();
+    #endif
+
+    // init bluetooth
+    #if USE_BLUETOOTH
+    BLUETOOTH->init();
+    #endif
 
     // init buzzer
     #if USE_BUZZER

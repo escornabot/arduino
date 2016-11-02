@@ -1,6 +1,11 @@
 
 # Changelog
 
+## v1.3.3 (Oct 25, 2016)
+
+New features:
+- Bluetooth and buttons do not exclude each other as input interface.
+
 ## v1.3.2 (Aug 2, 2016)
 
 New features:

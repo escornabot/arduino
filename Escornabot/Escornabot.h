@@ -48,6 +48,7 @@ See LICENSE.txt for details
         turn_millis: HBRIDGE_TURN_MILLIS,
     };
     EngineHBridge ENGINE_INSTANCE (&ENGINE_CONFIG);
+    Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
 
 #elif defined(ENGINE_TYPE_STEPPERS)
 
@@ -66,12 +67,13 @@ See LICENSE.txt for details
         turn_steps: STEPPERS_TURN_STEPS,
     };
     EngineSteppers ENGINE_INSTANCE (&ENGINE_CONFIG);
+    Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
 
 #endif
 
-// Digital button set
 #if defined(BUTTONS_DIGITAL)
 
+    // digital button set
     #include "ButtonSetDigital.h"
     const ButtonSetDigital::Config BS_CONFIG = {
         pin_button_up: BS_DIGITAL_UP,
@@ -82,9 +84,12 @@ See LICENSE.txt for details
         pin_button_reset: BS_DIGITAL_RESET,
     };
     ButtonSetDigital BUTTONS_INSTANCE (&BS_CONFIG);
+    ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
+    #define USE_BUTTONS true
 
 #elif defined(BUTTONS_ANALOG)
 
+    // analog button set
     #include "ButtonSetAnalog.h"
     const ButtonSetAnalog::Config BS_CONFIG = {
         pin_button_set: BS_ANALOG_PIN,
@@ -97,23 +102,26 @@ See LICENSE.txt for details
         value_button_reset: BS_ANALOG_VALUE_RESET,
     };
     ButtonSetAnalog BUTTONS_INSTANCE (&BS_CONFIG);
+    ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
+    #define USE_BUTTONS true
 
-#elif defined(BUTTONS_BLUETOOTH)
+#endif // Button set
 
-    #ifndef BS_BLUETOOTH_SERIAL
-        #define BS_BLUETOOTH_SERIAL Serial
+#if defined(USE_BLUETOOTH)
+
+    #ifndef BLUETOOTH_SERIAL
+        #define BLUETOOTH_SERIAL Serial
     #endif
 
     #include "BluetoothInterface.h"
-    const BluetoothInterface::Config BS_CONFIG = {
-        serial: &(BS_BLUETOOTH_SERIAL),
-        bauds: BS_BLUETOOTH_BAUDS,
+    const BluetoothInterface::Config BT_CONFIG = {
+        serial: &(BLUETOOTH_SERIAL),
+        bauds: BLUETOOTH_BAUDS,
     };
-    BluetoothInterface BUTTONS_INSTANCE (&BS_CONFIG);
+    BluetoothInterface BLUETOOTH_INSTANCE (&BT_CONFIG);
+    BluetoothInterface* BLUETOOTH = &BLUETOOTH_INSTANCE;
 
-    #define INDICATOR_INSTANCE BUTTONS_INSTANCE
-
-#endif // Button set
+#endif // Bluetooth
 
 
 #if USE_BUZZER
@@ -142,15 +150,9 @@ See LICENSE.txt for details
 
 ///// global vars
 
-// status indicators
+// event manager
 EventManager EVENTS_INSTANCE;
 EventManager* EVENTS = &EVENTS_INSTANCE;
-
-// engine
-Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
-
-// button set
-ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
 
 // program
 MoveList PROGRAM_INSTANCE;
