@@ -4,6 +4,7 @@
 ## (next release)
 New features:
 - Standard configurations ready-to-go by board version.
+- Instructions to compile and upload with PlatformIO.
 
 ## v1.3.3 (Oct 25, 2016)
 
