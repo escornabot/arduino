@@ -1,6 +1,10 @@
 
 # Changelog
 
+## (next release)
+New features:
+- Standard configurations ready-to-go by board version.
+
 ## v1.3.3 (Oct 25, 2016)
 
 New features:
