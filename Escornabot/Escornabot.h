@@ -33,24 +33,7 @@ See LICENSE.txt for details
 #include "ButtonSet.h"
 #include "EventManager.h"
 
-// motor engine defined from configuration
-#if defined(ENGINE_TYPE_HBRIDGE)
-
-    #include "EngineHBridge.h"
-    const EngineHBridge::Config ENGINE_CONFIG = {
-        motor_left_a: HBRIDGE_MOTOR_LEFT_A,
-        motor_left_b: HBRIDGE_MOTOR_LEFT_B,
-        motor_left_en: HBRIDGE_MOTOR_LEFT_EN,
-        motor_right_a: HBRIDGE_MOTOR_RIGHT_A,
-        motor_right_b: HBRIDGE_MOTOR_RIGHT_B,
-        motor_right_en: HBRIDGE_MOTOR_RIGHT_EN,
-        step_millis: HBRIDGE_STEP_MILLIS,
-        turn_millis: HBRIDGE_TURN_MILLIS,
-    };
-    EngineHBridge ENGINE_INSTANCE (&ENGINE_CONFIG);
-    Engine* ENGINE = (Engine*) &ENGINE_INSTANCE;
-
-#elif defined(ENGINE_TYPE_STEPPERS)
+#if defined(ENGINE_TYPE_STEPPERS)
 
     #include "EngineSteppers.h"
     const EngineSteppers::Config ENGINE_CONFIG = {
