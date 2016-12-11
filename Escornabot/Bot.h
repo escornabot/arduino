@@ -60,6 +60,7 @@ private:
 
     void _storeMove(MOVE move);
 
+    uint16_t _total_programs = 0;
 };
 
 #endif // _BOT_H

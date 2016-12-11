@@ -35,8 +35,8 @@ See LICENSE.txt for details
 #define EEPROM_SIZE_MOVE_LIST (MOVE_LIMIT + 1)
 
 /**
- * Provides convenient methods to use persistent memory (EEPROM) and be sure
- * that data is stored in the right memory positions.
+ * \brief Provides convenient methods to use persistent memory (EEPROM).
+ * \author @caligari
  */
 class PersistentMemory
 {

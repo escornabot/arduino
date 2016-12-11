@@ -30,6 +30,15 @@ See LICENSE.txt for details
 #include "Configuration.h"
 #include "Enums.h"
 
+const static MOVE PROGRAM_ESCORNA_GREETING[] = {
+    MOVE_FORWARD,
+    MOVE_LEFT,
+    MOVE_RIGHT,
+    MOVE_RIGHT,
+    MOVE_LEFT,
+    MOVE_BACKWARD,
+    MOVE_NONE
+};
 
 /**
  * \brief Container of program movements.
@@ -60,6 +69,11 @@ public:
      * @param move The movement to add.
      */
     void addMove(MOVE move);
+
+    /**
+     * Adds a list of moves.
+     */
+    void addProgram(const MOVE moves[]);
 
     /**
      * Gets the movement from program at specified position.

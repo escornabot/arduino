@@ -172,20 +172,25 @@ void Bot::programAborted(uint8_t executed, uint8_t total)
 
 void Bot::_go()
 {
+    // preloaded program
+    if (PROGRAM->getMoveCount() == 0 && _total_programs == 0)
+    {
+        PROGRAM->addProgram(PROGRAM_ESCORNA_GREETING);
+    }
+
     // only with movements
     if (PROGRAM->getMoveCount() > 0)
     {
         #if USE_PERSISTENT_MEMORY
-
         // save the movement program in EEPROM
         PROGRAM->save();
-
         #endif
 
         // let user to release the 'go' button before the action
         delay(DELAY_BEFORE_GO);
 
         ENGINE->execute(PROGRAM, AFTER_MOVEMENT_PAUSE, POV_ESCORNABOT);
+        _total_programs++;
     }
 }
 

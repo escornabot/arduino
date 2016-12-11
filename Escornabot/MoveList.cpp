@@ -59,6 +59,15 @@ void MoveList::addMove(MOVE move)
 
 
 
+void MoveList::addProgram(const MOVE moves[])
+{
+    int m = 0;
+    while (moves[m] != MOVE_NONE)
+        _move_list[_move_count++] = moves[m++];
+}
+
+
+
 MOVE MoveList::getMove(uint8_t index)
 {
     return _move_list[index];

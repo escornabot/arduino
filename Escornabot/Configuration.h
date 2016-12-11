@@ -47,7 +47,7 @@ See LICENSE.txt for details
 #define PROGRAM_RESET_ALWAYS true
 
 // store configuration and program within internal EEPROM
-#define USE_PERSISTENT_MEMORY true
+#define USE_PERSISTENT_MEMORY false
 
 // memory capacity for program movements
 #define MOVE_LIMIT 100
