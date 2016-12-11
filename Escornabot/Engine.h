@@ -1,7 +1,7 @@
 // Engine.h
 /*
 
-Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2017 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -48,11 +48,26 @@ public:
     virtual void init() = 0;
 
     /**
+     * Sets the default degrees value to use with turnRight() and turnLeft().
+     */
+    void setTurnDegrees(int16_t degrees) { _degrees = degrees; }
+
+    /**
      * Turns left or right an angle specified in degrees (from Escornabot's POV).
      * @param degrees Amount of degrees to turn. Positive is clockwise,
      *     negative is counter-clockwise.
      */
     virtual void turn(int16_t degrees) = 0;
+
+    /**
+     * Turns right the configured amount of degrees.
+     */
+    void turnRight() { turn(_degrees); }
+
+    /**
+     * Turns left the configured amount of degrees.
+     */
+    void turnLeft() { turn(-_degrees); }
 
     /**
      * Moves forward or backward direction (from Escornabot's POV).
@@ -76,13 +91,15 @@ public:
 
 protected:
 
+    int16_t _degrees;
+
     MoveList* _program;
     uint8_t _program_index;
     MOVE _getCurrentMove() { return _program->getMove(_program_index); }
 
     bool _is_cancelling;
 
-    virtual void _prepareMove() = 0;
+    void _prepareMove();
 
 };
 

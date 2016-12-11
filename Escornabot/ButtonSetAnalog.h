@@ -1,7 +1,7 @@
 // ButtonSetAnalog.h
 /*
 
-Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2017 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

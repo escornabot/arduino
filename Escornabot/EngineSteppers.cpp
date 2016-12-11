@@ -1,7 +1,7 @@
 // EngineSteppers.cpp
 /*
 
-Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2017 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -71,18 +71,9 @@ void EngineSteppers::init()
 
 //////////////////////////////////////////////////////////////////////
 
-void EngineSteppers::turn90Degrees(int8_t times)
-{
-    _movement_steps_r = -_config->turn_steps * times;
-    _movement_steps_l = _movement_steps_r;
-}
-
-//////////////////////////////////////////////////////////////////////
-
 void EngineSteppers::turn(int16_t degrees)
 {
-    uint32_t steps;
-    steps = (degrees < 0 ? _config->turn_steps : -_config->turn_steps);
+    int32_t steps = -_config->turn_steps;
     steps *= degrees;
     steps /= 90;
 
@@ -166,54 +157,6 @@ void EngineSteppers::tick(uint32_t micros)
     else
     {
         delayMicroseconds(1000000 / _config->steps_per_second);
-    }
-}
-
-//////////////////////////////////////////////////////////////////////
-
-void EngineSteppers::_prepareMove()
-{
-    if (_is_cancelling)
-    {
-        // program is cancelled
-        EVENTS->indicateProgramAborted(_program_index, _program->getMoveCount());
-        _program = NULL;
-        return;
-    }
-
-    if (_program_index == _program->getMoveCount())
-    {
-        // program is finished
-        _program = NULL;
-        EVENTS->indicateProgramFinished();
-        return;
-    }
-
-    MOVE move = _getCurrentMove();
-    EVENTS->indicateMoveExecuting(move);
-
-    switch (move)
-    {
-        case MOVE_RIGHT:
-            turn90Degrees(1);
-            break;
-
-        case MOVE_LEFT:
-            turn90Degrees(-1);
-            break;
-
-        case MOVE_FORWARD:
-            moveStraight(1);
-            break;
-
-        case MOVE_BACKWARD:
-            moveStraight(-1);
-            break;
-/*
-        case MOVE_PAUSE:
-            delay(PAUSE_MOVE_MILLIS);
-            break;
-*/
     }
 }
 
