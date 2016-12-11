@@ -1,10 +1,13 @@
 
 # Changelog
 
-## (next release)
+## v1.3.4 (Dec 12, 2016)
+
 New features:
-- Standard configurations ready-to-go by board version.
-- Instructions to compile and upload with PlatformIO.
+- Standard configurations ready-to-go by board version (see /config folder).
+- Instructions to compile and upload with PlatformIO (in README.md).
+- Escornabot's greeting preloaded (power on and press the 'Go' button).
+- Turn degrees configurable in the abstract Engine class.
 
 ## v1.3.3 (Oct 25, 2016)
 
