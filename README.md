@@ -1,6 +1,8 @@
 
 # Arduino firmware for Escornabot
 
+[![Travis Build Status](https://travis-ci.org/escornabot/arduino.svg)](https://travis-ci.org/escornabot/arduino)
+
 This is the Arduino firmware to upload to the Escornabot.
 
 __More info about the Escornabot at [escornabot.com][ESC01]__
