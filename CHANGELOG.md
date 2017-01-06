@@ -1,7 +1,14 @@
 
 # Changelog
 
-## v1.3.4 (Dec 12, 2016)
+## v1.4.1 (Jan 6, 2017)
+
+New features:
+- Travis CI is checking pushed code and badge is informing about sanity.
+- Refactoring of branches and explained the release numbers in README.
+- Nano is set as the default environment in Platformio.
+
+## v1.4.0 (Dec 12, 2016)
 
 New features:
 - Standard configurations ready-to-go by board version (see /config folder).
