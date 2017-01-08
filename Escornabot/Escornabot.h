@@ -75,14 +75,14 @@ See LICENSE.txt for details
     // analog button set
     #include "ButtonSetAnalog.h"
     const ButtonSetAnalog::Config BS_CONFIG = {
-        pin_button_set: BS_ANALOG_PIN,
+        pin_keypad: BS_ANALOG_PIN,
         pullup: (BS_ANALOG_WIRES == 3 ? false : true),
-        value_button_up: BS_ANALOG_VALUE_UP,
-        value_button_right: BS_ANALOG_VALUE_RIGHT,
-        value_button_down: BS_ANALOG_VALUE_DOWN,
-        value_button_left: BS_ANALOG_VALUE_LEFT,
-        value_button_go: BS_ANALOG_VALUE_GO,
-        value_button_reset: BS_ANALOG_VALUE_RESET,
+        val_btn_up: BS_ANALOG_VALUE_UP,
+        val_btn_right: BS_ANALOG_VALUE_RIGHT,
+        val_btn_down: BS_ANALOG_VALUE_DOWN,
+        val_btn_left: BS_ANALOG_VALUE_LEFT,
+        val_btn_go: BS_ANALOG_VALUE_GO,
+        val_btn_reset: BS_ANALOG_VALUE_RESET,
     };
     ButtonSetAnalog BUTTONS_INSTANCE (&BS_CONFIG);
     ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;

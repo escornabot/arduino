@@ -36,14 +36,14 @@ class ButtonSetAnalog : ButtonSet
 public:
 
     typedef struct {
-        uint8_t pin_button_set;
+        uint8_t pin_keypad;
         bool pullup;
-        int16_t value_button_up;
-        int16_t value_button_right;
-        int16_t value_button_down;
-        int16_t value_button_left;
-        int16_t value_button_go;
-        int16_t value_button_reset;
+        int16_t val_btn_up;
+        int16_t val_btn_right;
+        int16_t val_btn_down;
+        int16_t val_btn_left;
+        int16_t val_btn_go;
+        int16_t val_btn_reset;
     } Config;
 
     ButtonSetAnalog(const Config* config);
@@ -61,6 +61,13 @@ public:
 private:
 
     const Config* _config;
+
+    int16_t _val_btn_up;
+    int16_t _val_btn_right;
+    int16_t _val_btn_down;
+    int16_t _val_btn_left;
+    int16_t _val_btn_go;
+    int16_t _val_btn_reset;
 
     BUTTON _last_button;
 

@@ -33,6 +33,13 @@ See LICENSE.txt for details
 ButtonSetAnalog::ButtonSetAnalog(const Config* config)
 {
     this->_config = config;
+
+    this->_val_btn_up = config->val_btn_up;
+    this->_val_btn_right = config->val_btn_right;
+    this->_val_btn_down = config->val_btn_down;
+    this->_val_btn_left = config->val_btn_left;
+    this->_val_btn_go = config->val_btn_go;
+    this->_val_btn_reset = config->val_btn_reset;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -40,7 +47,7 @@ ButtonSetAnalog::ButtonSetAnalog(const Config* config)
 void ButtonSetAnalog::init()
 {
     ButtonSet::init();
-    pinMode(_config->pin_button_set, (_config->pullup ? INPUT_PULLUP : INPUT));
+    pinMode(_config->pin_keypad, (_config->pullup ? INPUT_PULLUP : INPUT));
     _last_button = BUTTON_NONE;
 }
 
@@ -48,48 +55,48 @@ void ButtonSetAnalog::init()
 
 void ButtonSetAnalog::scanButtons()
 {
-    int16_t value = analogRead(_config->pin_button_set);
+    int16_t value = analogRead(_config->pin_keypad);
     int16_t diff, minor_diff;
 
     minor_diff = abs(value - PULLUP_VALUE);
     BUTTON button = BUTTON_NONE;
 
-    diff = abs(value - _config->value_button_up);
+    diff = abs(value - _val_btn_up);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_UP;
     }
 
-    diff = abs(value - _config->value_button_right);
+    diff = abs(value - _val_btn_right);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_RIGHT;
     }
 
-    diff = abs(value - _config->value_button_down);
+    diff = abs(value - _val_btn_down);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_DOWN;
     }
 
-    diff = abs(value - _config->value_button_left);
+    diff = abs(value - _val_btn_left);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_LEFT;
     }
 
-    diff = abs(value - _config->value_button_go);
+    diff = abs(value - _val_btn_go);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_GO;
     }
 
-    diff = abs(value - _config->value_button_reset);
+    diff = abs(value - _val_btn_reset);
     if (diff < minor_diff)
     {
         minor_diff = diff;
