@@ -58,6 +58,8 @@ void ButtonSet::pressed(BUTTON button)
         _button_statuses[button] = _current_millis;
         EVENTS->indicateButtonPressed(button + 1);
     }
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -80,11 +82,13 @@ void ButtonSet::released(BUTTON button)
             _button_statuses[button] = 0;
         }
     }
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void ButtonSet::tick(uint32_t micros)
+bool ButtonSet::tick(uint32_t micros)
 {
     _current_millis = micros / 1000;
 
@@ -103,6 +107,8 @@ void ButtonSet::tick(uint32_t micros)
     }
 
     scanButtons();
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////

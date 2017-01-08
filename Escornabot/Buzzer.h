@@ -76,9 +76,11 @@ public:
     // Buzzer interface
     //////////////////////////////////////////////////////////////////////
 
-    virtual void buttonReleased(BUTTON btn) { _beepDirection(btn); }
+    virtual bool buttonReleased(BUTTON btn)
+        { _beepDirection(btn); return false; }
 
-    virtual void moveExecuting(MOVE move) { _beepDirection(move); }
+    virtual bool moveExecuting(MOVE move)
+        { _beepDirection(move); return false; }
 
 private:
 

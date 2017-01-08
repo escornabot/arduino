@@ -22,8 +22,8 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _STATUS_INDICATOR_H
-#define _STATUS_INDICATOR_H
+#ifndef _EVENT_LISTENER_H
+#define _EVENT_LISTENER_H
 
 #include <stddef.h>
 #include "Enums.h"
@@ -57,66 +57,66 @@ public:
     // public interface
     //////////////////////////////////////////////////////////////////////
 
-    virtual void tick(uint32_t micros) {}
+    virtual bool tick(uint32_t micros) { return false; }
 
     /**
      * Handles when a movement from the program has started its execution.
      * @param move The movement.
      */
-    virtual void moveExecuting(MOVE move) {}
+    virtual bool moveExecuting(MOVE move) { return false; }
 
     /**
      * Handles when a movement from the program has finished its execution.
      * @param move The movement.
      */
-    virtual void moveExecuted(MOVE move) {}
+    virtual bool moveExecuted(MOVE move) { return false; }
 
     /**
      * Handles when a new movement was added to the program.
      * @param move The movement.
      */
-    virtual void moveAdded(MOVE move) {}
+    virtual bool moveAdded(MOVE move) { return false; }
 
     /**
      * Handles when the program has started.
      * @param total_moves Total moves in the program.
      */
-    virtual void programStarted(uint8_t total_moves) {}
+    virtual bool programStarted(uint8_t total_moves) { return false; }
 
     /**
      * Handles when the program has finished.
      */
-    virtual void programFinished() {}
+    virtual bool programFinished() { return false; }
 
     /**
      * Handles when the program has reset.
      */
-    virtual void programReset() {}
+    virtual bool programReset() { return false; }
 
     /**
      * Handles when the program was aborted.
      * @param executed Number of executed moves after aborted.
      * @param total Total moves in the program.
      */
-    virtual void programAborted(uint8_t executed, uint8_t total) {}
+    virtual bool programAborted(uint8_t executed, uint8_t total) { return false; }
 
     /**
      * Handles when a button was pressed.
      * @param button The button.
      */
-    virtual void buttonPressed(BUTTON button) {}
+    virtual bool buttonPressed(BUTTON button) { return false; }
 
     /**
      * Handles when a button was released.
      * @param button The button.
      */
-    virtual void buttonReleased(BUTTON button) {}
+    virtual bool buttonReleased(BUTTON button) { return false; }
 
     /**
      * Handles when a button was long released.
      * @param button The button.
      */
-    virtual void buttonLongReleased(BUTTON button) {}
+    virtual bool buttonLongReleased(BUTTON button) { return false; }
 
 private:
 

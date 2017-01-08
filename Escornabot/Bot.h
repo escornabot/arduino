@@ -44,15 +44,15 @@ public:
     // EventListener interface
     ////////////////////////////////////////////////////////////
 
-    virtual void programFinished();
+    virtual bool programFinished();
 
-    virtual void programAborted(uint8_t executed, uint8_t total);
+    virtual bool programAborted(uint8_t executed, uint8_t total);
 
-    virtual void buttonPressed(BUTTON button);
+    virtual bool buttonPressed(BUTTON button);
 
-    virtual void buttonReleased(BUTTON button);
+    virtual bool buttonReleased(BUTTON button);
 
-    virtual void buttonLongReleased(BUTTON button);
+    virtual bool buttonLongReleased(BUTTON button);
 
 private:
 

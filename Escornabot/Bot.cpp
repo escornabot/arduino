@@ -75,16 +75,18 @@ void Bot::loop()
 
 //////////////////////////////////////////////////////////////////////
 
-void Bot::buttonPressed(BUTTON button)
+bool Bot::buttonPressed(BUTTON button)
 {
     #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(true);
     #endif
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void Bot::buttonReleased(BUTTON button)
+bool Bot::buttonReleased(BUTTON button)
 {
     #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(false);
@@ -93,7 +95,7 @@ void Bot::buttonReleased(BUTTON button)
     if (ENGINE->isExecuting())
     {
         ENGINE->cancelExecution();
-        return;
+        return false;
     }
 
     switch (button)
@@ -122,11 +124,13 @@ void Bot::buttonReleased(BUTTON button)
             PROGRAM->clear();
             break;
     }
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void Bot::buttonLongReleased(BUTTON button)
+bool Bot::buttonLongReleased(BUTTON button)
 {
     #if USE_SIMPLE_LED
     SIMPLE_LED.setStatus(false);
@@ -135,7 +139,7 @@ void Bot::buttonLongReleased(BUTTON button)
     if (ENGINE->isExecuting())
     {
         ENGINE->cancelExecution();
-        return;
+        return false;
     }
 
     switch (button)
@@ -144,11 +148,13 @@ void Bot::buttonLongReleased(BUTTON button)
             _storeMove(MOVE_PAUSE);
             break;
     }
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void Bot::programFinished()
+bool Bot::programFinished()
 {
     #if PROGRAM_RESET_ALWAYS
     PROGRAM->clear();
@@ -157,15 +163,19 @@ void Bot::programFinished()
     #if USE_BUZZER
     BUZZER.playRttl(PROGRAM_FINISHED_RTTL);
     #endif
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void Bot::programAborted(uint8_t executed, uint8_t total)
+bool Bot::programAborted(uint8_t executed, uint8_t total)
 {
     #if PROGRAM_RESET_ALWAYS
     PROGRAM->clear();
     #endif
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////

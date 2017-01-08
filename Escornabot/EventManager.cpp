@@ -47,7 +47,7 @@ void EventManager::indicateTick(uint32_t micros)
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->tick(micros);
+        if (i->tick(micros)) break;
         i = i->getNext();
     }
 }
@@ -59,7 +59,7 @@ void EventManager::indicateMoveExecuting(MOVE move)
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->moveExecuting(move);
+        if (i->moveExecuting(move)) break;
         i = i->getNext();
     }
 }
@@ -71,7 +71,7 @@ void EventManager::indicateMoveExecuted(MOVE move)
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->moveExecuted(move);
+        if (i->moveExecuted(move)) break;
         i = i->getNext();
     }
 }
@@ -83,7 +83,7 @@ void EventManager::indicateMoveAdded(MOVE move)
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->moveAdded(move);
+        if (i->moveAdded(move)) break;
         i = i->getNext();
     }
 }
@@ -95,7 +95,7 @@ void EventManager::indicateProgramStarted(uint8_t total_moves)
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->programStarted(total_moves);
+        if (i->programStarted(total_moves)) break;
         i = i->getNext();
     }
 }
@@ -107,7 +107,7 @@ void EventManager::indicateProgramFinished()
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->programFinished();
+        if (i->programFinished()) break;
         i = i->getNext();
     }
 }
@@ -119,7 +119,7 @@ void EventManager::indicateProgramReset()
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->programReset();
+        if (i->programReset()) break;
         i = i->getNext();
     }
 }
@@ -131,7 +131,7 @@ void EventManager::indicateProgramAborted(uint8_t executed, uint8_t total)
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->programAborted(executed, total);
+        if (i->programAborted(executed, total)) break;
         i = i->getNext();
     }
 }
@@ -143,7 +143,7 @@ void EventManager::indicateButtonPressed(BUTTON button)
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->buttonPressed(button);
+        if (i->buttonPressed(button)) break;
         i = i->getNext();
     }
 }
@@ -155,7 +155,7 @@ void EventManager::indicateButtonReleased(BUTTON button)
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->buttonReleased(button);
+        if (i->buttonReleased(button)) break;
         i = i->getNext();
     }
 }
@@ -167,7 +167,7 @@ void EventManager::indicateButtonLongReleased(BUTTON button)
     EventListener* i = _first;
     while (i != NULL)
     {
-        i->buttonLongReleased(button);
+        if (i->buttonLongReleased(button)) break;
         i = i->getNext();
     }
 }

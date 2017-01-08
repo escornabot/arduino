@@ -59,7 +59,7 @@ public:
 
     void moveStraight(int8_t units);
 
-    virtual void tick(uint32_t micros);
+    virtual bool tick(uint32_t micros);
 
 private:
 

@@ -111,9 +111,9 @@ void EngineSteppers::_motorStepLeft(uint8_t pattern)
 
 //////////////////////////////////////////////////////////////////////
 
-void EngineSteppers::tick(uint32_t micros)
+bool EngineSteppers::tick(uint32_t micros)
 {
-    if (!isExecuting()) return;
+    if (!isExecuting()) return false;
 
     if (_movement_steps_l == 0 && _movement_steps_r == 0)
     {
@@ -126,7 +126,7 @@ void EngineSteppers::tick(uint32_t micros)
         // prepare next movement
         _program_index++;
         _prepareMove();
-        return;
+        return false;
     }
 
     if (_movement_steps_l != 0)
@@ -158,6 +158,8 @@ void EngineSteppers::tick(uint32_t micros)
     {
         delayMicroseconds(1000000 / _config->steps_per_second);
     }
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////

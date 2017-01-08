@@ -57,7 +57,7 @@ public:
     /**
      * Runs the execution thread.
      */
-    virtual void tick(uint32_t micros);
+    virtual bool tick(uint32_t micros);
 
 protected:
 

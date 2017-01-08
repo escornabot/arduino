@@ -31,8 +31,8 @@ See LICENSE.txt for details
  * \brief Manage keypad events to turn on/off keypad leds.
  * \author @caligari
  */
-class KeypadLeds : public EventListener {
-
+class KeypadLeds : public EventListener
+{
 public:
 
     typedef struct {
@@ -50,13 +50,19 @@ public:
     void setLed(uint8_t BUTTON, bool light);
     void setAllLed(bool light);
 
-    virtual void buttonPressed(BUTTON button) { setLed(button, true ); }
-    virtual void buttonReleased(BUTTON button) { setLed(button, false); }
-    virtual void buttonLongReleased(BUTTON button) { setLed(button, false); }
+    virtual bool buttonPressed(BUTTON button)
+        { setLed(button, true ); return false; }
+    virtual bool buttonReleased(BUTTON button)
+        { setLed(button, false); return false; }
+    virtual bool buttonLongReleased(BUTTON button)
+        { setLed(button, false); return false; }
 
-    virtual void moveExecuting(MOVE move) { setLed(_mov2btn(move), true); }
-    virtual void moveExecuted(MOVE move) { setLed(_mov2btn(move), false); }
-    virtual void programAborted(uint8_t exe, uint8_t tot) { setAllLed(false); }
+    virtual bool moveExecuting(MOVE move)
+        { setLed(_mov2btn(move), true); return false; }
+    virtual bool moveExecuted(MOVE move)
+        { setLed(_mov2btn(move), false); return false; }
+    virtual bool programAborted(uint8_t exe, uint8_t tot)
+        { setAllLed(false); return false; }
 
 private:
 

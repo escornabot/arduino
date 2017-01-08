@@ -49,22 +49,21 @@ public:
 
     void flashOne(uint16_t millis);
 
-
-    //////////////////////////////////////////////////////////////////////
-    // StatusIndicator interface
-    //////////////////////////////////////////////////////////////////////
-
     // turn on between movement pauses
-    virtual void moveExecuted(MOVE move) { setStatus(true); }
-    virtual void moveExecuting(MOVE move) { setStatus(false); }
-    virtual void programFinished() { setStatus(false); }
+    virtual bool moveExecuted(MOVE move)
+        { setStatus(true); return false; }
+    virtual bool moveExecuting(MOVE move)
+        { setStatus(false); return false; }
+    virtual bool programFinished()
+        { setStatus(false); return false; }
 
     // turn on when button is pressed (200 milliseconds)
-    virtual void moveAdded(MOVE move) { flashOne(200); }
-    virtual void programReset() { flashOne(200); }
-    virtual void programStarted(uint8_t total_moves) { flashOne(200); }
-
-
+    virtual bool moveAdded(MOVE move)
+        { flashOne(200); return false; }
+    virtual bool programReset()
+        { flashOne(200); return false; }
+    virtual bool programStarted(uint8_t total_moves)
+        { flashOne(200); return false; }
 
 private:
 
