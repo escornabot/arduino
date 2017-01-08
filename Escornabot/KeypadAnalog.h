@@ -1,4 +1,4 @@
-// ButtonSetAnalog.h
+// KeypadAnalog.h
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -25,13 +25,13 @@ See LICENSE.txt for details
 #ifndef _BUTTON_SET_ANALOG_H
 #define _BUTTON_SET_ANALOG_H
 
-#include "ButtonSet.h"
+#include "Keypad.h"
 
 /**
- * \brief Implementation of a button set connected to 1 analog input.
+ * \brief Implementation of a keypad connected to 1 analog input.
  * \author @caligari
  */
-class ButtonSetAnalog : ButtonSet
+class KeypadAnalog : Keypad
 {
 public:
 
@@ -46,7 +46,7 @@ public:
         int16_t val_btn_reset;
     } Config;
 
-    ButtonSetAnalog(const Config* config);
+    KeypadAnalog(const Config* config);
 
     /**
      * Does the hardware initialization.

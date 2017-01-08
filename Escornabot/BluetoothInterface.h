@@ -25,7 +25,7 @@ See LICENSE.txt for details
 #ifndef _BLUETOOTH_INTERFACE_H
 #define _BLUETOOTH_INTERFACE_H
 
-#include "ButtonSet.h"
+#include "Keypad.h"
 #include "EventListener.h"
 #include <Arduino.h>
 
@@ -35,7 +35,7 @@ See LICENSE.txt for details
  * \brief Interface to use a bluetooth module over serial interface
  * \author @caligari
  */
-class BluetoothInterface : public ButtonSet
+class BluetoothInterface : public Keypad
 {
 public:
 
@@ -50,7 +50,7 @@ public:
     BluetoothInterface(const Config* cfg);
 
     ////////////////////////////////////////////////////////////
-    // ButtonSet interface
+    // Keypad interface
     ////////////////////////////////////////////////////////////
 
     /**

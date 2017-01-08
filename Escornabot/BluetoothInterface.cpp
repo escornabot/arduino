@@ -52,7 +52,7 @@ BluetoothInterface::BluetoothInterface(const Config* cfg)
 
 void BluetoothInterface::init()
 {
-    ButtonSet::init();
+    Keypad::init();
     _config->serial->begin(_config->bauds, SERIAL_8N1);
 }
 

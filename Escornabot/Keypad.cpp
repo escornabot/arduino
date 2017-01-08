@@ -1,4 +1,4 @@
-// ButtonSet.cpp
+// Keypad.cpp
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -23,7 +23,7 @@ See LICENSE.txt for details
 */
 
 #include "Configuration.h"
-#include "ButtonSet.h"
+#include "Keypad.h"
 #include "EventManager.h"
 #include <Arduino.h>
 
@@ -33,7 +33,7 @@ extern EventManager* EVENTS;
 
 //////////////////////////////////////////////////////////////////////
 
-ButtonSet::ButtonSet()
+Keypad::Keypad()
 {
     for (int b = 0; b < 6; b++)
         this->_button_statuses[b] = 0;
@@ -43,14 +43,14 @@ ButtonSet::ButtonSet()
 
 //////////////////////////////////////////////////////////////////////
 
-void ButtonSet::init()
+void Keypad::init()
 {
     EVENTS->add(this);
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void ButtonSet::pressed(BUTTON button)
+bool Keypad::pressed(BUTTON button)
 {
     button--;
     if (_button_statuses[button] == 0)
@@ -64,7 +64,7 @@ void ButtonSet::pressed(BUTTON button)
 
 //////////////////////////////////////////////////////////////////////
 
-void ButtonSet::released(BUTTON button)
+bool Keypad::released(BUTTON button)
 {
     button--;
 
@@ -88,7 +88,7 @@ void ButtonSet::released(BUTTON button)
 
 //////////////////////////////////////////////////////////////////////
 
-bool ButtonSet::tick(uint32_t micros)
+bool Keypad::tick(uint32_t micros)
 {
     _current_millis = micros / 1000;
 

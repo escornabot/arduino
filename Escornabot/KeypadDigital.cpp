@@ -1,4 +1,4 @@
-// ButtonSetDigital.cpp
+// KeypadDigital.cpp
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -22,11 +22,11 @@ See LICENSE.txt for details
 
 */
 
-#include "ButtonSetDigital.h"
+#include "KeypadDigital.h"
 #include "Configuration.h"
 #include <Arduino.h>
 
-ButtonSetDigital::ButtonSetDigital(const Config* config)
+KeypadDigital::KeypadDigital(const Config* config)
 {
     this->_config = config;
 
@@ -34,9 +34,9 @@ ButtonSetDigital::ButtonSetDigital(const Config* config)
 }
 
 
-void ButtonSetDigital::init()
+void KeypadDigital::init()
 {
-    ButtonSet::init();
+    Keypad::init();
 
     // configure Arduino pins
     pinMode(_config->pin_button_up, INPUT);
@@ -48,7 +48,7 @@ void ButtonSetDigital::init()
 }
 
 
-void ButtonSetDigital::scanButtons()
+void KeypadDigital::scanButtons()
 {
     bool state;
 

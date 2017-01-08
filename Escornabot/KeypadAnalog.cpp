@@ -1,4 +1,4 @@
-// ButtonSetAnalog.cpp
+// KeypadAnalog.cpp
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -22,7 +22,7 @@ See LICENSE.txt for details
 
 */
 
-#include "ButtonSetAnalog.h"
+#include "KeypadAnalog.h"
 #include "Configuration.h"
 #include <Arduino.h>
 
@@ -30,7 +30,7 @@ See LICENSE.txt for details
 
 //////////////////////////////////////////////////////////////////////
 
-ButtonSetAnalog::ButtonSetAnalog(const Config* config)
+KeypadAnalog::KeypadAnalog(const Config* config)
 {
     this->_config = config;
 
@@ -44,16 +44,16 @@ ButtonSetAnalog::ButtonSetAnalog(const Config* config)
 
 //////////////////////////////////////////////////////////////////////
 
-void ButtonSetAnalog::init()
+void KeypadAnalog::init()
 {
-    ButtonSet::init();
+    Keypad::init();
     pinMode(_config->pin_keypad, (_config->pullup ? INPUT_PULLUP : INPUT));
     _last_button = BUTTON_NONE;
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void ButtonSetAnalog::scanButtons()
+void KeypadAnalog::scanButtons()
 {
     int16_t value = analogRead(_config->pin_keypad);
     int16_t diff, minor_diff;

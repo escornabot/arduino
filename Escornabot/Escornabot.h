@@ -30,7 +30,7 @@ See LICENSE.txt for details
 #include "Enums.h"
 #include "MoveList.h"
 #include "Engine.h"
-#include "ButtonSet.h"
+#include "Keypad.h"
 #include "EventManager.h"
 
 #if defined(ENGINE_TYPE_STEPPERS)
@@ -57,8 +57,8 @@ See LICENSE.txt for details
 #if defined(BUTTONS_DIGITAL)
 
     // digital button set
-    #include "ButtonSetDigital.h"
-    const ButtonSetDigital::Config BS_CONFIG = {
+    #include "KeypadDigital.h"
+    const KeypadDigital::Config BS_CONFIG = {
         pin_button_up: BS_DIGITAL_UP,
         pin_button_right: BS_DIGITAL_RIGHT,
         pin_button_down: BS_DIGITAL_DOWN,
@@ -66,15 +66,15 @@ See LICENSE.txt for details
         pin_button_go: BS_DIGITAL_GO,
         pin_button_reset: BS_DIGITAL_RESET,
     };
-    ButtonSetDigital BUTTONS_INSTANCE (&BS_CONFIG);
-    ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
+    KeypadDigital BUTTONS_INSTANCE (&BS_CONFIG);
+    Keypad* BUTTONS = (Keypad*) &BUTTONS_INSTANCE;
     #define USE_BUTTONS true
 
 #elif defined(BUTTONS_ANALOG)
 
-    // analog button set
-    #include "ButtonSetAnalog.h"
-    const ButtonSetAnalog::Config BS_CONFIG = {
+    // analog keypad
+    #include "KeypadAnalog.h"
+    const KeypadAnalog::Config BS_CONFIG = {
         pin_keypad: BS_ANALOG_PIN,
         pullup: (BS_ANALOG_WIRES == 3 ? false : true),
         val_btn_up: BS_ANALOG_VALUE_UP,
@@ -84,8 +84,8 @@ See LICENSE.txt for details
         val_btn_go: BS_ANALOG_VALUE_GO,
         val_btn_reset: BS_ANALOG_VALUE_RESET,
     };
-    ButtonSetAnalog BUTTONS_INSTANCE (&BS_CONFIG);
-    ButtonSet* BUTTONS = (ButtonSet*) &BUTTONS_INSTANCE;
+    KeypadAnalog BUTTONS_INSTANCE (&BS_CONFIG);
+    Keypad* BUTTONS = (Keypad*) &BUTTONS_INSTANCE;
     #define USE_BUTTONS true
 
 #endif // Button set

@@ -1,4 +1,4 @@
-// ButtonSetDigital.h
+// Keypad.h
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -22,29 +22,26 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _BUTTON_SET_DIGITAL_H
-#define _BUTTON_SET_DIGITAL_H
+#ifndef _BUTTON_SET_H
+#define _BUTTON_SET_H
 
-#include "ButtonSet.h"
+#include <stdint.h>
+#include "Enums.h"
+#include "EventListener.h"
+
 
 /**
- * \brief Implementation of a button set connected to 6 digital inputs.
+ * \brief Interface to different Escornabot keypads.
  * \author @caligari
  */
-class ButtonSetDigital : ButtonSet
+class Keypad : public EventListener
 {
 public:
 
-    typedef struct {
-        uint8_t pin_button_up;
-        uint8_t pin_button_right;
-        uint8_t pin_button_down;
-        uint8_t pin_button_left;
-        uint8_t pin_button_go;
-        uint8_t pin_button_reset;
-    } Config;
-
-    ButtonSetDigital(const Config* config);
+    /**
+     * Constructor.
+     */
+    Keypad();
 
     /**
      * Does the hardware initialization.
@@ -52,18 +49,34 @@ public:
     virtual void init();
 
     /**
-     * Reads the buttons
+     * Scans the button input to test if anyone is pressed.
+     * @return The button being pressed.
      */
-    virtual void scanButtons();
+    virtual void scanButtons() = 0;
+
+    /**
+     * Runs the execution thread.
+     */
+    virtual bool tick(uint32_t micros);
+
+protected:
+
+    bool pressed(BUTTON button);
+
+    bool released(BUTTON button);
+
+    bool isPressed(BUTTON button)
+            { return _button_statuses[button - 1] != 0; }
 
 private:
 
-    const Config* _config;
+    uint32_t _button_statuses[6];
 
-    bool _btn_state[6];
+    uint32_t _current_millis;
+
 };
 
 
-#endif // _BUTTON_SET_DIGITAL_H
+#endif // _BUTTON_SET_H
 
 // EOF
