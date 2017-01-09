@@ -26,6 +26,7 @@ See LICENSE.txt for details
 #define _BUTTON_SET_DIGITAL_H
 
 #include "Keypad.h"
+#include <Arduino.h>
 
 /**
  * \brief Implementation of a keypad connected to 6 digital inputs.
@@ -56,11 +57,22 @@ public:
      */
     virtual void scanButtons();
 
+    /**
+     * Returns if the keypad has configured the optional reset button.
+     */
+    virtual bool hasResetButton()
+        { return (_config->pin_button_reset != 255); }
+
 private:
 
     const Config* _config;
 
     bool _btn_state[6];
+
+    void _configPin(uint8_t pin)
+        { if (pin != 255) pinMode(pin, INPUT); }
+
+    void _scanBtn(bool state, BUTTON button);
 };
 
 

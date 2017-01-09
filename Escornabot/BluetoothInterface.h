@@ -64,6 +64,11 @@ public:
      */
     virtual void scanButtons();
 
+    /**
+     * Returns if the keypad has configured the optional reset button.
+     */
+    virtual bool hasResetButton() { return true; }
+
     ////////////////////////////////////////////////////////////
     // EventListener interface
     ////////////////////////////////////////////////////////////

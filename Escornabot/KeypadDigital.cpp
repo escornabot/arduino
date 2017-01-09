@@ -24,7 +24,8 @@ See LICENSE.txt for details
 
 #include "KeypadDigital.h"
 #include "Configuration.h"
-#include <Arduino.h>
+
+//////////////////////////////////////////////////////////////////////
 
 KeypadDigital::KeypadDigital(const Config* config)
 {
@@ -33,60 +34,44 @@ KeypadDigital::KeypadDigital(const Config* config)
     for (int b = 0; b < 6; b++) _btn_state[b] = false;
 }
 
+//////////////////////////////////////////////////////////////////////
 
 void KeypadDigital::init()
 {
     Keypad::init();
 
     // configure Arduino pins
-    pinMode(_config->pin_button_up, INPUT);
-    pinMode(_config->pin_button_right, INPUT);
-    pinMode(_config->pin_button_down, INPUT);
-    pinMode(_config->pin_button_left, INPUT);
-    pinMode(_config->pin_button_go, INPUT);
-    pinMode(_config->pin_button_reset, INPUT);
+    _configPin(_config->pin_button_up);
+    _configPin(_config->pin_button_right);
+    _configPin(_config->pin_button_down);
+    _configPin(_config->pin_button_left);
+    _configPin(_config->pin_button_go);
+    _configPin(_config->pin_button_reset);
 }
 
+//////////////////////////////////////////////////////////////////////
+
+void KeypadDigital::_scanBtn(bool state, BUTTON button)
+{
+    if (state ^ isPressed(button))
+    {
+        // was changed
+        if (state) pressed(button); else released(button);
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
 
 void KeypadDigital::scanButtons()
 {
-    bool state;
-
-    state = (digitalRead(_config->pin_button_up) == HIGH);
-    if (state ^ isPressed(BUTTON_UP))
-    {
-            if (state) pressed(BUTTON_UP); else released(BUTTON_UP);
-    }
-
-    state = (digitalRead(_config->pin_button_right) == HIGH);
-    if (state ^ isPressed(BUTTON_RIGHT))
-    {
-            if (state) pressed(BUTTON_RIGHT); else released(BUTTON_RIGHT);
-    }
-
-    state = (digitalRead(_config->pin_button_down) == HIGH);
-    if (state ^ isPressed(BUTTON_DOWN))
-    {
-            if (state) pressed(BUTTON_DOWN); else released(BUTTON_DOWN);
-    }
-
-    state = (digitalRead(_config->pin_button_left) == HIGH);
-    if (state ^ isPressed(BUTTON_LEFT))
-    {
-            if (state) pressed(BUTTON_LEFT); else released(BUTTON_LEFT);
-    }
-
-    state = (digitalRead(_config->pin_button_go) == HIGH);
-    if (state ^ isPressed(BUTTON_GO))
-    {
-            if (state) pressed(BUTTON_GO); else released(BUTTON_GO);
-    }
-
-    state = (digitalRead(_config->pin_button_reset) == HIGH);
-    if (state ^ isPressed(BUTTON_RESET))
-    {
-            if (state) pressed(BUTTON_RESET); else released(BUTTON_RESET);
-    }
+    _scanBtn(digitalRead(_config->pin_button_up) == HIGH, BUTTON_UP);
+    _scanBtn(digitalRead(_config->pin_button_right) == HIGH, BUTTON_RIGHT);
+    _scanBtn(digitalRead(_config->pin_button_down) == HIGH, BUTTON_DOWN);
+    _scanBtn(digitalRead(_config->pin_button_left) == HIGH, BUTTON_LEFT);
+    _scanBtn(digitalRead(_config->pin_button_go) == HIGH, BUTTON_GO);
+    _scanBtn(digitalRead(_config->pin_button_reset) == HIGH, BUTTON_RESET);
 }
+
+//////////////////////////////////////////////////////////////////////
 
 // EOF

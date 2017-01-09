@@ -54,13 +54,25 @@ public:
     virtual void init();
 
     /**
-     * Reads the buttons
+     * Reads the buttons.
      */
     virtual void scanButtons();
+
+    /**
+     * Returns if the keypad has configured the optional reset button.
+     */
+    virtual bool hasResetButton() { return (_val_btn_reset != 0); }
+
+    /**
+     * Sets the last detected value to the specified button.
+     */
+    void reconfigureLast(BUTTON button);
 
 private:
 
     const Config* _config;
+
+    int16_t _value;
 
     int16_t _val_btn_up;
     int16_t _val_btn_right;

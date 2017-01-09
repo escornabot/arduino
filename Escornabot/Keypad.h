@@ -55,6 +55,11 @@ public:
     virtual void scanButtons() = 0;
 
     /**
+     * Returns if the keypad has configured the optional reset button.
+     */
+    virtual bool hasResetButton() = 0;
+
+    /**
      * Runs the execution thread.
      */
     virtual bool tick(uint32_t micros);
