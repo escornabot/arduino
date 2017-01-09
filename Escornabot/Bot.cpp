@@ -29,6 +29,11 @@ See LICENSE.txt for details
 
 void Bot::init()
 {
+    // setup procedure
+    #if USE_SETUP
+    SETUP->init();
+    #endif
+
     // init engine
     ENGINE->init();
 
@@ -52,7 +57,7 @@ void Bot::init()
     SIMPLE_LED.init();
     #endif
 
-    #if USE_LEDS_KEYPAD
+    #if USE_KEYPAD_LEDS
     KEYPAD_LEDS.init();
     #endif
 

@@ -32,6 +32,7 @@ See LICENSE.txt for details
 #include "Engine.h"
 #include "Keypad.h"
 #include "EventManager.h"
+#include "Setup.h"
 
 #if defined(ENGINE_TYPE_STEPPERS)
 
@@ -119,7 +120,7 @@ See LICENSE.txt for details
 #endif
 
 
-#if USE_LEDS_KEYPAD
+#if USE_KEYPAD_LEDS
     #include "LedsKeypad.h"
     const LedsKeypad::Config KEYPAD_LEDS_CONFIG = {
         pin_led_up: KEYPAD_LED_PIN_UP,
@@ -140,6 +141,12 @@ EventManager* EVENTS = &EVENTS_INSTANCE;
 // program
 MoveList PROGRAM_INSTANCE;
 MoveList* PROGRAM = &PROGRAM_INSTANCE;
+
+// setup
+#if USE_SETUP
+Setup SETUP_INSTANCE;
+Setup* SETUP = &SETUP_INSTANCE;
+#endif
 
 
 #endif // _ESCORNABOT_H

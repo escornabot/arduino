@@ -26,6 +26,7 @@ See LICENSE.txt for details
 #define _BUTTON_SET_H
 
 #include <stdint.h>
+#include "Configuration.h"
 #include "Enums.h"
 #include "EventListener.h"
 

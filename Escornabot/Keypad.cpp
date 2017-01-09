@@ -22,7 +22,6 @@ See LICENSE.txt for details
 
 */
 
-#include "Configuration.h"
 #include "Keypad.h"
 #include "EventManager.h"
 #include <Arduino.h>
