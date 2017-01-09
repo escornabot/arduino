@@ -1,4 +1,4 @@
-// KeypadLeds.h
+// LedsKeypad.h
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -22,8 +22,8 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _KEYPAD_LEDS_H
-#define _KEYPAD_LEDS_H
+#ifndef _LEDS_KEYPAD_H
+#define _LEDS_KEYPAD_H
 
 #include "EventListener.h"
 
@@ -31,7 +31,7 @@ See LICENSE.txt for details
  * \brief Manage keypad events to turn on/off keypad leds.
  * \author @caligari
  */
-class KeypadLeds : public EventListener
+class LedsKeypad : public EventListener
 {
 public:
 
@@ -43,7 +43,7 @@ public:
         uint8_t pin_led_go;
     } Config;
 
-    KeypadLeds(const Config* config);
+    LedsKeypad(const Config* config);
 
     void init();
 
@@ -72,6 +72,6 @@ private:
 
 };
 
-#endif // _KEYPAD_LEDS_H
+#endif // _LEDS_KEYPAD_H
 
 // EOF

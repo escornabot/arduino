@@ -1,4 +1,4 @@
-// KeypadLeds.cpp
+// LedsKeypad.cpp
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -22,7 +22,7 @@ See LICENSE.txt for details
 
 */
 
-#include "KeypadLeds.h"
+#include "LedsKeypad.h"
 #include "Enums.h"
 #include "Arduino.h"
 #include "EventManager.h"
@@ -33,14 +33,14 @@ extern EventManager* EVENTS;
 
 //////////////////////////////////////////////////////////////////////
 
-KeypadLeds::KeypadLeds(const Config* config)
+LedsKeypad::LedsKeypad(const Config* config)
 {
     this->_config = config;
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void KeypadLeds::init()
+void LedsKeypad::init()
 {
     pinMode(_config->pin_led_up, OUTPUT);
     pinMode(_config->pin_led_right, OUTPUT);
@@ -53,7 +53,7 @@ void KeypadLeds::init()
 
 //////////////////////////////////////////////////////////////////////
 
-void KeypadLeds::setLed(uint8_t button, bool light)
+void LedsKeypad::setLed(BUTTON button, bool light)
 {
     int val = light ? HIGH : LOW;
 
@@ -83,7 +83,7 @@ void KeypadLeds::setLed(uint8_t button, bool light)
 
 //////////////////////////////////////////////////////////////////////
 
-void KeypadLeds::setAllLed(bool light)
+void LedsKeypad::setAllLed(bool light)
 {
     int val = light ? HIGH : LOW;
 
@@ -96,7 +96,7 @@ void KeypadLeds::setAllLed(bool light)
 
 //////////////////////////////////////////////////////////////////////
 
-BUTTON KeypadLeds::_mov2btn(MOVE move)
+BUTTON LedsKeypad::_mov2btn(MOVE move)
 {
     switch (move) {
 

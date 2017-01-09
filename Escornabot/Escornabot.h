@@ -119,16 +119,16 @@ See LICENSE.txt for details
 #endif
 
 
-#if USE_KEYPAD_LEDS
-    #include "KeypadLeds.h"
-    const KeypadLeds::Config KEYPAD_LEDS_CONFIG = {
+#if USE_LEDS_KEYPAD
+    #include "LedsKeypad.h"
+    const LedsKeypad::Config KEYPAD_LEDS_CONFIG = {
         pin_led_up: KEYPAD_LED_PIN_UP,
         pin_led_right: KEYPAD_LED_PIN_RIGHT,
         pin_led_down: KEYPAD_LED_PIN_DOWN,
         pin_led_left: KEYPAD_LED_PIN_LEFT,
         pin_led_go: KEYPAD_LED_PIN_GO,
     };
-    KeypadLeds KEYPAD_LEDS = KeypadLeds(&KEYPAD_LEDS_CONFIG);
+    LedsKeypad KEYPAD_LEDS = LedsKeypad(&KEYPAD_LEDS_CONFIG);
 #endif
 
 ///// global vars

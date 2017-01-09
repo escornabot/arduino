@@ -52,7 +52,7 @@ void Bot::init()
     SIMPLE_LED.init();
     #endif
 
-    #if USE_KEYPAD_LEDS
+    #if USE_LEDS_KEYPAD
     KEYPAD_LEDS.init();
     #endif
 
