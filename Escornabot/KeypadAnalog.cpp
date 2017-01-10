@@ -55,48 +55,48 @@ void KeypadAnalog::init()
 
 void KeypadAnalog::scanButtons()
 {
-    _value = analogRead(_config->pin_keypad);
+    int16_t value = analogRead(_config->pin_keypad);
     int16_t diff, minor_diff;
 
-    minor_diff = abs(_value - PULLUP_VALUE);
+    minor_diff = abs(value - PULLUP_VALUE);
     BUTTON button = BUTTON_NONE;
 
-    diff = abs(_value - _val_btn_up);
+    diff = abs(value - _val_btn_up);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_UP;
     }
 
-    diff = abs(_value - _val_btn_right);
+    diff = abs(value - _val_btn_right);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_RIGHT;
     }
 
-    diff = abs(_value - _val_btn_down);
+    diff = abs(value - _val_btn_down);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_DOWN;
     }
 
-    diff = abs(_value - _val_btn_left);
+    diff = abs(value - _val_btn_left);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_LEFT;
     }
 
-    diff = abs(_value - _val_btn_go);
+    diff = abs(value - _val_btn_go);
     if (diff < minor_diff)
     {
         minor_diff = diff;
         button = BUTTON_GO;
     }
 
-    diff = abs(_value - _val_btn_reset);
+    diff = abs(value - _val_btn_reset);
     if (diff < minor_diff)
     {
         minor_diff = diff;
@@ -108,38 +108,6 @@ void KeypadAnalog::scanButtons()
         if (_last_button != BUTTON_NONE) released(_last_button);
         if (button != BUTTON_NONE) pressed(button);
         _last_button = button;
-    }
-}
-
-//////////////////////////////////////////////////////////////////////
-
-void KeypadAnalog::reconfigureLast(BUTTON button)
-{
-    switch (button)
-    {
-        case BUTTON_UP:
-            _val_btn_up = _value;
-            break;
-
-        case BUTTON_RIGHT:
-            _val_btn_right = _value;
-            break;
-
-        case BUTTON_DOWN:
-            _val_btn_down = _value;
-            break;
-
-        case BUTTON_LEFT:
-            _val_btn_left = _value;
-            break;
-
-        case BUTTON_GO:
-            _val_btn_go = _value;
-            break;
-
-        case BUTTON_RESET:
-            _val_btn_reset = _value;
-            break;
     }
 }
 

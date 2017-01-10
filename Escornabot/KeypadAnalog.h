@@ -63,16 +63,9 @@ public:
      */
     virtual bool hasResetButton() { return (_val_btn_reset != 0); }
 
-    /**
-     * Sets the last detected value to the specified button.
-     */
-    void reconfigureLast(BUTTON button);
-
 private:
 
     const Config* _config;
-
-    int16_t _value;
 
     int16_t _val_btn_up;
     int16_t _val_btn_right;
