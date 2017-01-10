@@ -26,13 +26,14 @@ See LICENSE.txt for details
 #define _SETUP_H
 
 #include "EventListener.h"
+#include "StateMachine.h"
 #include "Enums.h"
 
 /**
  * \brief Setup controller.
  * \author @caligari
  */
-class Setup : public EventListener
+class Setup : public EventListener, StateMachine
 {
 public:
 
@@ -43,11 +44,16 @@ public:
     ////////////////////////////////////////////////////////////
 
     virtual bool buttonLongReleased(BUTTON button);
+    virtual bool tick(uint32_t micros);
 
 private:
 
-    SETUP_STEP _step = SETUP_NO_SETUP;
+    ////////////////////////////////////////////////////////////
+    // StateMachine interface
+    ////////////////////////////////////////////////////////////
 
+    virtual void _changeStateBefore(STATE state_to);
+    virtual void _changeStateAfter(STATE state_from);
 };
 
 

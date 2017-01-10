@@ -24,13 +24,23 @@ See LICENSE.txt for details
 
 #include "Setup.h"
 #include "EventManager.h"
-#include "KeypadAnalog.h"
 #include <Arduino.h>
+#include "Configuration.h"
 
 //////////////////////////////////////////////////////////////////////
 
 extern EventManager* EVENTS;
+
+#if defined(BUTTONS_ANALOG)
+#include "KeypadAnalog.h"
 extern KeypadAnalog* BUTTONS;
+#endif
+
+#if USE_KEYPAD_LEDS
+#include "LedsKeypad.h"
+extern LedsKeypad KEYPAD_LEDS;
+#endif
+
 
 //////////////////////////////////////////////////////////////////////
 
@@ -41,55 +51,68 @@ void Setup::init()
 
 //////////////////////////////////////////////////////////////////////
 
-bool Setup::buttonLongReleased(BUTTON button)
+
+void Setup::_changeStateBefore(STATE state_to)
 {
-    // bubble the event
-    if (millis() > 5000 && _step == SETUP_NO_SETUP) return false;
+}
 
-    switch (_step)
+//////////////////////////////////////////////////////////////////////
+
+void Setup::_changeStateAfter(STATE state_from)
+{
+    KEYPAD_LEDS.setAllLed(false);
+
+    switch (getState())
     {
-        case SETUP_NO_SETUP:
-            #if defined(BUTTONS_ANALOG)
-            _step = SETUP_KEYPAD_UP;
-            #endif
-            break;
-
         case SETUP_KEYPAD_UP:
-            BUTTONS->reconfigureLast(BUTTON_UP);
-            _step = SETUP_KEYPAD_RIGHT;
+            KEYPAD_LEDS.setLed(BUTTON_UP, true);
             break;
 
         case SETUP_KEYPAD_RIGHT:
-            BUTTONS->reconfigureLast(BUTTON_RIGHT);
-            _step = SETUP_KEYPAD_DOWN;
+            KEYPAD_LEDS.setLed(BUTTON_RIGHT, true);
             break;
 
         case SETUP_KEYPAD_DOWN:
-            BUTTONS->reconfigureLast(BUTTON_DOWN);
-            _step = SETUP_KEYPAD_LEFT;
+            KEYPAD_LEDS.setLed(BUTTON_DOWN, true);
             break;
 
         case SETUP_KEYPAD_LEFT:
-            BUTTONS->reconfigureLast(BUTTON_LEFT);
-            _step = SETUP_KEYPAD_GO;
+            KEYPAD_LEDS.setLed(BUTTON_LEFT, true);
             break;
 
         case SETUP_KEYPAD_GO:
-            BUTTONS->reconfigureLast(BUTTON_GO);
-            if (BUTTONS->hasResetButton())
-                _step = SETUP_KEYPAD_RESET;
-            else
-                _step = SETUP_NO_SETUP;
+            KEYPAD_LEDS.setLed(BUTTON_GO, true);
             break;
 
         case SETUP_KEYPAD_RESET:
-            BUTTONS->reconfigureLast(BUTTON_RESET);
-            _step = SETUP_NO_SETUP;
+            KEYPAD_LEDS.setLed(BUTTON_RESET, true);
             break;
     }
+}
 
-    // don't bubble events
-    return true;
+//////////////////////////////////////////////////////////////////////
+
+bool Setup::buttonLongReleased(BUTTON button)
+{
+    #if defined(BUTTONS_ANALOG)
+    if (getState() == SETUP_NO_SETUP && millis() < 5000)
+    {
+        // start configuring the keypad
+        changeState(SETUP_KEYPAD_UP);
+
+        // don't bubble the event
+        return true;
+    }
+    #endif
+
+    return false;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+bool Setup::tick(uint32_t micros)
+{
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
