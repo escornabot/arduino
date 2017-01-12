@@ -26,6 +26,7 @@ See LICENSE.txt for details
 #include "Enums.h"
 #include "Arduino.h"
 #include "EventManager.h"
+#include "SimpleLed.h"
 
 //////////////////////////////////////////////////////////////////////
 
@@ -33,90 +34,43 @@ extern EventManager* EVENTS;
 
 //////////////////////////////////////////////////////////////////////
 
-LedsKeypad::LedsKeypad(const Config* config)
+LedsKeypad::LedsKeypad(const Config* config) : _leds({
+    SimpleLed(config->pin_led_up),
+    SimpleLed(config->pin_led_right),
+    SimpleLed(config->pin_led_down),
+    SimpleLed(config->pin_led_left),
+    SimpleLed(config->pin_led_go) })
 {
-    this->_config = config;
 }
 
 //////////////////////////////////////////////////////////////////////
 
 void LedsKeypad::init()
 {
-    pinMode(_config->pin_led_up, OUTPUT);
-    pinMode(_config->pin_led_right, OUTPUT);
-    pinMode(_config->pin_led_down, OUTPUT);
-    pinMode(_config->pin_led_left, OUTPUT);
-    pinMode(_config->pin_led_go, OUTPUT);
+    for (int b = 0; b < 5; b++) _leds[b].init();
 
     EVENTS->add(this);
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void LedsKeypad::setLed(BUTTON button, bool light)
+void LedsKeypad::setStatus(BUTTON button, bool light)
 {
-    int val = light ? HIGH : LOW;
-
-    switch (button)
-    {
-        case BUTTON_UP:
-            digitalWrite(_config->pin_led_up, val);
-            break;
-
-        case BUTTON_RIGHT:
-            digitalWrite(_config->pin_led_right, val);
-            break;
-
-        case BUTTON_DOWN:
-            digitalWrite(_config->pin_led_down, val);
-            break;
-
-        case BUTTON_LEFT:
-            digitalWrite(_config->pin_led_left, val);
-            break;
-
-        case BUTTON_GO:
-            digitalWrite(_config->pin_led_go, val);
-            break;
-    }
+    if (button >= 1 && button <= 5) _leds[--button].setStatus(light);
 }
 
 //////////////////////////////////////////////////////////////////////
 
-void LedsKeypad::setAllLed(bool light)
+void LedsKeypad::setStatusAll(bool light)
 {
-    int val = light ? HIGH : LOW;
-
-    digitalWrite(_config->pin_led_up, val);
-    digitalWrite(_config->pin_led_right, val);
-    digitalWrite(_config->pin_led_down, val);
-    digitalWrite(_config->pin_led_left, val);
-    digitalWrite(_config->pin_led_go, val);
+    for (int b = 0; b < 5; b++) _leds[b].setStatus(light);
 }
 
 //////////////////////////////////////////////////////////////////////
 
 BUTTON LedsKeypad::_mov2btn(MOVE move)
 {
-    switch (move) {
-
-        case MOVE_FORWARD:
-            return BUTTON_UP;
-            // break;
-
-        case MOVE_RIGHT:
-            return BUTTON_RIGHT;
-            // break;
-
-        case MOVE_BACKWARD:
-            return BUTTON_DOWN;
-            // break;
-
-        case MOVE_LEFT:
-            return BUTTON_LEFT;
-            // break;
-    }
-
+    if (move >= 1 && move <= 4) return (BUTTON)move;
     return BUTTON_NONE;
 }
 

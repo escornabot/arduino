@@ -25,6 +25,7 @@ See LICENSE.txt for details
 #ifndef _LEDS_KEYPAD_H
 #define _LEDS_KEYPAD_H
 
+#include "SimpleLed.h"
 #include "EventListener.h"
 
 /**
@@ -47,26 +48,29 @@ public:
 
     void init();
 
-    void setLed(uint8_t BUTTON, bool light);
-    void setAllLed(bool light);
+    SimpleLed* getLed(BUTTON button)
+        { return &(_leds[button - 1]); }
+
+    void setStatus(uint8_t BUTTON, bool light);
+    void setStatusAll(bool light);
 
     virtual bool buttonPressed(BUTTON button)
-        { setLed(button, true ); return false; }
+        { setStatus(button, true ); return false; }
     virtual bool buttonReleased(BUTTON button)
-        { setLed(button, false); return false; }
+        { setStatus(button, false); return false; }
     virtual bool buttonLongReleased(BUTTON button)
-        { setLed(button, false); return false; }
+        { setStatus(button, false); return false; }
 
     virtual bool moveExecuting(MOVE move)
-        { setLed(_mov2btn(move), true); return false; }
+        { setStatus(_mov2btn(move), true); return false; }
     virtual bool moveExecuted(MOVE move)
-        { setLed(_mov2btn(move), false); return false; }
+        { setStatus(_mov2btn(move), false); return false; }
     virtual bool programAborted(uint8_t exe, uint8_t tot)
-        { setAllLed(false); return false; }
+        { setStatusAll(false); return false; }
 
 private:
 
-    const Config* _config;
+    SimpleLed _leds[5];
 
     BUTTON _mov2btn(MOVE move);
 
