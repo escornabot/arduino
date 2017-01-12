@@ -41,9 +41,12 @@ SimpleLed::SimpleLed(uint8_t pin)
 
 void SimpleLed::init()
 {
-    _status = false;
-
     pinMode(_pin, OUTPUT);
+    digitalWrite(_pin, LOW);
+
+    _status = false;
+    _tenths_blink = 5;
+    _next_blink = 0;
 
     EVENTS->add(this);
 }
@@ -66,11 +69,36 @@ void SimpleLed::toggle()
 
 //////////////////////////////////////////////////////////////////////
 
-void SimpleLed::flashOne(uint16_t millis)
+void SimpleLed::blink(bool active)
 {
-    setStatus(true);
-    delay(millis);
-    setStatus(false);
+    if (active)
+    {
+        _next_blink = 1;
+    }
+    else
+    {
+        _next_blink = 0;
+        setStatus(false);
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+bool SimpleLed::tick(uint32_t micros)
+{
+    if (_next_blink > 0)
+    {
+        micros /= 100000;
+        micros %= 65536;
+
+        if (micros >= _next_blink)
+        {
+            _next_blink = micros + SimpleLed::_tenths_blink;
+            toggle();
+        }
+    }
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
