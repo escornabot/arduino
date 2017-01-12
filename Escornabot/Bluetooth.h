@@ -1,4 +1,4 @@
-// BluetoothInterface.h
+// Bluetooth.h
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -35,7 +35,7 @@ See LICENSE.txt for details
  * \brief Interface to use a bluetooth module over serial interface
  * \author @caligari
  */
-class BluetoothInterface : public Keypad
+class Bluetooth : public Keypad
 {
 public:
 
@@ -47,7 +47,7 @@ public:
     /**
      * Constructor.
      */
-    BluetoothInterface(const Config* cfg);
+    Bluetooth(const Config* cfg);
 
     ////////////////////////////////////////////////////////////
     // Keypad interface

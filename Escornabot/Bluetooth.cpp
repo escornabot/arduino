@@ -1,4 +1,4 @@
-// BluetoothInterface.cpp
+// Bluetooth.cpp
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -22,7 +22,7 @@ See LICENSE.txt for details
 
 */
 
-#include "BluetoothInterface.h"
+#include "Bluetooth.h"
 #include <string.h>
 
 #define NL '\n'
@@ -41,7 +41,7 @@ extern EventManager* EVENTS;
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-BluetoothInterface::BluetoothInterface(const Config* cfg)
+Bluetooth::Bluetooth(const Config* cfg)
 {
     _config = cfg;
     _command_idx = 0;
@@ -50,7 +50,7 @@ BluetoothInterface::BluetoothInterface(const Config* cfg)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::init()
+void Bluetooth::init()
 {
     Keypad::init();
     _config->serial->begin(_config->bauds, SERIAL_8N1);
@@ -59,7 +59,7 @@ void BluetoothInterface::init()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::scanButtons()
+void Bluetooth::scanButtons()
 {
     while (_readLine())
     {
@@ -86,7 +86,7 @@ void BluetoothInterface::scanButtons()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-bool BluetoothInterface::_readLine()
+bool Bluetooth::_readLine()
 {
     while (_config->serial->available())
     {
@@ -110,7 +110,7 @@ bool BluetoothInterface::_readLine()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::MoveExecuting(MOVE move)
+void Bluetooth::MoveExecuting(MOVE move)
 {
     _config->serial->print(BUTTONS_PRESSED[move - 1]);
     _config->serial->print(NL);
@@ -119,7 +119,7 @@ void BluetoothInterface::MoveExecuting(MOVE move)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::MoveExecuted(MOVE move)
+void Bluetooth::MoveExecuted(MOVE move)
 {
     _config->serial->print(BUTTONS_RELEASED[move - 1]);
     _config->serial->print(NL);
@@ -128,7 +128,7 @@ void BluetoothInterface::MoveExecuted(MOVE move)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::MoveAdded(MOVE move)
+void Bluetooth::MoveAdded(MOVE move)
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print(move);
@@ -140,7 +140,7 @@ void BluetoothInterface::MoveAdded(MOVE move)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::ProgramStarted(uint8_t total_moves)
+void Bluetooth::ProgramStarted(uint8_t total_moves)
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("GO ");
@@ -151,7 +151,7 @@ void BluetoothInterface::ProgramStarted(uint8_t total_moves)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::ProgramFinished()
+void Bluetooth::ProgramFinished()
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("END");
@@ -161,7 +161,7 @@ void BluetoothInterface::ProgramFinished()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::ProgramReset()
+void Bluetooth::ProgramReset()
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("RESET");
@@ -171,7 +171,7 @@ void BluetoothInterface::ProgramReset()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::ProgramAborted(uint8_t executed, uint8_t total)
+void Bluetooth::ProgramAborted(uint8_t executed, uint8_t total)
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("ABORTED ");

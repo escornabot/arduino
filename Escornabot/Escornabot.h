@@ -92,17 +92,18 @@ See LICENSE.txt for details
 
 #if defined(USE_BLUETOOTH)
 
+    // default Serial port
     #ifndef BLUETOOTH_SERIAL
         #define BLUETOOTH_SERIAL Serial
     #endif
 
-    #include "BluetoothInterface.h"
-    const BluetoothInterface::Config BT_CONFIG = {
+    #include "Bluetooth.h"
+    const Bluetooth::Config BT_CONFIG = {
         serial: &(BLUETOOTH_SERIAL),
         bauds: BLUETOOTH_BAUDS,
     };
-    BluetoothInterface BLUETOOTH_INSTANCE (&BT_CONFIG);
-    BluetoothInterface* BLUETOOTH = &BLUETOOTH_INSTANCE;
+    Bluetooth BLUETOOTH_INSTANCE (&BT_CONFIG);
+    Bluetooth* BLUETOOTH = &BLUETOOTH_INSTANCE;
 
 #endif // Bluetooth
 
@@ -130,8 +131,6 @@ See LICENSE.txt for details
     };
     LedsKeypad KEYPAD_LEDS = LedsKeypad(&KEYPAD_LEDS_CONFIG);
 #endif
-
-///// global vars
 
 // event manager
 EventManager EVENTS_INSTANCE;
