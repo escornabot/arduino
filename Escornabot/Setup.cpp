@@ -54,38 +54,48 @@ void Setup::init()
 
 void Setup::_changeStateBefore(STATE state_to)
 {
+    STATE state = getState();
+
+    if (state >= SETUP_KEYPAD_UP && state <= SETUP_KEYPAD_RESET)
+    {
+        KEYPAD_LEDS.getLed((BUTTON)state)->blink(false);
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
 
 void Setup::_changeStateAfter(STATE state_from)
 {
-    KEYPAD_LEDS.setAllLed(false);
-
     switch (getState())
     {
         case SETUP_KEYPAD_UP:
-            KEYPAD_LEDS.setLed(BUTTON_UP, true);
+            KEYPAD_LEDS.getLed(BUTTON_UP)->blink(true);
+            BUTTONS->rescan(BUTTON_UP);
             break;
 
         case SETUP_KEYPAD_RIGHT:
-            KEYPAD_LEDS.setLed(BUTTON_RIGHT, true);
+            KEYPAD_LEDS.getLed(BUTTON_RIGHT)->blink(true);
+            BUTTONS->rescan(BUTTON_RIGHT);
             break;
 
         case SETUP_KEYPAD_DOWN:
-            KEYPAD_LEDS.setLed(BUTTON_DOWN, true);
+            KEYPAD_LEDS.getLed(BUTTON_DOWN)->blink(true);
+            BUTTONS->rescan(BUTTON_DOWN);
             break;
 
         case SETUP_KEYPAD_LEFT:
-            KEYPAD_LEDS.setLed(BUTTON_LEFT, true);
+            KEYPAD_LEDS.getLed(BUTTON_LEFT)->blink(true);
+            BUTTONS->rescan(BUTTON_LEFT);
             break;
 
         case SETUP_KEYPAD_GO:
-            KEYPAD_LEDS.setLed(BUTTON_GO, true);
+            KEYPAD_LEDS.getLed(BUTTON_GO)->blink(true);
+            BUTTONS->rescan(BUTTON_GO);
             break;
 
         case SETUP_KEYPAD_RESET:
-            KEYPAD_LEDS.setLed(BUTTON_RESET, true);
+            KEYPAD_LEDS.getLed(BUTTON_RESET)->blink(true);
+            BUTTONS->rescan(BUTTON_RESET);
             break;
     }
 }
@@ -94,16 +104,21 @@ void Setup::_changeStateAfter(STATE state_from)
 
 bool Setup::buttonLongReleased(BUTTON button)
 {
-    #if defined(BUTTONS_ANALOG)
-    if (getState() == SETUP_NO_SETUP && millis() < 5000)
+    if (getState() == SETUP_NO_SETUP)
     {
-        // start configuring the keypad
-        changeState(SETUP_KEYPAD_UP);
+        if (_wait_for_setup)
+        {
+            #if defined(BUTTONS_ANALOG)
+            // start configuring the keypad
+            changeState(SETUP_KEYPAD_UP);
+            #endif
 
-        // don't bubble the event
-        return true;
+            _wait_for_setup = 0;
+
+            // don't bubble the event
+            return true;
+        }
     }
-    #endif
 
     return false;
 }
@@ -112,6 +127,37 @@ bool Setup::buttonLongReleased(BUTTON button)
 
 bool Setup::tick(uint32_t micros)
 {
+    if (_wait_for_setup)
+    {
+        // current second
+        int second = (micros / 1000000) + 1;
+
+        if (_wait_for_setup != 6 - second)
+        {
+            // second has changed
+            KEYPAD_LEDS.setStatus((BUTTON)second, true);
+            KEYPAD_LEDS.setStatus((BUTTON)second - 1, false);
+            _wait_for_setup--;
+        }
+    }
+    else if (getState() >= SETUP_KEYPAD_UP && getState() <= SETUP_KEYPAD_RESET)
+    {
+        // configuring the keypad
+        if (!(BUTTONS->isRescanning()))
+        {
+            if (getState() == SETUP_KEYPAD_RESET)
+            {
+                // finished
+                changeState(SETUP_NO_SETUP);
+            }
+            else
+            {
+                // next state
+                changeState(getState() + 1);
+            }
+        }
+    }
+
     return false;
 }
 

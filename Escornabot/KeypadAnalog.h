@@ -63,6 +63,12 @@ public:
      */
     virtual bool hasResetButton() { return (_val_btn_reset != 0); }
 
+    // ToDo
+    void rescan(BUTTON button) {}
+
+    // ToDo
+    bool isRescanning() { return false; }
+
 private:
 
     const Config* _config;

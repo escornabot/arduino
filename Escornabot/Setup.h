@@ -43,10 +43,13 @@ public:
     // EventListener interface
     ////////////////////////////////////////////////////////////
 
+    virtual bool buttonReleased(BUTTON button) { return (_wait_for_setup); }
     virtual bool buttonLongReleased(BUTTON button);
     virtual bool tick(uint32_t micros);
 
 private:
+
+    int8_t _wait_for_setup = 6;
 
     ////////////////////////////////////////////////////////////
     // StateMachine interface
