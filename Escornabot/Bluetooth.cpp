@@ -1,4 +1,4 @@
-// BluetoothInterface.cpp
+// Bluetooth.cpp
 /*
 
 Copyright (C) 2014-2017 Escornabot - http://escornabot.com
@@ -22,7 +22,7 @@ See LICENSE.txt for details
 
 */
 
-#include "BluetoothInterface.h"
+#include "Bluetooth.h"
 #include <string.h>
 
 #define NL '\n'
@@ -31,7 +31,7 @@ See LICENSE.txt for details
 
 const static char* BUTTONS_PRESSED = "NESWGR";
 const static char* BUTTONS_RELEASED = "neswgr";
-const static char* SI_PROGRAM = "PRG:";
+const static char* SI_PROGRAM = "PRG: ";
 
 //////////////////////////////////////////////////////////////////////
 
@@ -39,27 +39,25 @@ const static char* SI_PROGRAM = "PRG:";
 extern EventManager* EVENTS;
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
-BluetoothInterface::BluetoothInterface(const Config* cfg)
+Bluetooth::Bluetooth(const Config* cfg)
 {
     _config = cfg;
     _command_idx = 0;
 }
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::init()
+void Bluetooth::init()
 {
-    Keypad::init();
     _config->serial->begin(_config->bauds, SERIAL_8N1);
+
+    EVENTS->add(this);
 }
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::scanButtons()
+void Bluetooth::_readInput()
 {
     while (_readLine())
     {
@@ -84,9 +82,8 @@ void BluetoothInterface::scanButtons()
 }
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
-bool BluetoothInterface::_readLine()
+bool Bluetooth::_readLine()
 {
     while (_config->serial->available())
     {
@@ -108,70 +105,86 @@ bool BluetoothInterface::_readLine()
 }
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::MoveExecuting(MOVE move)
+bool Bluetooth::tick(uint32_t micros)
 {
-    _config->serial->print(BUTTONS_PRESSED[move - 1]);
-    _config->serial->print(NL);
+    _readInput();
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::MoveExecuted(MOVE move)
-{
-    _config->serial->print(BUTTONS_RELEASED[move - 1]);
-    _config->serial->print(NL);
-}
-
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-
-void BluetoothInterface::MoveAdded(MOVE move)
+bool Bluetooth::moveExecuting(MOVE move)
 {
     _config->serial->print(SI_PROGRAM);
-    _config->serial->print(move);
-    _config->serial->print(' ');
-    _config->serial->print(BUTTONS_RELEASED[move - 1]);
+    _config->serial->print(BUTTONS_PRESSED[move - 1]);
+    _config->serial->print(" INI");
     _config->serial->print(NL);
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
+
+bool Bluetooth::moveExecuted(MOVE move)
+{
+    _config->serial->print(SI_PROGRAM);
+    _config->serial->print(BUTTONS_RELEASED[move - 1]);
+    _config->serial->print(" END");
+    _config->serial->print(NL);
+
+    return false;
+}
+
 //////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::ProgramStarted(uint8_t total_moves)
+bool Bluetooth::moveAdded(MOVE move)
+{
+    _config->serial->print(SI_PROGRAM);
+    _config->serial->print(BUTTONS_RELEASED[move - 1]);
+    _config->serial->print(NL);
+
+    return false;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+bool Bluetooth::programStarted(uint8_t total_moves)
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("GO ");
     _config->serial->print(total_moves);
     _config->serial->print(NL);
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::ProgramFinished()
+bool Bluetooth::programFinished()
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("END");
     _config->serial->print(NL);
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::ProgramReset()
+bool Bluetooth::programReset()
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("RESET");
     _config->serial->print(NL);
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
-void BluetoothInterface::ProgramAborted(uint8_t executed, uint8_t total)
+bool Bluetooth::programAborted(uint8_t executed, uint8_t total)
 {
     _config->serial->print(SI_PROGRAM);
     _config->serial->print("ABORTED ");
@@ -179,10 +192,10 @@ void BluetoothInterface::ProgramAborted(uint8_t executed, uint8_t total)
     _config->serial->print("/");
     _config->serial->print(total);
     _config->serial->print(NL);
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-
 
 // EOF
