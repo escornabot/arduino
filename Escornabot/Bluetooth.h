@@ -22,10 +22,9 @@ See LICENSE.txt for details
 
 */
 
-#ifndef _BLUETOOTH_INTERFACE_H
-#define _BLUETOOTH_INTERFACE_H
+#ifndef _BLUETOOTH_H
+#define _BLUETOOTH_H
 
-#include "Keypad.h"
 #include "EventListener.h"
 #include <Arduino.h>
 
@@ -35,7 +34,7 @@ See LICENSE.txt for details
  * \brief Interface to use a bluetooth module over serial interface
  * \author @caligari
  */
-class Bluetooth : public Keypad
+class Bluetooth : public EventListener
 {
 public:
 
@@ -59,12 +58,6 @@ public:
     virtual void init();
 
     /**
-     * Reads the buttons
-     * @return The button being pressed.
-     */
-    virtual void scanButtons();
-
-    /**
      * Returns if the keypad has configured the optional reset button.
      */
     virtual bool hasResetButton() { return true; }
@@ -74,39 +67,44 @@ public:
     ////////////////////////////////////////////////////////////
 
     /**
-     * Handles when a movement from the program was executed.
+     * Runs the execution thread.
      */
-    virtual void MoveExecuting(MOVE move);
+    virtual bool tick(uint32_t micros);
 
     /**
      * Handles when a movement from the program was executed.
      */
-    virtual void MoveExecuted(MOVE move);
+    virtual bool moveExecuting(MOVE move);
+
+    /**
+     * Handles when a movement from the program was executed.
+     */
+    virtual bool moveExecuted(MOVE move);
 
     /**
      * Handles when a new movement was added to the program.
      */
-    virtual void MoveAdded(MOVE move);
+    virtual bool moveAdded(MOVE move);
 
     /**
      * Handles when the program has stated.
      */
-    virtual void ProgramStarted(uint8_t total_moves);
+    virtual bool programStarted(uint8_t total_moves);
 
     /**
      * Handles when the program has finished.
      */
-    virtual void ProgramFinished();
+    virtual bool programFinished();
 
     /**
      * Handles when the program has reset.
      */
-    virtual void ProgramReset();
+    virtual bool programReset();
 
     /**
      * Handles when the program was aborted.
      */
-    virtual void ProgramAborted(uint8_t executed, uint8_t total);
+    virtual bool programAborted(uint8_t executed, uint8_t total);
 
 private:
 
@@ -115,10 +113,12 @@ private:
     char _command[COMMAND_MAX_LENGTH + 1];
     uint8_t _command_idx;
 
+    void _readInput();
+
     bool _readLine();
 
 };
 
-#endif // _BLUETOOTH_INTERFACE_H
+#endif // _BLUETOOTH_H
 
 // EOF
