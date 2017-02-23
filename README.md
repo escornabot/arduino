@@ -9,7 +9,19 @@ __More info about the Escornabot at [escornabot.com][ESC01]__
 
 Please, [open issues here][ISS01] if you find any problem with this firmware. Thank you!
 
+## Download
+
 Download the __[last version from here](https://github.com/escornabot/arduino/releases/latest)__
+
+It is preconfigured to run with the last stable [EscornaCPU board][ELE01]. If 
+you don't have one or you are not sure, copy the most appropriate 
+_Configuration.h_ from [_config_ subdirectories](config). 
+
+    cp config/<escornaboard>/Configuration.h Escornabot/Configuration.h
+
+Please, send us other board configurations if you have produced your own
+electronic board and it is publicy available.
+
 
 ## Instructions
 
@@ -54,6 +66,7 @@ Escornabot's repository flows through 2 main branches:
 
 
 <!-- links -->
+[ELE01]: https://github.com/escornabot/electronics
 [BRI01]: https://github.com/escornabot/arduino/releases/tag/v1.2-brivoi
 [ESC01]: http://escornabot.com
 [GUI01]: http://escornabot.com/web/en/content/configure-and-load-firmware
