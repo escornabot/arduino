@@ -1,6 +1,11 @@
 
 # Changelog
 
+## v1.4.2 (Oct 28, 2017)
+
+New features:
+- EscornaCPU 2.12 configuration file.
+
 ## v1.4.1 (Jan 6, 2017)
 
 New features:
