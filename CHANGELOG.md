@@ -1,6 +1,11 @@
 
 # Changelog
 
+## v1.4.3 (Dec 15, 2017)
+
+Fixed bugs:
+- 3-wires keypad not working correctly (reported by Pedro García Pombo).
+
 ## v1.4.2 (Oct 28, 2017)
 
 New features:

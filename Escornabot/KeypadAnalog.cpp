@@ -26,7 +26,11 @@ See LICENSE.txt for details
 #include "Configuration.h"
 #include <Arduino.h>
 
-#define PULLUP_VALUE 990
+#if (BS_ANALOG_WIRES == 2)
+#    define PULLUP_VALUE 990
+#else
+#    define PULLUP_VALUE 0
+#endif
 
 //////////////////////////////////////////////////////////////////////
 
