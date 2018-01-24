@@ -115,6 +115,7 @@ void Bot::buttonReleased(BUTTON button)
             break;
 
         case BUTTON_GO:
+            ENGINE->setTurnDegrees(90);
             _go();
             break;
 
@@ -145,9 +146,8 @@ void Bot::buttonLongReleased(BUTTON button)
             break;
 
         case BUTTON_GO:
-            // execute movements with 45 degrees turn:
             ENGINE->setTurnDegrees(45);
-            ENGINE->execute(PROGRAM, AFTER_MOVEMENT_PAUSE, POV_ESCORNABOT);
+            _go();
             break;
     }
 }
