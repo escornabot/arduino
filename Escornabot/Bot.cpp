@@ -146,7 +146,7 @@ void Bot::buttonLongReleased(BUTTON button)
             break;
 
         case BUTTON_GO:
-            ENGINE->setTurnDegrees(45);
+            ENGINE->setTurnDegrees(60);
             _go();
             break;
     }
