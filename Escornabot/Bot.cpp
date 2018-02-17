@@ -115,7 +115,6 @@ void Bot::buttonReleased(BUTTON button)
             break;
 
         case BUTTON_GO:
-            ENGINE->setTurnDegrees(90);
             _go();
             break;
 
@@ -141,13 +140,20 @@ void Bot::buttonLongReleased(BUTTON button)
 
     switch (button)
     {
+        case BUTTON_RIGHT:
+            _storeMove(MOVE_ALT_RIGHT);
+            break;
+
         case BUTTON_DOWN:
             _storeMove(MOVE_PAUSE);
             break;
 
+        case BUTTON_LEFT:
+            _storeMove(MOVE_ALT_LEFT);
+            break;
+
         case BUTTON_GO:
-            ENGINE->setTurnDegrees(60);
-            _go();
+            _next_game_mode();
             break;
     }
 }
@@ -213,6 +219,31 @@ void Bot::_storeMove(MOVE move)
         // memory is full
         _go();
     }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void Bot::_next_game_mode()
+{
+    // select the next game mode (2 modes currently available)
+    ++_game_mode %= 2;
+
+    switch (_game_mode)
+    {
+        case GAME_MODE_GRID_90:
+            PROGRAM->setTurnDegrees(90);
+            PROGRAM->setAltTurnDegrees(45);
+            ENGINE->setSquareDiagonals(true);
+            break;
+
+        case GAME_MODE_GRID_60:
+            PROGRAM->setTurnDegrees(60);
+            PROGRAM->setAltTurnDegrees(120);
+            ENGINE->setSquareDiagonals(false);
+            break;
+    }
+
+    EVENTS->indicateGameModeSelected(_game_mode);
 }
 
 //////////////////////////////////////////////////////////////////////

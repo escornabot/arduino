@@ -57,7 +57,7 @@ public:
 
     void turn(int16_t degrees);
 
-    void moveStraight(int8_t units);
+    void moveStraight(float advance_units);
 
     virtual void tick(uint32_t micros);
 

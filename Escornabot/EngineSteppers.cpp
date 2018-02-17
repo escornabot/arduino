@@ -83,9 +83,9 @@ void EngineSteppers::turn(int16_t degrees)
 
 //////////////////////////////////////////////////////////////////////
 
-void EngineSteppers::moveStraight(int8_t units)
+void EngineSteppers::moveStraight(float advance_units)
 {
-    _movement_steps_r = _config->line_steps * units;
+    _movement_steps_r = _config->line_steps * advance_units;
     _movement_steps_l = -_movement_steps_r;
 }
 

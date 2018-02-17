@@ -64,6 +64,8 @@ public:
 
     void indicateButtonLongReleased(BUTTON button);
 
+    void indicateGameModeSelected(GAME_MODE mode);
+
 private:
 
     EventListener* _first;

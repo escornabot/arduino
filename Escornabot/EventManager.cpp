@@ -174,5 +174,16 @@ void EventManager::indicateButtonLongReleased(BUTTON button)
 
 //////////////////////////////////////////////////////////////////////
 
+void EventManager::indicateGameModeSelected(GAME_MODE mode)
+{
+    EventListener* i = _first;
+    while (i != NULL)
+    {
+        i->gameModeSelected(mode);
+        i = i->getNext();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
 
 // EOF
