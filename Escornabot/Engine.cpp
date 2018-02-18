@@ -129,7 +129,7 @@ float Engine::_calculateAdvanceUnits()
 
     if (_square_diagonals)
     {
-        if (_current_degrees % 45 == 0)
+        if ((_current_degrees / 45) % 2 == 1)
         {
             advance = SQUARE_ROOT_2;
         }
