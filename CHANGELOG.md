@@ -1,6 +1,16 @@
 
 # Changelog
 
+## v1.5.0 (Feb 20, 2018)
+
+New features:
+- New game mode to use 60 degress turns instead 90 (triangled boards).
+- Game modes selector with long 'Go' key press.
+- Alternative turns (45 and 120 degress) with long key presses.
+- Detection of 45 degrees to make the diagonal runs.
+- Advise (LED indication) next advance is expected to be a diagonal.
+- Beep for long key press is longer than short key press.
+
 ## v1.4.3 (Dec 15, 2017)
 
 Fixed bugs:

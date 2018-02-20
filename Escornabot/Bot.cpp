@@ -169,6 +169,16 @@ void Bot::programFinished()
     #if USE_BUZZER
     BUZZER.playRttl(PROGRAM_FINISHED_RTTL);
     #endif
+
+    if (_game_mode == GAME_MODE_GRID_90 && !ENGINE->isAligned(90))
+    {
+        // advise next advance is expected to be a diagonal:
+        #if USE_SIMPLE_LED
+        SIMPLE_LED.setStatus(true);
+        #elif USE_KEYPAD_LEDS
+        KEYPAD_LEDS.setLed(BUTTON_GO, true);
+        #endif
+    }
 }
 
 //////////////////////////////////////////////////////////////////////

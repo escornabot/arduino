@@ -50,7 +50,8 @@ public:
     void setLed(uint8_t BUTTON, bool light);
     void setAllLed(bool light);
 
-    virtual void buttonPressed(BUTTON button) { setLed(button, true ); }
+    virtual void buttonPressed(BUTTON button)
+        { setAllLed(false); setLed(button, true ); }
     virtual void buttonReleased(BUTTON button) { setLed(button, false); }
     virtual void buttonLongReleased(BUTTON button) { setLed(button, false); }
 
