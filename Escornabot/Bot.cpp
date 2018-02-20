@@ -37,6 +37,11 @@ void Bot::init()
     BUTTONS->init();
     #endif
 
+    // early console
+    Serial.begin(9600);
+    Serial.println(FIRMWARE_VERSION);
+    delay(100);
+
     // init bluetooth
     #if USE_BLUETOOTH
     BLUETOOTH->init();
