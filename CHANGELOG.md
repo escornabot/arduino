@@ -11,6 +11,7 @@ New features:
 - Advise (LED indication) next advance is expected to be a diagonal.
 - Beep for long key press is longer than short key press.
 - Firmware version is shown as the first message to the serial console.
+- Bluetooth parser understands double char as a long key press (alt function).
 
 ## v1.4.3 (Dec 15, 2017)
 
