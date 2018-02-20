@@ -181,7 +181,8 @@ void Bot::programFinished()
         #if USE_SIMPLE_LED
         SIMPLE_LED.setStatus(true);
         #elif USE_KEYPAD_LEDS
-        KEYPAD_LEDS.setLed(BUTTON_GO, true);
+        KEYPAD_LEDS.setLed(BUTTON_RIGHT, true);
+        KEYPAD_LEDS.setLed(BUTTON_LEFT, true);
         #endif
     }
 }
