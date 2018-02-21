@@ -74,7 +74,8 @@ public:
     bool isExecuting() { return _program != NULL; }
 
     bool isSquareDiagonals() { return _square_diagonals; }
-    void setSquareDiagonals(bool value) { _square_diagonals = value; }
+    void setSquareDiagonals(bool value)
+            { _square_diagonals = value; _current_degrees = 0; }
 
     bool isAligned(int16_t degrees) { return _current_degrees % degrees == 0; }
 
