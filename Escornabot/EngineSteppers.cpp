@@ -1,7 +1,7 @@
 // EngineSteppers.cpp
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -83,9 +83,9 @@ void EngineSteppers::turn(int16_t degrees)
 
 //////////////////////////////////////////////////////////////////////
 
-void EngineSteppers::moveStraight(int8_t units)
+void EngineSteppers::moveStraight(float advance_units)
 {
-    _movement_steps_r = _config->line_steps * units;
+    _movement_steps_r = _config->line_steps * advance_units;
     _movement_steps_l = -_movement_steps_r;
 }
 

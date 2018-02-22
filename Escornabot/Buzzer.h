@@ -1,7 +1,7 @@
 // Buzzer.h
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -76,15 +76,20 @@ public:
     // Buzzer interface
     //////////////////////////////////////////////////////////////////////
 
-    virtual void buttonReleased(BUTTON btn) { _beepDirection(btn); }
+    virtual void buttonReleased(BUTTON btn)
+        { _beepDirection(btn, BUZZER_BEEP_MILLIS); }
 
-    virtual void moveExecuting(MOVE move) { _beepDirection(move); }
+    virtual void buttonLongReleased(BUTTON btn)
+        { _beepDirection(btn, 2 * BUZZER_BEEP_MILLIS); }
+
+    virtual void moveExecuting(MOVE move)
+        { _beepDirection(move, BUZZER_BEEP_MILLIS); }
 
 private:
 
     uint8_t _pin;
 
-    void _beepDirection(uint8_t direction);
+    void _beepDirection(uint8_t direction, uint16_t duration);
 
 };
 

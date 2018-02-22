@@ -1,7 +1,7 @@
 // EngineSteppers.h
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -57,7 +57,7 @@ public:
 
     void turn(int16_t degrees);
 
-    void moveStraight(int8_t units);
+    void moveStraight(float advance_units);
 
     virtual void tick(uint32_t micros);
 

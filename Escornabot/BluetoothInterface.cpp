@@ -1,7 +1,7 @@
 // BluetoothInterface.cpp
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -64,9 +64,10 @@ void BluetoothInterface::scanButtons()
     while (_readLine())
     {
         // one-char commands
+        char* found;
         if (strlen(_command) == 1)
         {
-            char* found = strchr(BUTTONS_PRESSED, _command[0]);
+            found = strchr(BUTTONS_PRESSED, _command[0]);
             if (found)
             {
                 BUTTON button = (BUTTON)((found - BUTTONS_PRESSED) + 1);
@@ -78,6 +79,15 @@ void BluetoothInterface::scanButtons()
             {
                 BUTTON button = (BUTTON)((found - BUTTONS_RELEASED) + 1);
                 EVENTS->indicateButtonReleased(button);
+            }
+        }
+        else if (strlen(_command) == 2 && _command[0] == _command[1])
+        {
+            found = strchr(BUTTONS_RELEASED, _command[0]);
+            if (found)
+            {
+                BUTTON button = (BUTTON)((found - BUTTONS_RELEASED) + 1);
+                EVENTS->indicateButtonLongReleased(button);
             }
         }
     }

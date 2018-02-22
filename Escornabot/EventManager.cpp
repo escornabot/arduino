@@ -1,7 +1,7 @@
 // EventManager.cpp
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -174,5 +174,16 @@ void EventManager::indicateButtonLongReleased(BUTTON button)
 
 //////////////////////////////////////////////////////////////////////
 
+void EventManager::indicateGameModeSelected(GAME_MODE mode)
+{
+    EventListener* i = _first;
+    while (i != NULL)
+    {
+        i->gameModeSelected(mode);
+        i = i->getNext();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
 
 // EOF

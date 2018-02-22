@@ -1,7 +1,7 @@
 // Escornabot.h
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -25,7 +25,7 @@ See LICENSE.txt for details
 #ifndef _ESCORNABOT_H
 #define _ESCORNABOT_H
 
-#define FIRMWARE_VERSION "v1.4.3"
+#define FIRMWARE_VERSION "v1.5.0"
 
 #include <Arduino.h>
 #include "Configuration.h"

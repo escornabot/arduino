@@ -1,7 +1,7 @@
 // Bot.h
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -61,6 +61,11 @@ private:
     void _storeMove(MOVE move);
 
     uint16_t _total_programs = 0;
+
+    GAME_MODE _game_mode = GAME_MODE_GRID_90;
+
+    void _next_game_mode();
+
 };
 
 #endif // _BOT_H

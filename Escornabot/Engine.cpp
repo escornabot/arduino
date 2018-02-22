@@ -1,7 +1,7 @@
 // Engine.cpp
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,6 +26,8 @@ See LICENSE.txt for details
 #include "EventManager.h"
 #include <Arduino.h>
 
+#define SQUARE_ROOT_2 1.414213562f
+
 //////////////////////////////////////////////////////////////////////
 
 extern EventManager* EVENTS;
@@ -34,7 +36,8 @@ extern EventManager* EVENTS;
 
 Engine::Engine()
 {
-    _degrees = 90;
+    _current_degrees = 0;
+    _square_diagonals = true;
     _program = NULL;
     _program_index = 0;
     _is_cancelling = false;
@@ -77,29 +80,62 @@ void Engine::_prepareMove()
     MOVE move = _getCurrentMove();
     EVENTS->indicateMoveExecuting(move);
 
+    uint16_t delta_degrees = 0;
+
     switch (move)
     {
         case MOVE_RIGHT:
-            turnRight();
+            delta_degrees = +(_program->getTurnDegrees());
+            turn(delta_degrees);
             break;
 
         case MOVE_LEFT:
-            turnLeft();
+            delta_degrees = -(_program->getTurnDegrees());
+            turn(delta_degrees);
             break;
 
         case MOVE_FORWARD:
-            moveStraight(1);
+            moveStraight(_calculateAdvanceUnits());
             break;
 
         case MOVE_BACKWARD:
-            moveStraight(-1);
+            moveStraight(-_calculateAdvanceUnits());
             break;
 /*
         case MOVE_PAUSE:
             delay(PAUSE_MOVE_MILLIS);
             break;
 */
+        case MOVE_ALT_RIGHT:
+            delta_degrees = +(_program->getAltTurnDegrees());
+            turn(delta_degrees);
+            break;
+
+        case MOVE_ALT_LEFT:
+            delta_degrees = -(_program->getAltTurnDegrees());
+            turn(delta_degrees);
+            break;
+
     }
+
+    _current_degrees += delta_degrees;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+float Engine::_calculateAdvanceUnits()
+{
+    float advance = 1.0f;
+
+    if (_square_diagonals)
+    {
+        if (isAligned(45) && !isAligned(90))
+        {
+            advance = SQUARE_ROOT_2;
+        }
+    }
+
+    return advance;
 }
 
 //////////////////////////////////////////////////////////////////////

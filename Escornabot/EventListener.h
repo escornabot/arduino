@@ -1,7 +1,7 @@
 // EventListener.h
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -117,6 +117,12 @@ public:
      * @param button The button.
      */
     virtual void buttonLongReleased(BUTTON button) {}
+
+    /**
+     * Handles when a new game mode was selected
+     * @param mode The game mode (see GAME_MODE_* enumeration)
+     */
+    virtual void gameModeSelected(GAME_MODE mode) {}
 
 private:
 

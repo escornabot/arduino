@@ -1,7 +1,7 @@
 // KeypadLeds.h
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -50,13 +50,16 @@ public:
     void setLed(uint8_t BUTTON, bool light);
     void setAllLed(bool light);
 
-    virtual void buttonPressed(BUTTON button) { setLed(button, true ); }
+    virtual void buttonPressed(BUTTON button)
+        { setAllLed(false); setLed(button, true ); }
     virtual void buttonReleased(BUTTON button) { setLed(button, false); }
     virtual void buttonLongReleased(BUTTON button) { setLed(button, false); }
 
     virtual void moveExecuting(MOVE move) { setLed(_mov2btn(move), true); }
     virtual void moveExecuted(MOVE move) { setLed(_mov2btn(move), false); }
     virtual void programAborted(uint8_t exe, uint8_t tot) { setAllLed(false); }
+
+    virtual void gameModeSelected(GAME_MODE mode) { setLed(mode + 1 , true); }
 
 private:
 

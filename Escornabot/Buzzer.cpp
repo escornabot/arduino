@@ -1,7 +1,7 @@
 // Buzzer.cpp
 /*
 
-Copyright (C) 2014-2017 Escornabot - http://escornabot.com
+Copyright (C) 2014-2018 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -167,16 +167,12 @@ void Buzzer::playRttl(const char* rttl)
 
 //////////////////////////////////////////////////////////////////////
 
-void Buzzer::_beepDirection(uint8_t dir)
+void Buzzer::_beepDirection(uint8_t direction, uint16_t duration)
 {
-    if (dir >= 1 && dir <= 4)
-    {
-        beep(BTN_TONES[dir - 1]);
-    }
-    else
-    {
-        beep();
-    }
+    uint16_t frequency = (direction >= 1 && direction <= 4 ?
+            BTN_TONES[direction - 1] : BUZZER_BEEP_FREQUENCY);
+
+    tone(_pin, frequency, duration);
 }
 
 //////////////////////////////////////////////////////////////////////
