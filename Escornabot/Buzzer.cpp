@@ -177,4 +177,16 @@ void Buzzer::_beepDirection(uint8_t direction, uint16_t duration)
 
 //////////////////////////////////////////////////////////////////////
 
+void Buzzer::gameModeSelected(GAME_MODE mode)
+{
+    mode++;
+    while (mode-- > 0)
+    {
+        tone(_pin, BUZZER_BEEP_FREQUENCY, 100);
+        delay(200);
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+
 // EOF

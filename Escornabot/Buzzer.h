@@ -85,6 +85,8 @@ public:
     virtual void moveExecuting(MOVE move)
         { _beepDirection(move, BUZZER_BEEP_MILLIS); }
 
+    virtual void gameModeSelected(GAME_MODE mode);
+
 private:
 
     uint8_t _pin;
