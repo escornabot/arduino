@@ -1,6 +1,14 @@
 
 # Changelog
 
+## v1.5.1 (Feb 23, 2018)
+
+New features:
+- Sound indication on game mode changed.
+
+Fixed bugs:
+- LEDs on when executing alternative moves.
+
 ## v1.5.0 (Feb 20, 2018)
 
 New features:
