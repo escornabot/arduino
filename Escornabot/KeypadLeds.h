@@ -59,7 +59,8 @@ public:
     virtual void moveExecuted(MOVE move) { setLed(_mov2btn(move), false); }
     virtual void programAborted(uint8_t exe, uint8_t tot) { setAllLed(false); }
 
-    virtual void gameModeSelected(GAME_MODE mode) { setLed(mode + 1 , true); }
+    virtual void gameModeSelected(GAME_MODE mode)
+        { setAllLed(false); setLed(mode + 1 , true); }
 
 private:
 
