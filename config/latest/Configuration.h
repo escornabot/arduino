@@ -82,7 +82,7 @@ See LICENSE.txt for details
 #define SIMPLE_LED_PIN 13
 
 // keypad leds
-#define USE_KEYPAD_LEDS true
+#define USE_LEDS_KEYPAD true
 #define KEYPAD_LED_PIN_UP A0
 #define KEYPAD_LED_PIN_RIGHT A3
 #define KEYPAD_LED_PIN_DOWN A2
@@ -121,13 +121,13 @@ See LICENSE.txt for details
 
 #ifdef BUTTONS_DIGITAL
 
-// Button set pin setup (digital or analog inputs)
+// keypad pin setup (digital or analog inputs) (use 255 if key doesn't exist)
 #define BS_DIGITAL_UP A0
 #define BS_DIGITAL_RIGHT A1
 #define BS_DIGITAL_DOWN A2
 #define BS_DIGITAL_LEFT A3
 #define BS_DIGITAL_GO A4
-#define BS_DIGITAL_RESET A5
+#define BS_DIGITAL_RESET 255
 
 #endif // BUTTONS_DIGITAL
 
@@ -142,7 +142,7 @@ See LICENSE.txt for details
 #define BS_ANALOG_WIRES 2
 //#define BS_ANALOG_WIRES 3
 
-// Button set pin setup (analog input)
+// keypad pin setup (analog input)
 #define BS_ANALOG_PIN A7
 
 // input values for each key pressed (0 if key doesn't exist)
@@ -163,7 +163,7 @@ See LICENSE.txt for details
 
 #ifdef USE_BLUETOOTH
 
-// Arduino serial port (default: Serial)
+// Arduino serial port (default is Serial, use Serial1 with Arduino Micro)
 //#define BLUETOOTH_SERIAL    Serial
 //#define BLUETOOTH_SERIAL    Serial1
 //#define BLUETOOTH_SERIAL    Serial2

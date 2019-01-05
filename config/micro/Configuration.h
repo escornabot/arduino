@@ -1,7 +1,7 @@
 // Configuration.h
 /*
 
-Copyright (C) 2014-2016 Bricolabs - http://bricolabs.cc
+Copyright (C) 2014-2019 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -47,7 +47,7 @@ See LICENSE.txt for details
 #define PROGRAM_RESET_ALWAYS true
 
 // store configuration and program within internal EEPROM
-#define USE_PERSISTENT_MEMORY true
+#define USE_PERSISTENT_MEMORY false
 
 // memory capacity for program movements
 #define MOVE_LIMIT 100
@@ -70,7 +70,7 @@ See LICENSE.txt for details
 
 // buzzer
 #define USE_BUZZER true
-#define BUZZER_PIN 10
+#define BUZZER_PIN 11
 #define PROGRAM_FINISHED_RTTL RTTL_FIDO
 #define TONE_FREQ_UP 2637
 #define TONE_FREQ_RIGHT 4434
@@ -82,12 +82,12 @@ See LICENSE.txt for details
 #define SIMPLE_LED_PIN 13
 
 // keypad leds
-#define USE_KEYPAD_LEDS false
-#define KEYPAD_LED_PIN_UP A0
+#define USE_LEDS_KEYPAD true
+#define KEYPAD_LED_PIN_UP A2
 #define KEYPAD_LED_PIN_RIGHT A3
-#define KEYPAD_LED_PIN_DOWN A2
+#define KEYPAD_LED_PIN_DOWN A0
 #define KEYPAD_LED_PIN_LEFT A1
-#define KEYPAD_LED_PIN_GO 13
+#define KEYPAD_LED_PIN_GO A6
 
 
 //////////////////////////////////////////////////////////////////////
@@ -97,14 +97,14 @@ See LICENSE.txt for details
 #ifdef ENGINE_TYPE_STEPPERS
 
 // stepper pin setup (digital outputs)
-#define STEPPERS_MOTOR_RIGHT_IN1 5
-#define STEPPERS_MOTOR_RIGHT_IN2 4
-#define STEPPERS_MOTOR_RIGHT_IN3 3
-#define STEPPERS_MOTOR_RIGHT_IN4 2
-#define STEPPERS_MOTOR_LEFT_IN1 9
-#define STEPPERS_MOTOR_LEFT_IN2 8
-#define STEPPERS_MOTOR_LEFT_IN3 7
-#define STEPPERS_MOTOR_LEFT_IN4 6
+#define STEPPERS_MOTOR_RIGHT_IN1 7
+#define STEPPERS_MOTOR_RIGHT_IN2 6
+#define STEPPERS_MOTOR_RIGHT_IN3 5
+#define STEPPERS_MOTOR_RIGHT_IN4 4
+#define STEPPERS_MOTOR_LEFT_IN1 13
+#define STEPPERS_MOTOR_LEFT_IN2 10
+#define STEPPERS_MOTOR_LEFT_IN3 9
+#define STEPPERS_MOTOR_LEFT_IN4 8
 
 // step calibration
 #define STEPPERS_STEPS_PER_SECOND 1000
@@ -121,13 +121,13 @@ See LICENSE.txt for details
 
 #ifdef BUTTONS_DIGITAL
 
-// Button set pin setup (digital or analog inputs)
+// keypad pin setup (digital or analog inputs) (use 255 if key doesn't exist)
 #define BS_DIGITAL_UP A0
 #define BS_DIGITAL_RIGHT A1
 #define BS_DIGITAL_DOWN A2
 #define BS_DIGITAL_LEFT A3
 #define BS_DIGITAL_GO A4
-#define BS_DIGITAL_RESET A5
+#define BS_DIGITAL_RESET 255
 
 #endif // BUTTONS_DIGITAL
 
@@ -142,15 +142,15 @@ See LICENSE.txt for details
 #define BS_ANALOG_WIRES 2
 //#define BS_ANALOG_WIRES 3
 
-// Button set pin setup (analog input)
-#define BS_ANALOG_PIN A4
+// keypad pin setup (analog input)
+#define BS_ANALOG_PIN A7
 
 // input values for each key pressed (0 if key doesn't exist)
-#define BS_ANALOG_VALUE_UP 228
-#define BS_ANALOG_VALUE_RIGHT 581
-#define BS_ANALOG_VALUE_DOWN 455
-#define BS_ANALOG_VALUE_LEFT 363
-#define BS_ANALOG_VALUE_GO 526
+#define BS_ANALOG_VALUE_UP 768
+#define BS_ANALOG_VALUE_RIGHT 682
+#define BS_ANALOG_VALUE_DOWN 511
+#define BS_ANALOG_VALUE_LEFT 853
+#define BS_ANALOG_VALUE_GO 819
 #define BS_ANALOG_VALUE_RESET 0
 
 #endif // BUTTONS_ANALOG
@@ -165,7 +165,7 @@ See LICENSE.txt for details
 
 // Arduino serial port (default: Serial)
 //#define BLUETOOTH_SERIAL    Serial
-//#define BLUETOOTH_SERIAL    Serial1
+#define BLUETOOTH_SERIAL    Serial1
 //#define BLUETOOTH_SERIAL    Serial2
 //#define BLUETOOTH_SERIAL    Serial3
 

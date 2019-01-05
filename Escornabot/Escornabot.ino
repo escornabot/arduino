@@ -1,7 +1,7 @@
 // Escornabot.ino
 /*
 
-Copyright (C) 2014-2016 Escornabot - http://escornabot.com
+Copyright (C) 2014-2019 Escornabot - http://escornabot.com
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

@@ -9,25 +9,22 @@ __More info about the Escornabot at [escornabot.com][ESC01]__
 
 Please, [open issues here][ISS01] if you find any problem with this firmware. Thank you!
 
-## Download
+Download the __[last version from here][REL01]
 
-Download the __[last version from here](https://github.com/escornabot/arduino/releases/latest)__
-
-It is preconfigured to run with the last stable [EscornaCPU board][ELE01]. If 
-you don't have one or you are not sure, copy the most appropriate 
-_Configuration.h_ from [_config_ subdirectories](config). 
-
-    cp config/<escornaboard>/Configuration.h Escornabot/Configuration.h
-
-Please, send us other board configurations if you have produced your own
-electronic board and it is publicy available.
 
 
 ## Instructions
 
-### Full guide
 
-To configure and load the firmware, please, follow the [official guide][GUI01].
+### Compilation and upload with Arduino IDE
+
+1. Install the [Arduino IDE][IDE01] 
+
+2. [Copy the right configuration][CON01] to the Escornabot directory.
+
+3. Follow this [guide compilated by @escornafan][GUI01] (in Spanish).
+
+
 
 ### Compilation and upload with PlatformIO
 
@@ -49,9 +46,6 @@ Arduino Micro boards.
     # compile firmware and upload firmware to an Arduino Micro:
     pio run -e micro -t upload
 
-#### More boards
-
-Please, send us new configurations if you test Escornabot in another board :)
 
 
 ## Branches and releases
@@ -63,19 +57,20 @@ Escornabot's repository flows through 2 main branches:
 - [testing][TES01]: new features and minor bugs pending of testing in deep.
   Released versions are named with odd minor numbers (x.1, x.3, ...).
 
+Releases are [published ready to download in zip format][REL01].
+
 
 
 <!-- links -->
-[ELE01]: https://github.com/escornabot/electronics
 [BRI01]: https://github.com/escornabot/arduino/releases/tag/v1.2-brivoi
+[CON01]: ./config
 [ESC01]: http://escornabot.com
-[GUI01]: http://escornabot.com/web/en/content/configure-and-load-firmware
+[GUI01]: https://pablorubma.cc/como-instalar-la-programacion-arduino-en-mi-escornabot/
+[IDE01]: https://www.arduino.cc/en/Main/Software
 [ISS01]: https://github.com/escornabot/arduino/issues
-[PIO01]: http://platformio.org/get-started/cli
-[PLA01]: https://github.com/escornabot/arduino/releases/tag/v1.1-placidus
+[PIO01]: https://platformio.org/install/cli
+[REL01]: https://github.com/escornabot/arduino/releases
 [STA01]: https://github.com/escornabot/arduino/tree/stable
 [TES01]: https://github.com/escornabot/arduino/tree/testing
-[VER201606]: https://github.com/escornabot/arduino/releases/tag/v1.3.1
-[VER201608]: https://github.com/escornabot/arduino/releases/tag/v1.3.2
 
 
