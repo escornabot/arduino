@@ -25,16 +25,16 @@ Compatible with:
 
 ### Using Arduino Micro (config/micro)
 
-Under [config/micro][./micro] directory in this repo.
+Under [config/micro](./micro) directory in this repo.
 
 Compatible with:
 
-- [Ogaki-1.0](https://github.com/abierto-cc/escornabot/tree/master/Ogaki/hardware)
+- [PCB Ogaki-1.0](https://github.com/abierto-cc/escornabot/tree/master/Ogaki/hardware)
 
 
 ### Old keypad connected to A4 pin (config/a4-2wires)
 
-Under [config/a4-2wires][./a4-2wires] directory in this repo.
+Under [config/a4-2wires](./a4-2wires) directory in this repo.
 
 Compatible with:
 
@@ -43,7 +43,7 @@ Compatible with:
 
 ### Old keypad connected to A4 pin (config/a4-3wires)
 
-Under [config/a4-3wires][./a4-3wires] directory in this repo.
+Under [config/a4-3wires](./a4-3wires) directory in this repo.
 
 Compatible with:
 
