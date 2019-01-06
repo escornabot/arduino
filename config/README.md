@@ -13,7 +13,7 @@ Escornabot directory. Example for a4-2wire:
 
 ### Latest and recommended (config/latest)
 
-Under [config/latest][./latest] directory in this repo.
+Under [config/latest](./latest) directory in this repo.
 
 Compatible with:
 
