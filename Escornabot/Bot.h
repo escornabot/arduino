@@ -61,6 +61,11 @@ private:
     void _storeMove(MOVE move);
 
     uint16_t _total_programs = 0;
+
+    GAME_MODE _game_mode = GAME_MODE_GRID_90;
+
+    void _next_game_mode();
+
 };
 
 #endif // _BOT_H

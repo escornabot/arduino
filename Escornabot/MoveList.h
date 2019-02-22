@@ -81,6 +81,29 @@ public:
      */
     MOVE getMove(uint8_t index);
 
+    /**
+     * Gets the degrees to use with MOVE_LEFT or MOVE_RIGHT
+     */
+    uint16_t getTurnDegrees() { return _degrees; }
+
+    /**
+     * Sets the degrees to use with MOVE_LEFT or MOVE_RIGHT
+     * @param degrees The degrees to turn left or right.
+     */
+    void setTurnDegrees(int16_t degrees) { _degrees = degrees; }
+
+    /**
+     * Gets the degrees to use with MOVE_ALT_LEFT or MOVE_ALT_RIGHT
+     */
+    uint16_t getAltTurnDegrees() { return _alt_degrees; }
+
+    /**
+     * Sets the degrees to use with MOVE_ALT_LEFT or MOVE_ALT_RIGHT
+     * @param degrees The degrees to turn left or right.
+     */
+    void setAltTurnDegrees(int16_t degrees) { _alt_degrees = degrees; }
+
+
     #if USE_PERSISTENT_MEMORY
 
     /**
@@ -101,6 +124,8 @@ private:
 
     MOVE _move_list[MOVE_LIMIT];
 
+    int16_t _degrees;
+    int16_t _alt_degrees;
 };
 
 

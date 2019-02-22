@@ -108,11 +108,19 @@ BUTTON KeypadLeds::_mov2btn(MOVE move)
             return BUTTON_RIGHT;
             // break;
 
+        case MOVE_ALT_RIGHT:
+            return BUTTON_RIGHT;
+            // break;
+
         case MOVE_BACKWARD:
             return BUTTON_DOWN;
             // break;
 
         case MOVE_LEFT:
+            return BUTTON_LEFT;
+            // break;
+
+        case MOVE_ALT_LEFT:
             return BUTTON_LEFT;
             // break;
     }

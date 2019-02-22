@@ -32,6 +32,8 @@ extern EventManager* EVENTS;
 MoveList::MoveList()
 {
     _move_count = 0;
+    _degrees = 90;
+    _alt_degrees = 45;
 }
 
 

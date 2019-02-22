@@ -118,6 +118,12 @@ public:
      */
     virtual void buttonLongReleased(BUTTON button) {}
 
+    /**
+     * Handles when a new game mode was selected
+     * @param mode The game mode (see GAME_MODE_* enumeration)
+     */
+    virtual void gameModeSelected(GAME_MODE mode) {}
+
 private:
 
     EventListener* _next;

@@ -37,6 +37,11 @@ void Bot::init()
     BUTTONS->init();
     #endif
 
+    // early console
+    Serial.begin(9600);
+    Serial.println(FIRMWARE_VERSION);
+    delay(100);
+
     // init bluetooth
     #if USE_BLUETOOTH
     BLUETOOTH->init();
@@ -140,8 +145,20 @@ void Bot::buttonLongReleased(BUTTON button)
 
     switch (button)
     {
+        case BUTTON_RIGHT:
+            _storeMove(MOVE_ALT_RIGHT);
+            break;
+
         case BUTTON_DOWN:
             _storeMove(MOVE_PAUSE);
+            break;
+
+        case BUTTON_LEFT:
+            _storeMove(MOVE_ALT_LEFT);
+            break;
+
+        case BUTTON_GO:
+            _next_game_mode();
             break;
     }
 }
@@ -157,6 +174,17 @@ void Bot::programFinished()
     #if USE_BUZZER
     BUZZER.playRttl(PROGRAM_FINISHED_RTTL);
     #endif
+
+    if (_game_mode == GAME_MODE_GRID_90 && !ENGINE->isAligned(90))
+    {
+        // advise next advance is expected to be a diagonal:
+        #if USE_SIMPLE_LED
+        SIMPLE_LED.setStatus(true);
+        #elif USE_KEYPAD_LEDS
+        KEYPAD_LEDS.setLed(BUTTON_RIGHT, true);
+        KEYPAD_LEDS.setLed(BUTTON_LEFT, true);
+        #endif
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -207,6 +235,31 @@ void Bot::_storeMove(MOVE move)
         // memory is full
         _go();
     }
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void Bot::_next_game_mode()
+{
+    // select the next game mode (2 modes currently available)
+    ++_game_mode %= 2;
+
+    switch (_game_mode)
+    {
+        case GAME_MODE_GRID_90:
+            PROGRAM->setTurnDegrees(90);
+            PROGRAM->setAltTurnDegrees(45);
+            ENGINE->setSquareDiagonals(true);
+            break;
+
+        case GAME_MODE_GRID_60:
+            PROGRAM->setTurnDegrees(60);
+            PROGRAM->setAltTurnDegrees(120);
+            ENGINE->setSquareDiagonals(false);
+            break;
+    }
+
+    EVENTS->indicateGameModeSelected(_game_mode);
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -71,10 +71,10 @@ public:
 
     /**
      * Moves forward or backward direction (from Escornabot's POV).
-     * @param units Amount of units to move. Positive is forwards, negative
-     *     is backwards.
+     * @param advance_units Amount of units to move. Positive is forwards,
+     *      negative is backwards.
      */
-    virtual void moveStraight(int8_t units) = 0;
+    virtual void moveStraight(float advance_units) = 0;
 
     /**
      * Executes the movement program.
@@ -88,10 +88,16 @@ public:
 
     bool isExecuting() { return _program != NULL; }
 
+    bool isSquareDiagonals() { return _square_diagonals; }
+    void setSquareDiagonals(bool value)
+            { _square_diagonals = value; _current_degrees = 0; }
+
+    bool isAligned(int16_t degrees) { return _current_degrees % degrees == 0; }
 
 protected:
 
-    int16_t _degrees;
+    int16_t _current_degrees;
+    bool _square_diagonals;
 
     MoveList* _program;
     uint8_t _program_index;
@@ -101,6 +107,9 @@ protected:
 
     void _prepareMove();
 
+private:
+
+    float _calculateAdvanceUnits();
 };
 
 
