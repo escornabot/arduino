@@ -117,6 +117,9 @@ void EngineSteppers::tick(uint32_t micros)
 
     if (_movement_steps_l == 0 && _movement_steps_r == 0)
     {
+        // already executing a pause movement
+        if (_inPauseMove()) return;
+
         // deactivate Darlingtons
         _motorStepLeft(0);
         _motorStepRight(0);

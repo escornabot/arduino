@@ -36,6 +36,8 @@ extern EventManager* EVENTS;
 KeypadLeds::KeypadLeds(const Config* config)
 {
     this->_config = config;
+
+    _isPause = false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -92,6 +94,16 @@ void KeypadLeds::setAllLed(bool light)
     digitalWrite(_config->pin_led_down, val);
     digitalWrite(_config->pin_led_left, val);
     digitalWrite(_config->pin_led_go, val);
+}
+
+//////////////////////////////////////////////////////////////////////
+
+void KeypadLeds::tick(uint32_t micros)
+{
+    if (_isPause)
+    {
+        setLed(BUTTON_PAUSE, (micros / 100000) % 2);
+    }
 }
 
 //////////////////////////////////////////////////////////////////////

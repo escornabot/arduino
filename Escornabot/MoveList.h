@@ -32,9 +32,12 @@ See LICENSE.txt for details
 
 const static MOVE PROGRAM_ESCORNA_GREETING[] = {
     MOVE_FORWARD,
+    MOVE_PAUSE,
     MOVE_LEFT,
+    MOVE_PAUSE,
     MOVE_RIGHT,
     MOVE_RIGHT,
+    MOVE_PAUSE,
     MOVE_LEFT,
     MOVE_BACKWARD,
     MOVE_NONE

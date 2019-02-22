@@ -27,6 +27,8 @@ See LICENSE.txt for details
 
 #include "EventListener.h"
 
+#define BUTTON_PAUSE BUTTON_DOWN
+
 /**
  * \brief Manage keypad events to turn on/off keypad leds.
  * \author @caligari
@@ -52,15 +54,22 @@ public:
 
     virtual void buttonPressed(BUTTON button)
         { setAllLed(false); setLed(button, true ); }
-    virtual void buttonReleased(BUTTON button) { setLed(button, false); }
-    virtual void buttonLongReleased(BUTTON button) { setLed(button, false); }
+    virtual void buttonReleased(BUTTON button)
+        { setLed(button, false); }
+    virtual void buttonLongReleased(BUTTON button)
+        { setLed(button, false); }
 
-    virtual void moveExecuting(MOVE move) { setLed(_mov2btn(move), true); }
-    virtual void moveExecuted(MOVE move) { setLed(_mov2btn(move), false); }
-    virtual void programAborted(uint8_t exe, uint8_t tot) { setAllLed(false); }
+    virtual void moveExecuting(MOVE move)
+        { _blinkPause(move == MOVE_PAUSE); setLed(_mov2btn(move), true); }
+    virtual void moveExecuted(MOVE move)
+        { _blinkPause(false); setLed(_mov2btn(move), false); }
+    virtual void programAborted(uint8_t exe, uint8_t tot)
+        { _blinkPause(false); setAllLed(false); }
 
     virtual void gameModeSelected(GAME_MODE mode)
         { setAllLed(false); setLed(mode + 1 , true); }
+
+    virtual void tick(uint32_t micros);
 
 private:
 
@@ -68,6 +77,9 @@ private:
 
     BUTTON _mov2btn(MOVE move);
 
+    bool _isPause;
+    void _blinkPause(bool enable)
+        { _isPause = enable; setLed(BUTTON_PAUSE, enable); }
 };
 
 #endif // _KEYPAD_LEDS_H

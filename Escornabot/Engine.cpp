@@ -41,6 +41,7 @@ Engine::Engine()
     _program = NULL;
     _program_index = 0;
     _is_cancelling = false;
+    _pauseTimeout = 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -101,11 +102,11 @@ void Engine::_prepareMove()
         case MOVE_BACKWARD:
             moveStraight(-_calculateAdvanceUnits());
             break;
-/*
+
         case MOVE_PAUSE:
-            delay(PAUSE_MOVE_MILLIS);
+            _pauseTimeout = millis() + PAUSE_MOVE_MILLIS;
             break;
-*/
+
         case MOVE_ALT_RIGHT:
             delta_degrees = +(_program->getAltTurnDegrees());
             turn(delta_degrees);
@@ -136,6 +137,22 @@ float Engine::_calculateAdvanceUnits()
     }
 
     return advance;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+bool Engine::_inPauseMove()
+{
+    if (_pauseTimeout > 0)
+    {
+        // in pause yet
+        if (millis() < _pauseTimeout) return true;
+
+        // pause is finished
+        _pauseTimeout = 0;
+    }
+
+    return false;
 }
 
 //////////////////////////////////////////////////////////////////////
