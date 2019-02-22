@@ -82,7 +82,7 @@ See LICENSE.txt for details
 #define SIMPLE_LED_PIN 13
 
 // keypad leds
-#define USE_LEDS_KEYPAD false
+#define USE_KEYPAD_LEDS false
 #define KEYPAD_LED_PIN_UP A0
 #define KEYPAD_LED_PIN_RIGHT A3
 #define KEYPAD_LED_PIN_DOWN A2

@@ -48,26 +48,11 @@ public:
     virtual void init() = 0;
 
     /**
-     * Sets the default degrees value to use with turnRight() and turnLeft().
-     */
-    void setTurnDegrees(int16_t degrees) { _degrees = degrees; }
-
-    /**
      * Turns left or right an angle specified in degrees (from Escornabot's POV).
      * @param degrees Amount of degrees to turn. Positive is clockwise,
      *     negative is counter-clockwise.
      */
     virtual void turn(int16_t degrees) = 0;
-
-    /**
-     * Turns right the configured amount of degrees.
-     */
-    void turnRight() { turn(_degrees); }
-
-    /**
-     * Turns left the configured amount of degrees.
-     */
-    void turnLeft() { turn(-_degrees); }
 
     /**
      * Moves forward or backward direction (from Escornabot's POV).
@@ -104,7 +89,6 @@ protected:
     MOVE _getCurrentMove() { return _program->getMove(_program_index); }
 
     bool _is_cancelling;
-
     void _prepareMove();
 
 private:
