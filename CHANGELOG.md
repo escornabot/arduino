@@ -1,7 +1,12 @@
 
 # Changelog
 
-## v1.6.0 (Jan 5, 2019)
+## v1.6.2 (-pending-)
+
+New features:
+- New "pause" movement, with alternative (long pressed) backwards key.
+
+## v1.6.1 (Jan 5, 2019)
 
 New features:
 - New game mode to use 60 degress turns instead 90 (triangled boards).
@@ -14,6 +19,10 @@ New features:
 - Bluetooth parser understands double char as a long key press (alt function).
 - Sound indication on game mode changed.
 - LEDs on when executing alternative moves.
+
+## v1.6.0 (Jan 5, 2019)
+
+This is an initial v1.6.x release from lastest 1.4.x.
 
 ## v1.4.3 (Dec 15, 2017)
 
