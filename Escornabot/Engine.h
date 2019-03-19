@@ -88,6 +88,9 @@ protected:
     uint8_t _program_index;
     MOVE _getCurrentMove() { return _program->getMove(_program_index); }
 
+    uint32_t _pauseTimeout;
+    bool _inPauseMove();
+
     bool _is_cancelling;
     void _prepareMove();
 
