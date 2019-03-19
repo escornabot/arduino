@@ -1,7 +1,7 @@
 
 # Changelog
 
-## v1.6.2 (-pending-)
+## v1.6.2 (Mar 19, 2019)
 
 New features:
 - New "pause" movement, with alternative (long pressed) backwards key.
