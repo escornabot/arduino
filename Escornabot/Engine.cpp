@@ -117,6 +117,10 @@ void Engine::_prepareMove()
             turn(delta_degrees);
             break;
 
+        case MOVE_ALT_FORWARD:
+            moveAltStraight(6.0f);
+            break;
+
     }
 
     _current_degrees += delta_degrees;

@@ -25,6 +25,7 @@ See LICENSE.txt for details
 #include "EngineSteppers.h"
 #include "EventManager.h"
 #include <Arduino.h>
+#include "DistanceSensor.h"
 
 //////////////////////////////////////////////////////////////////////
 
@@ -35,6 +36,7 @@ const static uint8_t step_pattern[] = {
 //////////////////////////////////////////////////////////////////////
 
 extern EventManager* EVENTS;
+extern DistanceSensor* DISTANCE;
 
 //////////////////////////////////////////////////////////////////////
 
@@ -89,6 +91,10 @@ void EngineSteppers::moveStraight(float advance_units)
     _movement_steps_l = -_movement_steps_r;
 }
 
+void EngineSteppers::moveAltStraight(float advance_units)
+{
+    moveStraight(advance_units);
+}
 //////////////////////////////////////////////////////////////////////
 
 void EngineSteppers::_motorStepRight(uint8_t pattern)
@@ -113,6 +119,10 @@ void EngineSteppers::_motorStepLeft(uint8_t pattern)
 
 void EngineSteppers::tick(uint32_t micros)
 {
+    #if USE_DISTANCE_SENSOR
+    if (DISTANCE->isBlocked()) return;
+    #endif
+
     if (!isExecuting()) return;
 
     if (_movement_steps_l == 0 && _movement_steps_r == 0)

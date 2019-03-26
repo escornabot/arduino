@@ -61,6 +61,8 @@ public:
      */
     virtual void moveStraight(float advance_units) = 0;
 
+    virtual void moveAltStraight(float advance_units) = 0;
+
     /**
      * Executes the movement program.
      * @param program Movements to execute.
