@@ -42,6 +42,7 @@ Engine::Engine()
     _program_index = 0;
     _is_cancelling = false;
     _pauseTimeout = 0;
+    _finishActualMove = false;
 }
 
 //////////////////////////////////////////////////////////////////////

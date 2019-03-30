@@ -36,7 +36,6 @@ const static uint8_t step_pattern[] = {
 //////////////////////////////////////////////////////////////////////
 
 extern EventManager* EVENTS;
-extern DistanceSensor* DISTANCE;
 
 //////////////////////////////////////////////////////////////////////
 
@@ -119,13 +118,9 @@ void EngineSteppers::_motorStepLeft(uint8_t pattern)
 
 void EngineSteppers::tick(uint32_t micros)
 {
-    #if USE_DISTANCE_SENSOR
-    if (DISTANCE->isBlocked()) return;
-    #endif
-
     if (!isExecuting()) return;
 
-    if (_movement_steps_l == 0 && _movement_steps_r == 0)
+    if ((_movement_steps_l == 0 && _movement_steps_r == 0) || _finishActualMove) 
     {
         // already executing a pause movement
         if (_inPauseMove()) return;
@@ -139,6 +134,7 @@ void EngineSteppers::tick(uint32_t micros)
         // prepare next movement
         _program_index++;
         _prepareMove();
+        _finishActualMove = false;
         return;
     }
 

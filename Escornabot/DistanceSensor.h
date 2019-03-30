@@ -26,6 +26,8 @@ See LICENSE.txt for details
 #define _DISTANCE_SENSOR_H
 
 #include <Arduino.h>
+#include "EventListener.h"
+#include "Engine.h"
 
 // Distance in cm
 #define DISTANCE_TO_STOP 3
@@ -35,7 +37,7 @@ See LICENSE.txt for details
  * \brief To use a distance sensor (HC-SR04)
  * \author @AntonioNav
  */
-class DistanceSensor
+class DistanceSensor : public EventListener
 {
 public:
 
@@ -58,6 +60,11 @@ public:
      * Check if there is a object in range
      */
     bool isBlocked();
+
+    /**
+     * Runs the execution thread.
+     */
+    virtual void tick(uint32_t micros);
 
 };
 

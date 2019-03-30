@@ -24,6 +24,15 @@ See LICENSE.txt for details
 
 #include "DistanceSensor.h"
 #include "Configuration.h"
+#include "EventManager.h"
+
+
+//////////////////////////////////////////////////////////////////////
+
+extern EventManager* EVENTS;
+extern Engine* ENGINE;
+
+//////////////////////////////////////////////////////////////////////
 
 DistanceSensor::DistanceSensor(){};
 
@@ -32,6 +41,7 @@ void DistanceSensor::init()
     pinMode(DISTANCE_ECHO, INPUT);
     pinMode(DISTANCE_TRIGGER, OUTPUT);
     pinMode(DISTANCE_LED_INDICATOR, OUTPUT);
+    EVENTS->add(this);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -76,6 +86,14 @@ bool DistanceSensor::isBlocked()
         digitalWrite(DISTANCE_LED_INDICATOR, LOW);
         return false;
     }
+}
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+void DistanceSensor::tick(uint32_t micros)
+{
+    if (this->isBlocked() && ENGINE->isForwardCurrentMove()) ENGINE->finishActualMove();
 }
 
 //////////////////////////////////////////////////////////////////////
