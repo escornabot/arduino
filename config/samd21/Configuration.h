@@ -47,6 +47,9 @@ See LICENSE.txt for details
 #define PROGRAM_RESET_ALWAYS true
 
 // store configuration and program within internal EEPROM
+/* 
+ * WARNING!!: FALSE for SAMD21, EEPROM not compatible 
+ */
 #define USE_PERSISTENT_MEMORY false
 
 // memory capacity for program movements
@@ -65,7 +68,7 @@ See LICENSE.txt for details
 #define POV_INITIAL    POV_ESCORNABOT
 
 // bluetooth serial
-#define USE_BLUETOOTH true
+#define USE_BLUETOOTH false
 #define BLUETOOTH_BAUDS 9600
 
 // buzzer
@@ -79,15 +82,15 @@ See LICENSE.txt for details
 
 // simple led
 #define USE_SIMPLE_LED false
-#define SIMPLE_LED_PIN 13
+#define SIMPLE_LED_PIN LED_BUILTIN
 
 // keypad leds
 #define USE_KEYPAD_LEDS true
-#define KEYPAD_LED_PIN_UP A0
-#define KEYPAD_LED_PIN_RIGHT A3
-#define KEYPAD_LED_PIN_DOWN A2
-#define KEYPAD_LED_PIN_LEFT A1
-#define KEYPAD_LED_PIN_GO 13
+#define KEYPAD_LED_PIN_UP A1
+#define KEYPAD_LED_PIN_RIGHT A0
+#define KEYPAD_LED_PIN_DOWN A3
+#define KEYPAD_LED_PIN_LEFT A2
+#define KEYPAD_LED_PIN_GO -1
 
 
 //////////////////////////////////////////////////////////////////////
@@ -97,14 +100,14 @@ See LICENSE.txt for details
 #ifdef ENGINE_TYPE_STEPPERS
 
 // stepper pin setup (digital outputs)
-#define STEPPERS_MOTOR_RIGHT_IN1 5
-#define STEPPERS_MOTOR_RIGHT_IN2 4
-#define STEPPERS_MOTOR_RIGHT_IN3 3
-#define STEPPERS_MOTOR_RIGHT_IN4 2
-#define STEPPERS_MOTOR_LEFT_IN1 9
-#define STEPPERS_MOTOR_LEFT_IN2 8
-#define STEPPERS_MOTOR_LEFT_IN3 7
-#define STEPPERS_MOTOR_LEFT_IN4 6
+#define STEPPERS_MOTOR_RIGHT_IN1 6
+#define STEPPERS_MOTOR_RIGHT_IN2 7
+#define STEPPERS_MOTOR_RIGHT_IN3 8
+#define STEPPERS_MOTOR_RIGHT_IN4 9
+#define STEPPERS_MOTOR_LEFT_IN1 5
+#define STEPPERS_MOTOR_LEFT_IN2 4
+#define STEPPERS_MOTOR_LEFT_IN3 3
+#define STEPPERS_MOTOR_LEFT_IN4 2
 
 // step calibration
 #define STEPPERS_STEPS_PER_SECOND 1000
@@ -143,14 +146,14 @@ See LICENSE.txt for details
 //#define BS_ANALOG_WIRES 3
 
 // keypad pin setup (analog input)
-#define BS_ANALOG_PIN A5
+#define BS_ANALOG_PIN A4
 
 // input values for each key pressed (0 if key doesn't exist)
-#define BS_ANALOG_VALUE_UP 512
-#define BS_ANALOG_VALUE_RIGHT 860
-#define BS_ANALOG_VALUE_DOWN 769
-#define BS_ANALOG_VALUE_LEFT 683
-#define BS_ANALOG_VALUE_GO 810
+#define BS_ANALOG_VALUE_UP 680
+#define BS_ANALOG_VALUE_RIGHT 509
+#define BS_ANALOG_VALUE_DOWN 816
+#define BS_ANALOG_VALUE_LEFT 765
+#define BS_ANALOG_VALUE_GO 857
 #define BS_ANALOG_VALUE_RESET 0
 
 #endif // BUTTONS_ANALOG
@@ -163,7 +166,7 @@ See LICENSE.txt for details
 
 #ifdef USE_BLUETOOTH
 
-// Arduino serial port (default is Serial, use Serial1 with Arduino Micro)
+// Arduino serial port (default is Serial, use Serial1 with Arduino Micro and Makech)
 //#define BLUETOOTH_SERIAL    Serial
 #define BLUETOOTH_SERIAL    Serial1
 //#define BLUETOOTH_SERIAL    Serial2
