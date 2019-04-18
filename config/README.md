@@ -32,6 +32,15 @@ Compatible with:
 - [PCB Ogaki-1.0](https://github.com/abierto-cc/escornabot/tree/master/Ogaki/hardware)
 
 
+### Using Arduino SAMD21 (config/samd21)
+
+Under [config/samd21](./samd21) directory in this repo.
+
+Compatible with:
+
+- [PCB Makech](https://github.com/ElectronicCats/escornabot/tree/master/Makech/hardware)
+
+
 ### Old keypad connected to A4 pin (config/a4-2wires)
 
 Under [config/a4-2wires](./a4-2wires) directory in this repo.

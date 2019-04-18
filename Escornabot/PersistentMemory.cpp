@@ -21,7 +21,9 @@ USA.
 See LICENSE.txt for details
 
 */
+
 #ifdef ARDUINO_ARCH_AVR
+
 #include "PersistentMemory.h"
 
 #include <avr/eeprom.h>
@@ -102,6 +104,6 @@ bool PersistentMemory::loadProgram(MOVE* move_list, uint8_t *move_count)
     return true;
 }
 
+#endif
 
 // EOF
-#endif

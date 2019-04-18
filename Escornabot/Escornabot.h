@@ -28,7 +28,13 @@ See LICENSE.txt for details
 #define FIRMWARE_VERSION "v1.6.1"
 
 #include <Arduino.h>
-#include "Configuration.h"
+
+#ifdef ESCORNA_CONFIG
+    #include ESCORNA_CONFIG
+#else
+    #include "Configuration.h"
+#endif
+
 #include "Enums.h"
 #include "MoveList.h"
 #include "Engine.h"
