@@ -63,7 +63,7 @@ Releases are [published ready to download in zip format][REL01].
 
 <!-- links -->
 [BRI01]: https://github.com/escornabot/arduino/releases/tag/v1.2-brivoi
-[CON01]: ./config
+[CON01]: ./Escornabot/config
 [ESC01]: http://escornabot.com
 [GUI01]: https://pablorubma.cc/como-instalar-la-programacion-arduino-en-mi-escornabot/
 [IDE01]: https://www.arduino.cc/en/Main/Software

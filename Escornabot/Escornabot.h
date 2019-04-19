@@ -29,8 +29,13 @@ See LICENSE.txt for details
 
 #include <Arduino.h>
 
+// stringify
+#define QUOTE(str) #str
+#define EXPAND_AND_QUOTE(str) QUOTE(str)
+
+// defined configuration
 #ifdef ESCORNA_CONFIG
-    #include ESCORNA_CONFIG
+    #include EXPAND_AND_QUOTE(config/ESCORNA_CONFIG/Configuration.h)
 #else
     #include "Configuration.h"
 #endif
