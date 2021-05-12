@@ -27,6 +27,7 @@ See LICENSE.txt for details
 
 #include <stddef.h>
 #include "MoveList.h"
+#include "Enums.h"
 
 
 /**
@@ -61,6 +62,8 @@ public:
      */
     virtual void moveStraight(float advance_units) = 0;
 
+    virtual void moveAltStraight(float advance_units) = 0;
+
     /**
      * Executes the movement program.
      * @param program Movements to execute.
@@ -71,6 +74,8 @@ public:
 
     void cancelExecution() { _is_cancelling = true; }
 
+    void finishActualMove() { _finishActualMove = true;}
+
     bool isExecuting() { return _program != NULL; }
 
     bool isSquareDiagonals() { return _square_diagonals; }
@@ -78,6 +83,12 @@ public:
             { _square_diagonals = value; _current_degrees = 0; }
 
     bool isAligned(int16_t degrees) { return _current_degrees % degrees == 0; }
+
+    bool isForwardCurrentMove()
+    {
+        MOVE move = _getCurrentMove();
+        return ( (move == MOVE_FORWARD ) || (move == MOVE_ALT_FORWARD)) ? true : false;
+    }
 
 protected:
 
@@ -93,6 +104,8 @@ protected:
 
     bool _is_cancelling;
     void _prepareMove();
+
+    bool _finishActualMove;
 
 private:
 

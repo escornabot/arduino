@@ -42,6 +42,7 @@ Engine::Engine()
     _program_index = 0;
     _is_cancelling = false;
     _pauseTimeout = 0;
+    _finishActualMove = false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -115,6 +116,10 @@ void Engine::_prepareMove()
         case MOVE_ALT_LEFT:
             delta_degrees = -(_program->getAltTurnDegrees());
             turn(delta_degrees);
+            break;
+
+        case MOVE_ALT_FORWARD:
+            moveAltStraight(6.0f);
             break;
 
     }

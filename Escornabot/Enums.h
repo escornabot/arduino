@@ -41,6 +41,7 @@ enum
     MOVE_PAUSE = 5,
     MOVE_ALT_RIGHT = 6,
     MOVE_ALT_LEFT = 7,
+    MOVE_ALT_FORWARD = 8,
 };
 typedef uint8_t MOVE;
 

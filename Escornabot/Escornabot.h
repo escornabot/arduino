@@ -56,7 +56,7 @@ See LICENSE.txt for details
 
 #endif
 
-#if defined(BUTTONS_DIGITAL)
+#if BUTTONS_DIGITAL
 
     // digital button set
     #include "ButtonSetDigital.h"
@@ -143,6 +143,11 @@ EventManager* EVENTS = &EVENTS_INSTANCE;
 MoveList PROGRAM_INSTANCE;
 MoveList* PROGRAM = &PROGRAM_INSTANCE;
 
+#if USE_DISTANCE_SENSOR
+#include "DistanceSensor.h"
+DistanceSensor DISTANCE_SENSOR;
+DistanceSensor* DISTANCE = &DISTANCE_SENSOR;
+#endif
 
 #endif // _ESCORNABOT_H
 

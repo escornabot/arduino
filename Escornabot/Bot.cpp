@@ -66,6 +66,10 @@ void Bot::init()
     PROGRAM->load();
     #endif
 
+    #if USE_DISTANCE_SENSOR
+    DISTANCE->init();
+    #endif
+
     EVENTS->add(this);
 }
 
@@ -145,6 +149,10 @@ void Bot::buttonLongReleased(BUTTON button)
 
     switch (button)
     {
+        case BUTTON_UP:
+            _storeMove(MOVE_ALT_FORWARD);
+            break;
+
         case BUTTON_RIGHT:
             _storeMove(MOVE_ALT_RIGHT);
             break;
