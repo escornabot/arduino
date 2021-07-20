@@ -25,10 +25,17 @@ See LICENSE.txt for details
 #ifndef _BUZZER_H
 #define _BUZZER_H
 
-#define RTTL_INTEL ":d=16,o=5,b=320:d,p,d,p,d,p,g,p,g,p,g,p,d,p,d,p,d,p,a,p,a,p,"
-#define RTTL_FIDO ":d=16,o=6,b=800:f,4p,f,4p,f,4p,f,4p,c,4p,c,4p,c,4p,c,"
-#define RTTL_MOSAIC ":d=8,o=6,b=400:c,e,g,e,c,g,e,g,c,g,c,e,c,g,e,g,e,c,"
-#define RTTL_ELISA ":d=4,o=7,b=125:e,d#,e,d#,e,b#,d,c,8a,"
+// https://www.vex.net/~lawrence/ringtones.html
+// https://adamonsoon.github.io/rtttl-play/
+
+#define RTTL_INTEL   ":d=8,o=5,b=320:d,p,d,p,d,p,g,p,g,p,g,p,d,p,d,p,d,p,a,p,a,p,"
+#define RTTL_FIDO    ":d=16,o=6,b=800:f,4p,f,4p,f,4p,f,4p,c,4p,c,4p,c,4p,c,"
+#define RTTL_MOSAIC  ":d=8,o=6,b=400:c,e,g,e,c,g,e,g,c,g,c,e,c,g,e,g,e,c,"
+#define RTTL_ELISA   ":d=8,o=6,b=125:e,d#,e,d#,e,b5,d,c,a,"
+#define RTTL_GUP     ":d=16,o=6,b=140:c,p,e,p,g,"
+#define RTTL_STARTUP "fanfare:d=16,o=6,b=180:e,8p,e,p,e,p,4g,"
+#define RTTL_BTTF    ":d=16,o=5,b=200:4g.,p,4c.,p,2f#.,p,g.,p,a.,p,8g,p,8e,p,8c,p,4f#,p,g.,p,a.,p,8g.,p,8d.,p,8g.,p,8d.6,p,4d.6,p,4c#6,p,b.,p,c#.6,p,2d.6,"
+#define RTTL_TEST    ":d=16,o=4,b=200:c,c#,d,d#,e,f,f#,g,g#,a,a#,b,c5,c#5,d5,d#5,e5,f5,f#5,g5,g#5,a5,a#5,b5,c6,c#6,d6,d#6,e6,f6,f#6,g6,g#6,a6,a#6,b6,c7,c#7,d7,d#7,e7,f7,f#7,g7,g#7,a7,a#7,b7,"
 
 #define BUZZER_BEEP_FREQUENCY 4699
 #define BUZZER_BEEP_MILLIS 100

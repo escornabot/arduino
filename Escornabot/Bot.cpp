@@ -50,7 +50,8 @@ void Bot::init()
     // init buzzer
     #if USE_BUZZER
     BUZZER.init();
-    BUZZER.beep();
+    //BUZZER.beep();
+    BUZZER.playRttl(RTTL_STARTUP);
     #endif
 
     #if USE_SIMPLE_LED
