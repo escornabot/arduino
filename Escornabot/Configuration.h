@@ -96,31 +96,31 @@ See LICENSE.txt for details
 
 #ifdef ENGINE_TYPE_STEPPERS
 
-// define stepper sequence depending of the stepper turn direction
-//      0 => Steppers turns forward       other => Steppers turns reverse
+// define stepper sequence depending on the turn direction:
+//      0 => Steppers turns forward (default)
+//      1 => Steppers turns reverse
 #define STEPPERS_ROTATION 0
 
-#if  STEPPERS_ROTATION == 0
+#if STEPPERS_ROTATION == 0
 // stepper pin setup (digital outputs) forward
-#define STEPPERS_MOTOR_RIGHT_IN1 5
-#define STEPPERS_MOTOR_RIGHT_IN2 4
-#define STEPPERS_MOTOR_RIGHT_IN3 3
-#define STEPPERS_MOTOR_RIGHT_IN4 2
-#define STEPPERS_MOTOR_LEFT_IN1 9
-#define STEPPERS_MOTOR_LEFT_IN2 8
-#define STEPPERS_MOTOR_LEFT_IN3 7
-#define STEPPERS_MOTOR_LEFT_IN4 6
-
+#   define STEPPERS_MOTOR_RIGHT_IN1 5
+#   define STEPPERS_MOTOR_RIGHT_IN2 4
+#   define STEPPERS_MOTOR_RIGHT_IN3 3
+#   define STEPPERS_MOTOR_RIGHT_IN4 2
+#   define STEPPERS_MOTOR_LEFT_IN1  9
+#   define STEPPERS_MOTOR_LEFT_IN2  8
+#   define STEPPERS_MOTOR_LEFT_IN3  7
+#   define STEPPERS_MOTOR_LEFT_IN4  6
 #else
 // stepper pin setup (digital outputs) reverse
-#define STEPPERS_MOTOR_RIGHT_IN1 2
-#define STEPPERS_MOTOR_RIGHT_IN2 3
-#define STEPPERS_MOTOR_RIGHT_IN3 4
-#define STEPPERS_MOTOR_RIGHT_IN4 5
-#define STEPPERS_MOTOR_LEFT_IN1 6
-#define STEPPERS_MOTOR_LEFT_IN2 7
-#define STEPPERS_MOTOR_LEFT_IN3 8
-#define STEPPERS_MOTOR_LEFT_IN4 9
+#   define STEPPERS_MOTOR_RIGHT_IN1 2
+#   define STEPPERS_MOTOR_RIGHT_IN2 3
+#   define STEPPERS_MOTOR_RIGHT_IN3 4
+#   define STEPPERS_MOTOR_RIGHT_IN4 5
+#   define STEPPERS_MOTOR_LEFT_IN1  6
+#   define STEPPERS_MOTOR_LEFT_IN2  7
+#   define STEPPERS_MOTOR_LEFT_IN3  8
+#   define STEPPERS_MOTOR_LEFT_IN4  9
 #endif
 
 
