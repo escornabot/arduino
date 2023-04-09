@@ -25,6 +25,7 @@ See LICENSE.txt for details
 #include "EngineSteppers.h"
 #include "EventManager.h"
 #include <Arduino.h>
+#include "DistanceSensor.h"
 
 //////////////////////////////////////////////////////////////////////
 
@@ -89,6 +90,10 @@ void EngineSteppers::moveStraight(float advance_units)
     _movement_steps_l = -_movement_steps_r;
 }
 
+void EngineSteppers::moveAltStraight(float advance_units)
+{
+    moveStraight(advance_units);
+}
 //////////////////////////////////////////////////////////////////////
 
 void EngineSteppers::_motorStepRight(uint8_t pattern)
@@ -115,7 +120,7 @@ void EngineSteppers::tick(uint32_t micros)
 {
     if (!isExecuting()) return;
 
-    if (_movement_steps_l == 0 && _movement_steps_r == 0)
+    if ((_movement_steps_l == 0 && _movement_steps_r == 0) || _finishActualMove) 
     {
         // already executing a pause movement
         if (_inPauseMove()) return;
@@ -129,6 +134,7 @@ void EngineSteppers::tick(uint32_t micros)
         // prepare next movement
         _program_index++;
         _prepareMove();
+        _finishActualMove = false;
         return;
     }
 

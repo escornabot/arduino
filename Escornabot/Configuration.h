@@ -22,6 +22,8 @@ See LICENSE.txt for details
 
 */
 
+#include "Arduino.h"
+
 #ifndef _CONFIGURATION_H
 #define _CONFIGURATION_H
 
@@ -34,8 +36,9 @@ See LICENSE.txt for details
 #define ENGINE_TYPE_STEPPERS
 
 // button set to use (analog input, digital input)
+// check before set to digital if you use distance sensor
 #define BUTTONS_ANALOG
-//#define BUTTONS_DIGITAL
+//#define BUTTONS_DIGITAL true
 
 // milliseconds after a button is considered as pressed
 #define BUTTON_MIN_PRESSED 30
@@ -89,6 +92,11 @@ See LICENSE.txt for details
 #define KEYPAD_LED_PIN_LEFT A1
 #define KEYPAD_LED_PIN_GO 13
 
+// Sonar HC-SR04 sensor
+#define USE_DISTANCE_SENSOR true
+// If you use SDA/SCL to connect sensor you can't use A4 in BUTTONS_DIGITAL
+#define BUTTONS_DIGITAL false
+
 
 //////////////////////////////////////////////////////////////////////
 ///// Steppers engine setup
@@ -137,7 +145,7 @@ See LICENSE.txt for details
 ///// Button set digital
 //////////////////////////////////////////////////////////////////////
 
-#ifdef BUTTONS_DIGITAL
+#if BUTTONS_DIGITAL
 
 // keypad pin setup (digital or analog inputs) (use 255 if key doesn't exist)
 #define BS_DIGITAL_UP A0
@@ -189,7 +197,17 @@ See LICENSE.txt for details
 
 #endif // USE_BLUETOOTH
 
+//////////////////////////////////////////////////////////////////////
+///// Distance Sensor pins configuration
+//////////////////////////////////////////////////////////////////////
 
+#if USE_DISTANCE_SENSOR
+
+#define DISTANCE_ECHO A4
+#define DISTANCE_TRIGGER A5
+#define DISTANCE_LED_INDICATOR LED_BUILTIN
+
+#endif // USE_DISTANCE_SENSOR
 
 
 //////////////////////////////////////////////////////////////////////
