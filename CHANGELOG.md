@@ -1,6 +1,14 @@
 
 # Changelog
 
+## v1.7.0 (Nov 4, 2023)
+
+New features:
+- Stepper turn direction configuration (thanks manolomira)
+- Conditional compilation to allow non AVR ports
+- Platformio config to support Nano with new bootloader
+- Changed generic config to use numeric pin names instead Ax (analog input)
+
 ## v1.6.2 (Mar 19, 2019)
 
 New features:
