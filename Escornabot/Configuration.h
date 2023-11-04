@@ -83,10 +83,10 @@ See LICENSE.txt for details
 
 // keypad leds
 #define USE_KEYPAD_LEDS true
-#define KEYPAD_LED_PIN_UP A0
-#define KEYPAD_LED_PIN_RIGHT A3
-#define KEYPAD_LED_PIN_DOWN A2
-#define KEYPAD_LED_PIN_LEFT A1
+#define KEYPAD_LED_PIN_UP 14 // A0
+#define KEYPAD_LED_PIN_RIGHT 17 // A3
+#define KEYPAD_LED_PIN_DOWN 16 // A2
+#define KEYPAD_LED_PIN_LEFT 15 // A1
 #define KEYPAD_LED_PIN_GO 13
 
 
@@ -140,10 +140,10 @@ See LICENSE.txt for details
 #ifdef BUTTONS_DIGITAL
 
 // keypad pin setup (digital or analog inputs) (use 255 if key doesn't exist)
-#define BS_DIGITAL_UP A0
-#define BS_DIGITAL_RIGHT A1
-#define BS_DIGITAL_DOWN A2
-#define BS_DIGITAL_LEFT A3
+#define BS_DIGITAL_UP 14 // A0
+#define BS_DIGITAL_RIGHT 15 // A1
+#define BS_DIGITAL_DOWN 16 // A2
+#define BS_DIGITAL_LEFT 22 // A3
 #define BS_DIGITAL_GO A4
 #define BS_DIGITAL_RESET 255
 
@@ -161,7 +161,7 @@ See LICENSE.txt for details
 //#define BS_ANALOG_WIRES 3
 
 // keypad pin setup (analog input)
-#define BS_ANALOG_PIN A7
+#define BS_ANALOG_PIN 21 // A7
 
 // input values for each key pressed (0 if key doesn't exist)
 #define BS_ANALOG_VALUE_UP 512
