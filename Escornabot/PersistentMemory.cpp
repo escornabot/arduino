@@ -24,8 +24,13 @@ See LICENSE.txt for details
 
 #include "PersistentMemory.h"
 
+// only supported with atmelavr at the moment
+#if defined(_AVR_IOXXX_H_)
+
 #include <avr/eeprom.h>
 //#include <avr/crc16.h>
+
+#endif
 
 
 static PersistentMemory PERSISTENT_MEMORY_INSTANCE;
@@ -34,36 +39,46 @@ PersistentMemory* PERSISTENT_MEMORY = &PERSISTENT_MEMORY_INSTANCE;
 
 size_t PersistentMemory::_totalBytes()
 {
+#if defined(_AVR_IOXXX_H_)
     return E2END + 1;
+#else
+    return 0;
+#endif
 }
 
 
 bool PersistentMemory::_save(size_t address, uint8_t* buffer, size_t length)
 {
+#if defined(_AVR_IOXXX_H_)
     eeprom_write_block(buffer, (uint8_t*) address, length);
-
     // ToDo: test CRC verification
-
     return true;
+#else
+    return false;
+#endif
 }
 
 
 bool PersistentMemory::_load(size_t address, uint8_t* buffer, size_t length)
 {
+#if defined(_AVR_IOXXX_H_)
     eeprom_read_block(buffer, (uint8_t*)address, length);
-
     // ToDo test CRC verification
-
     return true;
+#else
+    return false;
+#endif
 }
 
 
 void PersistentMemory::_clear()
 {
+#if defined(_AVR_IOXXX_H_)
     for (int a = 0; a < E2END; a++)
     {
         eeprom_write_byte((uint8_t*)a, 0);
     }
+#endif
 }
 
 

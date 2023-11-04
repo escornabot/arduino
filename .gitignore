@@ -1,4 +1,5 @@
 
 # platformio
 .pioenvs/
+.pio/
 .vscode/
