@@ -68,90 +68,88 @@ void Buzzer::beep(uint16_t frequency)
 
 //////////////////////////////////////////////////////////////////////
 
-static const uint16_t FREQUENCIES[] =
+static const uint16_t FREQUENCIES[] = // 12 notes, 4 octaves (4 to 7)
 {
-    440, 466, 494, 523, 554, 587, 622, 659, 698, 740, 784, 831,
-    880, 932, 987, 1046, 1108, 1174, 1244,1318, 1396, 1479, 1567, 1661,
-    1760, 1864, 1975, 2093, 2217, 2349, 2489, 2637, 2793, 2959, 3135, 3322,
-    3520, 3729, 3951, 4186, 4434, 4698, 4978, 5274, 5587, 5919, 6271, 6644,
-    7040, 7458, 7902, 8372, 8869, 9397, 9956, 10548, 11175, 11839, 12543, 13289,
-    14080, 14917, 15804, 16744, 17739, 18794, 19912, 21096, 22350, 23679, 25087,
+//     C,   C#,    D,   D#,    E,    F,   F#,    G,   G#,    A,   A#,    B,
+     262,  277,  294,  311,  330,  349,  370,  392,  415,  440,  466,  494,
+     523,  554,  587,  622,  659,  698,  740,  784,  831,  880,  932,  987,
+    1046, 1108, 1174, 1244, 1318, 1396, 1479, 1567, 1661, 1760, 1864, 1975,
+    2093, 2217, 2349, 2489, 2637, 2793, 2959, 3135, 3322, 3520, 3729, 3951
 };
+
 
 //////////////////////////////////////////////////////////////////////
 
 void Buzzer::playRttl(const char* rttl)
 {
-    // song name
+    // song name - discarded
     while (*rttl && *rttl != ':') rttl++;
     rttl++;
 
     // default values
-    uint8_t default_duration= 16, default_octave = 5;
-    uint16_t bps = 320;
+    uint8_t default_octave = 5;
+    uint16_t default_duration= 16, bpm = 320;
     while (*rttl && *rttl != ':')
     {
         switch (*rttl)
         {
         case 'd': // note duration
-            rttl += 2;
+            rttl += 2; // skip 'd='
             default_duration = atoi(rttl);
-            while (*rttl >= '0' && *rttl <= '9') rttl++;
+            while (*rttl >= '0' && *rttl <= '9') rttl++; // discard used numbers
             break;
 
         case 'o': // octave
-            rttl += 2;
+            rttl += 2; // skip 'o='
             default_octave = atoi(rttl);
-            while (*rttl >= '0' && *rttl <= '9') rttl++;
+            while (*rttl >= '0' && *rttl <= '9') rttl++; // discard used numbers
             break;
 
-        case 'b': // beats per second
-            rttl += 2;
-            bps = atoi(rttl);
-            while (*rttl >= '0' && *rttl <= '9') rttl++;
+        case 'b': // beats per minute
+            rttl += 2; // skip 'b='
+            bpm = atoi(rttl);
+            while (*rttl >= '0' && *rttl <= '9') rttl++; // discard used numbers
             break;
 
         default:
-            rttl++;
+            rttl++; // discard invalid character
         }
     }
-    rttl++;
+    rttl++; // discard ':'
 
-    // play notes
+    // list of notes
     uint16_t duration = default_duration;
     int8_t note = -1;
     uint8_t octave = default_octave;
     while (*rttl)
     {
-        if (*rttl >= 0 && *rttl <= 9)
+        if (*rttl >= '0' && *rttl <= '9')
         {
             // eat numbers
-            if (note < 0) duration = atoi(rttl) * bps / 60;
-                else octave = atoi(rttl);
-            while (*rttl >= '0' && *rttl <= '9') rttl++;
+            if (note < 0) duration = atoi(rttl);
+            else octave = atoi(rttl);
+            while (*rttl >= '0' && *rttl <= '9') rttl++; // discard used numbers
         }
         else
         {
             // eat note
             switch (*rttl)
             {
-                // tone
+                // C C# D D# E F F# G G# A A# B <-- octave
                 case 'p': note = 0; break;
-                case 'a': note = 1; break;
-                case 'b': note = 3; break;
-                case 'c': note = 4; break;
-                case 'd': note = 6; break;
-                case 'e': note = 8; break;
-                case 'f': note = 9; break;
-                case 'g': note = 10; break;
+                case 'c': note = 1; break;
+                case 'd': note = 3; break;
+                case 'e': note = 5; break;
+                case 'f': note = 6; break;
+                case 'g': note = 8; break;
+                case 'a': note = 10; break;
+                case 'b': note = 12; break;
                 case '#': note++; break;
-
                 case ',': case '\0':
-
                     if (note != -1 && octave >= 4 && octave <= 8) {
-                        if (note > 0) tone(_pin,
-                            FREQUENCIES[((octave - 4) * 10) + note - 1]);
-                        delay(1000 / duration);
+                        if (note > 0) 
+                            tone(_pin, FREQUENCIES[((octave - 4) * 12) + note - 1]);
+                        delay(1000 * 60 / bpm / duration * 4); // https://github.com/ArminJo/PlayRtttl/blob/master/src/PlayRtttl.cpp#L597
                         noTone(_pin);
                     }
 
@@ -160,7 +158,7 @@ void Buzzer::playRttl(const char* rttl)
                     octave = default_octave;
                     break;
             }
-            rttl++;
+            rttl++; // next
         }
     }
 }
