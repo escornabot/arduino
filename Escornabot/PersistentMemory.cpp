@@ -21,7 +21,7 @@ USA.
 See LICENSE.txt for details
 
 */
-
+#ifdef ARDUINO_ARCH_AVR
 #include "PersistentMemory.h"
 
 // only supported with atmelavr at the moment
@@ -119,3 +119,4 @@ bool PersistentMemory::loadProgram(MOVE* move_list, uint8_t *move_count)
 
 
 // EOF
+#endif
